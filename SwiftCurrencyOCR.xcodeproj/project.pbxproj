@@ -282,6 +282,16 @@
 		7FBD3C611C9B18B8005FAB37 /* zm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD3B591C9B18B8005FAB37 /* zm.png */; };
 		7FBD3C621C9B18B8005FAB37 /* zw.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD3B5A1C9B18B8005FAB37 /* zw.png */; };
 		7FBD3C631C9B18B8005FAB37 /* zz.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FBD3B5B1C9B18B8005FAB37 /* zz.png */; };
+		7FBD3C6F1C9B49A1005FAB37 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3C6E1C9B49A1005FAB37 /* UserPreferences.swift */; };
+		7FBD3C721C9B4C07005FAB37 /* ObjectiveCBridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3C711C9B4C07005FAB37 /* ObjectiveCBridging.swift */; };
+		7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
+		7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBEA1C41C9DCF0100949027 /* ParseManager.swift */; };
+		7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBEA1C41C9DCF0100949027 /* ParseManager.swift */; };
+		7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA5D8211C9B124900F262C5 /* AppDelegate.swift */; };
+		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
+		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
+		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
+		7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		A414B7B5E47B266360945C9B /* Pods_SwiftCurrencyOCRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF6DF1C09EAF630591AC2A4 /* Pods_SwiftCurrencyOCRTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -578,6 +588,13 @@
 		7FBD3B591C9B18B8005FAB37 /* zm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zm.png; sourceTree = "<group>"; };
 		7FBD3B5A1C9B18B8005FAB37 /* zw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zw.png; sourceTree = "<group>"; };
 		7FBD3B5B1C9B18B8005FAB37 /* zz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zz.png; sourceTree = "<group>"; };
+		7FBD3C6E1C9B49A1005FAB37 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		7FBD3C701C9B4A62005FAB37 /* SwiftCurrencyOCR-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftCurrencyOCR-Bridging-Header.h"; sourceTree = "<group>"; };
+		7FBD3C711C9B4C07005FAB37 /* ObjectiveCBridging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCBridging.swift; sourceTree = "<group>"; };
+		7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		7FBEA1C41C9DCF0100949027 /* ParseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
+		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
+		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
 		FFDAB0648B887AD9918636AA /* Pods-SwiftCurrencyOCRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -634,6 +651,9 @@
 		7FA5D8201C9B124900F262C5 /* SwiftCurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
+				7FFDAC7A1C9E07C90086BE43 /* Services */,
+				7FBD3C701C9B4A62005FAB37 /* SwiftCurrencyOCR-Bridging-Header.h */,
+				7FBD3C6A1C9B48AE005FAB37 /* Models */,
 				7FBD3A4C1C9B1895005FAB37 /* Icons */,
 				7FA5D8211C9B124900F262C5 /* AppDelegate.swift */,
 				7FBD3A481C9B16D7005FAB37 /* HomeViewController.swift */,
@@ -642,6 +662,9 @@
 				7FBD3A4A1C9B1859005FAB37 /* UIView+Borders.swift */,
 				7FA5D8281C9B124900F262C5 /* Assets.xcassets */,
 				7FA5D82D1C9B124900F262C5 /* Info.plist */,
+				7FBD3C6E1C9B49A1005FAB37 /* UserPreferences.swift */,
+				7FBD3C711C9B4C07005FAB37 /* ObjectiveCBridging.swift */,
+				7FBEA1C41C9DCF0100949027 /* ParseManager.swift */,
 			);
 			path = SwiftCurrencyOCR;
 			sourceTree = "<group>";
@@ -649,6 +672,7 @@
 		7FA5D8351C9B124900F262C5 /* SwiftCurrencyOCRTests */ = {
 			isa = PBXGroup;
 			children = (
+				7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */,
 				7FA5D8361C9B124900F262C5 /* SwiftCurrencyOCRTests.swift */,
 				7FA5D8381C9B124900F262C5 /* Info.plist */,
 			);
@@ -935,6 +959,22 @@
 				7FBD3B5B1C9B18B8005FAB37 /* zz.png */,
 			);
 			name = Flags;
+			sourceTree = "<group>";
+		};
+		7FBD3C6A1C9B48AE005FAB37 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		7FFDAC7A1C9E07C90086BE43 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		EF8EAF23BF085ACBF6435DDD /* Pods */ = {
@@ -1415,9 +1455,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FBD3A4B1C9B1859005FAB37 /* UIView+Borders.swift in Sources */,
+				7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */,
+				7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */,
+				7FBD3C6F1C9B49A1005FAB37 /* UserPreferences.swift in Sources */,
 				7FA5D8241C9B124900F262C5 /* ViewController.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
 				7FBD3A491C9B16D7005FAB37 /* HomeViewController.swift in Sources */,
+				7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */,
+				7FBD3C721C9B4C07005FAB37 /* ObjectiveCBridging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1425,7 +1470,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
+				7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */,
+				7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */,
+				7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */,
+				7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1527,11 +1577,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = SwiftCurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrew.boissonnault.SwiftCurrencyOCR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCurrencyOCR/SwiftCurrencyOCR-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1542,11 +1593,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = SwiftCurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrew.boissonnault.SwiftCurrencyOCR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCurrencyOCR/SwiftCurrencyOCR-Bridging-Header.h";
 			};
 			name = Release;
 		};

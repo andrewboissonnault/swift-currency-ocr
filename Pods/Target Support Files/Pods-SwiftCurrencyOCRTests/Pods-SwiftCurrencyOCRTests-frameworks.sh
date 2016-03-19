@@ -94,10 +94,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SwiftCurrencyOCRTests/Result.framework"
   install_framework "Pods-SwiftCurrencyOCRTests/TMCache.framework"
   install_framework "Pods-SwiftCurrencyOCRTests/VENCalculatorInputView_DecimalFix.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/Expecta.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/OCHamcrest.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/OCMockito.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/Specta.framework"
+  install_framework "Pods-SwiftCurrencyOCRTests/Nimble.framework"
+  install_framework "Pods-SwiftCurrencyOCRTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SwiftCurrencyOCRTests/Bolts.framework"
@@ -110,8 +108,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SwiftCurrencyOCRTests/Result.framework"
   install_framework "Pods-SwiftCurrencyOCRTests/TMCache.framework"
   install_framework "Pods-SwiftCurrencyOCRTests/VENCalculatorInputView_DecimalFix.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/Expecta.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/OCHamcrest.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/OCMockito.framework"
-  install_framework "Pods-SwiftCurrencyOCRTests/Specta.framework"
+  install_framework "Pods-SwiftCurrencyOCRTests/Nimble.framework"
+  install_framework "Pods-SwiftCurrencyOCRTests/Quick.framework"
 fi
