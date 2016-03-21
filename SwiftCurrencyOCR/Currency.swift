@@ -12,18 +12,19 @@ import Parse
 let kCurrencyClassName = "Currency";
 let kCodeKey = "code";
 
-protocol CurrencyProtocol {
+public protocol CurrencyProtocol {
     var name: NSString { get set }
     var code: NSString { get set }
     var flagImage: UIImage { get set }
 }
 
-public class PFCurrency: PFObject, PFSubclassing {
+public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
     
     public var name: NSString = ""
     public var code: NSString = ""
     public var flagIcon: PFFile = PFFile.init(data: NSData.init())!;
     public var shouldFetchFlagIcon: Bool = false
+    public var flagImage: UIImage = UIImage.init()
     
     public class func parseClassName() -> String {
         return kCurrencyClassName;

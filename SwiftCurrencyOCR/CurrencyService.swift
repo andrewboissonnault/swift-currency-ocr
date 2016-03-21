@@ -9,26 +9,17 @@
 import Foundation
 import ReactiveCocoa
 import Parse
+import enum Result.NoError
 
 protocol CurrencyServiceProtocol {
-    static func defaultBaseCurrency() -> Currency
-    static func defaultOtherCurrency() -> Currency
-  //  var codeSignal : Signal<String> { get set }
-  //  func currencySignal() -> Signal<Currency>
+    static func defaultBaseCurrency() -> CurrencyProtocol
+    static func defaultOtherCurrency() -> CurrencyProtocol
+    static func currencySignalProducer(code : NSString) -> SignalProducer<CurrencyProtocol, NSError>
 }
 
 public class CurrencyService: NSObject, CurrencyServiceProtocol {
-//    public var codeSignal : Signal
-//    
-//    init(codeSignal : Signal) {
-//        self.codeSignal = codeSignal;
-//    }
-//    
-//    func currencySignal() -> Signal {
-//        return self.codeSignal;
-//    }
     
-    public static func defaultBaseCurrency() -> Currency {
+    public static func defaultBaseCurrency() -> CurrencyProtocol {
         let currency = Currency()
         currency.name = "United States Dollar"
         currency.code = "USD";
@@ -36,7 +27,7 @@ public class CurrencyService: NSObject, CurrencyServiceProtocol {
         return currency;
     }
     
-    public static func defaultOtherCurrency() -> Currency {
+    public static func defaultOtherCurrency() -> CurrencyProtocol {
         let currency = Currency()
         currency.name = "Euro Member Countries"
         currency.code = "EUR";
@@ -44,11 +35,20 @@ public class CurrencyService: NSObject, CurrencyServiceProtocol {
         return currency;
     }
     
-    public static func fetchCurrencyWithCodeInBackground(code : NSString, block: PFIdResultBlock) {
-        let query = PFCurrency.query();
-        query?.fromLocalDatastore();
-        query?.whereKey(kCodeKey, equalTo:code);
-        query?.getFirstObjectInBackgroundWithBlock(block);
-    }
+    public static func currencySignalProducer(code : NSString) -> SignalProducer<CurrencyProtocol, NSError> {
+        return SignalProducer {
+            sink, disposable in
+            let query = PFCurrency.query();
+            query?.fromLocalDatastore();
+            query?.whereKey(kCodeKey, equalTo:code);
+            query?.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error : NSError?) -> Void in
+                if error != nil {
+                    sink.sendFailed(error!);
+                }
+                else if let currency = object as? PFCurrency {
+                    sink.sendNext(currency);
+                }
+            })
+        }}
     
 }
