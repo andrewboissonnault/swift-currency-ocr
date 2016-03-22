@@ -9,9 +9,9 @@
 import Foundation
 
 public protocol UserPreferencesServiceProtocol {
-    var baseCurrencyCode: String { get set }
-    var otherCurrencyCode: String { get set }
-    var expression: String { get set }
+    var baseCurrencyCode: String? { get set }
+    var otherCurrencyCode: String? { get set }
+    var expression: String? { get set }
     var isArrowPointingLeft: Bool { get set }
 }
 
@@ -33,16 +33,16 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
         self.init(defaults: NSUserDefaults.init());
     }
     
-    public var baseCurrencyCode: String {
+    public var baseCurrencyCode: String? {
         get {
-            return self.defaults.stringForKey(baseCurrencyCodeKey)!;
+            return self.defaults.stringForKey(baseCurrencyCodeKey);
         }
         set(currencyCode) {
             self.defaults.setObject(currencyCode, forKey: baseCurrencyCodeKey)
         }
     }
     
-    public var otherCurrencyCode: String {
+    public var otherCurrencyCode: String? {
         get {
             return self.defaults.stringForKey(otherCurrencyCodeKey)!;
         }
@@ -51,7 +51,7 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
         }
     }
     
-    public var expression: String {
+    public var expression: String? {
         get {
             return self.defaults.stringForKey(expressionKey)!;
         }

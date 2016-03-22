@@ -9,6 +9,8 @@
 import Quick
 import Nimble
 import SwiftCurrencyOCR
+import ReactiveCocoa
+import enum Result.NoError
 
 class PersistenceServiceTests: QuickSpec {
     let initialExpressionValue = "initialExpression";
@@ -16,20 +18,36 @@ class PersistenceServiceTests: QuickSpec {
     
     override func spec() {
         describe("Persistence Service") {
-            class MockService: UserPreferencesService {
+            class CurrencyServiceMock : CurrencyService {
+                override func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
+                    return SignalProducer {
+                        sink, disposable in
+                        let currency = Currency();
+                        currency.code = code;
+                        currency.name = code;
+                        sink.sendNext(currency);
+                        }
+                    }
             }
             
-            let userPreferencesServiceMock: MockService = MockService();
+            let userDefaults: NSUserDefaults = NSUserDefaults.init(suiteName: "test")!;
+            let userPreferencesService: UserPreferencesService = UserPreferencesService(defaults: userDefaults);
+            let currencyService: CurrencyService = CurrencyServiceMock();
             var persistenceService: PersistenceService!;
             
             beforeEach {
-                userPreferencesServiceMock.expression = self.initialExpressionValue;
-                persistenceService = PersistenceService.init(userPreferencesService: userPreferencesServiceMock);
+                userPreferencesService.expression = self.initialExpressionValue;
+                userPreferencesService.isArrowPointingLeft = self.initialIsArrowPointingLeftValue
+                persistenceService = PersistenceService.init(userPreferencesService: userPreferencesService, currencyService: currencyService);
             }
             
+            afterEach({
+                userDefaults .removeSuiteNamed("test");
+            })
+            
             it("initial values are correct") {
-                expect(persistenceService.expression.value).to(equal(self.initialExpressionValue));
-                expect(persistenceService.isArrowPointingLeft.value).to(equal(self.initialIsArrowPointingLeftValue));
+                expect(persistenceService.expression.value) == self.initialExpressionValue;
+                expect(persistenceService.isArrowPointingLeft.value) == self.initialIsArrowPointingLeftValue;
             }
             
             it("setting expression value modifies user defaults") {
@@ -37,8 +55,8 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.expression.swap(expressionValue);
                 
-                expect(persistenceService.expression.value).to(equal(expressionValue));
-                expect(userPreferencesServiceMock.expression).to(equal(expressionValue));
+                expect(persistenceService.expression.value) == expressionValue;
+                expect(userPreferencesService.expression) == expressionValue;
             }
             
             it("setting isArrowPointingLeft value modifies user defaults") {
@@ -46,8 +64,20 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.isArrowPointingLeft.swap(isArrowPointingLeftValue);
                 
-                expect(persistenceService.isArrowPointingLeft.value).to(equal(isArrowPointingLeftValue));
-                expect(userPreferencesServiceMock.isArrowPointingLeft).to(equal(isArrowPointingLeftValue));
+                expect(persistenceService.isArrowPointingLeft.value) == isArrowPointingLeftValue;
+                expect(userPreferencesService.isArrowPointingLeft) == isArrowPointingLeftValue;
+            }
+            
+            it("setting baseCurrency value modifies user defaults") {
+                var baseCurrency: CurrencyProtocol = Currency();
+                baseCurrency.code = "BCC";
+                baseCurrency.name = "Base Currency";
+                
+                persistenceService.baseCurrency.swap(baseCurrency);
+                
+           //     expect(persistenceService.baseCurrency.value) == baseCurrency;
+                
+                expect(userPreferencesService.baseCurrencyCode) == baseCurrency.code;
             }
         }
         

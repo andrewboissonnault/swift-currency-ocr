@@ -11,9 +11,9 @@ import ReactiveCocoa
 import enum Result.NoError
 
 public protocol PersistenceServiceProtocol {
-  //  var baseCurrencySignal: String { get }
+    var baseCurrency: MutableProperty<CurrencyProtocol> { get }
    // var otherCurrencySignal: String { get }
-    var expression: MutableProperty<String> { get }
+    var expression: MutableProperty<String?> { get }
     var isArrowPointingLeft: MutableProperty<Bool> { get }
 }
 
@@ -26,25 +26,33 @@ public protocol PersistenceServiceInputProtocol {
 
 public class PersistenceService: PersistenceServiceProtocol {
     var userPreferencesService: UserPreferencesServiceProtocol
+    var currencyService: CurrencyServiceProtocol
     
-    public private(set) var expression: MutableProperty<String>
+    public private(set) var expression: MutableProperty<String?>
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>
+    public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
     
     
     convenience init() {
-        self.init(userPreferencesService: UserPreferencesService());
+        self.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyService());
     }
     
-    init(userPreferencesService : UserPreferencesServiceProtocol) {
+    init(userPreferencesService : UserPreferencesServiceProtocol, currencyService: CurrencyServiceProtocol) {
         self.userPreferencesService = userPreferencesService;
-        self.expression = MutableProperty<String>.init(self.userPreferencesService.expression);
+        self.currencyService = currencyService;
+        self.expression = MutableProperty<String?>.init(self.userPreferencesService.expression);
         self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft);
+        self.baseCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
+        self.baseCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.baseCurrencyCode);
         
-        self.expression.signal.observeNext { (value : String) -> () in
+        self.expression.signal.observeNext { (value : String?) -> () in
             self.userPreferencesService.expression = value;
         }
         self.isArrowPointingLeft.signal.observeNext { (value : Bool) -> () in
             self.userPreferencesService.isArrowPointingLeft = value;
+        }
+        self.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            self.userPreferencesService.baseCurrencyCode = next.code;
         }
     }
 }

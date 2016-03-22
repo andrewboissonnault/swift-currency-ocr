@@ -13,15 +13,16 @@ let kCurrencyClassName = "Currency";
 let kCodeKey = "code";
 
 public protocol CurrencyProtocol {
-    var name: NSString { get set }
-    var code: NSString { get set }
+    var name: String? { get set }
+    var code: String? { get set }
     var flagImage: UIImage { get set }
+    func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
 public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
     
-    public var name: NSString = ""
-    public var code: NSString = ""
+    public var name: String? = ""
+    public var code: String? = ""
     public var flagIcon: PFFile = PFFile.init(data: NSData.init())!;
     public var shouldFetchFlagIcon: Bool = false
     public var flagImage: UIImage = UIImage.init()
@@ -35,14 +36,14 @@ public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
     }
     
     public override var debugDescription : String {
-        return String.init(format: "%@ ( %@ )", self.code, self.name);
+        return String.init(format: "%@ ( %@ )", self.code!, self.name!);
     }
 }
 
 public class Currency: NSObject, CurrencyProtocol {
     
-    public var name: NSString = ""
-    public var code: NSString = ""
+    public var name: String? = ""
+    public var code: String? = ""
     public var flagImage: UIImage = UIImage.init()
     
     public override var description : String {
@@ -50,6 +51,14 @@ public class Currency: NSObject, CurrencyProtocol {
     }
     
     public override var debugDescription : String {
-        return String.init(format: "%@ ( %@ )", self.code, self.name);
+        return String.init(format: "%@ ( %@ )", self.code!, self.name!);
     }
+}
+
+public func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool {
+    return (left.code == right.code) && (left.name == right.name)
+}
+
+public func != (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool {
+    return !(left == right);
 }
