@@ -43,8 +43,14 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.expression = MutableProperty<String?>.init(self.userPreferencesService.expression);
         self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft);
         self.baseCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
-        self.baseCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.baseCurrencyCode);
         self.otherCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
+        
+        self.setupBindings();
+    }
+    
+    func setupBindings()
+    {
+        self.baseCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.baseCurrencyCode);
         self.otherCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.otherCurrencyCode);
         
         self.expression.signal.observeNext { (value : String?) -> () in
