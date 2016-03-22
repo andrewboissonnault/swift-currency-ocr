@@ -12,9 +12,19 @@ import SwiftCurrencyOCR
 import ReactiveCocoa
 import enum Result.NoError
 
+func buildCurrency(code: String) -> CurrencyProtocol {
+    var baseCurrency: CurrencyProtocol = Currency();
+    baseCurrency.code = code;
+    baseCurrency.name = code + "name";
+    return baseCurrency;
+}
+
 class PersistenceServiceTests: QuickSpec {
     let initialExpressionValue = "initialExpression";
     let initialIsArrowPointingLeftValue = true;
+    let initialBaseCurrencyCode = "initialBaseCurrencyCode";
+    let initialOtherCurrencyCode = "initialOtherCurrencyCode";
+    
     
     override func spec() {
         describe("Persistence Service") {
@@ -22,10 +32,11 @@ class PersistenceServiceTests: QuickSpec {
                 override func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
                     return SignalProducer {
                         sink, disposable in
-                        let currency = Currency();
-                        currency.code = code;
-                        currency.name = code;
-                        sink.sendNext(currency);
+                        if code != nil
+                        {
+                            let currency = buildCurrency(code!);
+                            sink.sendNext(currency);
+                        }
                         }
                     }
             }
@@ -38,6 +49,8 @@ class PersistenceServiceTests: QuickSpec {
             beforeEach {
                 userPreferencesService.expression = self.initialExpressionValue;
                 userPreferencesService.isArrowPointingLeft = self.initialIsArrowPointingLeftValue
+                userPreferencesService.baseCurrencyCode = self.initialBaseCurrencyCode
+                userPreferencesService.otherCurrencyCode = self.initialOtherCurrencyCode
                 persistenceService = PersistenceService.init(userPreferencesService: userPreferencesService, currencyService: currencyService);
             }
             
@@ -48,6 +61,8 @@ class PersistenceServiceTests: QuickSpec {
             it("initial values are correct") {
                 expect(persistenceService.expression.value) == self.initialExpressionValue;
                 expect(persistenceService.isArrowPointingLeft.value) == self.initialIsArrowPointingLeftValue;
+                expect(persistenceService.baseCurrency.value.code) == self.initialBaseCurrencyCode;
+                expect(persistenceService.otherCurrency.value.code) == self.initialOtherCurrencyCode;
             }
             
             it("setting expression value modifies user defaults") {
@@ -69,15 +84,23 @@ class PersistenceServiceTests: QuickSpec {
             }
             
             it("setting baseCurrency value modifies user defaults") {
-                var baseCurrency: CurrencyProtocol = Currency();
-                baseCurrency.code = "BCC";
-                baseCurrency.name = "Base Currency";
+                let baseCurrency = buildCurrency("baseCurrencyCode")
                 
                 persistenceService.baseCurrency.swap(baseCurrency);
                 
            //     expect(persistenceService.baseCurrency.value) == baseCurrency;
                 
                 expect(userPreferencesService.baseCurrencyCode) == baseCurrency.code;
+            }
+            
+            it("setting otherCurrency value modifies user defaults") {
+                let otherCurrency = buildCurrency("otherCurrencyCode")
+                
+                persistenceService.otherCurrency.swap(otherCurrency);
+                
+                //     expect(persistenceService.otherCurrency.value) == otherCurrency;
+                
+                expect(userPreferencesService.otherCurrencyCode) == otherCurrency.code;
             }
         }
         

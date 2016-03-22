@@ -44,7 +44,7 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
     
     public var otherCurrencyCode: String? {
         get {
-            return self.defaults.stringForKey(otherCurrencyCodeKey)!;
+            return self.defaults.stringForKey(otherCurrencyCodeKey);
         }
         set(currencyCode) {
             self.defaults.setObject(currencyCode, forKey: otherCurrencyCodeKey)

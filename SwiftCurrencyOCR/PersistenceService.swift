@@ -12,7 +12,7 @@ import enum Result.NoError
 
 public protocol PersistenceServiceProtocol {
     var baseCurrency: MutableProperty<CurrencyProtocol> { get }
-   // var otherCurrencySignal: String { get }
+    var otherCurrency: MutableProperty<CurrencyProtocol> { get }
     var expression: MutableProperty<String?> { get }
     var isArrowPointingLeft: MutableProperty<Bool> { get }
 }
@@ -31,7 +31,7 @@ public class PersistenceService: PersistenceServiceProtocol {
     public private(set) var expression: MutableProperty<String?>
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>
     public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
-    
+    public private(set) var otherCurrency: MutableProperty<CurrencyProtocol>
     
     convenience init() {
         self.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyService());
@@ -44,6 +44,8 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft);
         self.baseCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
         self.baseCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.baseCurrencyCode);
+        self.otherCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
+        self.otherCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.otherCurrencyCode);
         
         self.expression.signal.observeNext { (value : String?) -> () in
             self.userPreferencesService.expression = value;
@@ -53,6 +55,9 @@ public class PersistenceService: PersistenceServiceProtocol {
         }
         self.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
             self.userPreferencesService.baseCurrencyCode = next.code;
+        }
+        self.otherCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            self.userPreferencesService.otherCurrencyCode = next.code;
         }
     }
 }
