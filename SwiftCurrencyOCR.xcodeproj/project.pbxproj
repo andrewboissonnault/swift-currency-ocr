@@ -14,6 +14,9 @@
 		7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */; };
 		7F99E44C1CA0796300D5817B /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4481C9FE92800D5817B /* PersistenceService.swift */; };
 		7F99E44D1CA081F200D5817B /* UserPreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */; };
+		7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E44E1CA1EDE300D5817B /* MathParserService.swift */; };
+		7F99E4511CA217EE00D5817B /* MathParserServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */; };
+		7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E44E1CA1EDE300D5817B /* MathParserService.swift */; };
 		7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA5D8211C9B124900F262C5 /* AppDelegate.swift */; };
 		7FA5D8241C9B124900F262C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA5D8231C9B124900F262C5 /* ViewController.swift */; };
 		7FA5D8291C9B124900F262C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FA5D8281C9B124900F262C5 /* Assets.xcassets */; };
@@ -319,6 +322,8 @@
 		7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesServiceTest.swift; sourceTree = "<group>"; };
 		7F99E4481C9FE92800D5817B /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceServiceTests.swift; sourceTree = "<group>"; };
+		7F99E44E1CA1EDE300D5817B /* MathParserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathParserService.swift; sourceTree = "<group>"; };
+		7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathParserServiceTests.swift; sourceTree = "<group>"; };
 		7FA5D81E1C9B124900F262C5 /* SwiftCurrencyOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCurrencyOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA5D8211C9B124900F262C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FA5D8231C9B124900F262C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -684,6 +689,7 @@
 				7FA5D8381C9B124900F262C5 /* Info.plist */,
 				7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */,
 				7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */,
+				7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */,
 			);
 			path = SwiftCurrencyOCRTests;
 			sourceTree = "<group>";
@@ -984,6 +990,7 @@
 				7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */,
 				7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */,
 				7F99E4481C9FE92800D5817B /* PersistenceService.swift */,
+				7F99E44E1CA1EDE300D5817B /* MathParserService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1471,6 +1478,7 @@
 				7FA5D8241C9B124900F262C5 /* ViewController.swift in Sources */,
 				7F99E4451C9F655C00D5817B /* UserPreferencesService.swift in Sources */,
 				7F99E4491C9FE92800D5817B /* PersistenceService.swift in Sources */,
+				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
 				7FBD3A491C9B16D7005FAB37 /* HomeViewController.swift in Sources */,
 				7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */,
@@ -1484,6 +1492,7 @@
 			files = (
 				7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */,
 				7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */,
+				7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
 				7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */,
 				7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */,
@@ -1491,6 +1500,7 @@
 				7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */,
 				7F99E4471C9F691100D5817B /* UserPreferencesServiceTest.swift in Sources */,
 				7F99E44C1CA0796300D5817B /* PersistenceService.swift in Sources */,
+				7F99E4511CA217EE00D5817B /* MathParserServiceTests.swift in Sources */,
 				7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,13 +17,6 @@ public protocol PersistenceServiceProtocol {
     var isArrowPointingLeft: MutableProperty<Bool> { get }
 }
 
-public protocol PersistenceServiceInputProtocol {
-    var baseCurrencySignal: Signal<String, Result.NoError> { get }
-    var otherCurrencySignal: String { get }
-    var expressionSignal: String { get }
-    var isArrowPointingLeftSignal: Bool { get }
-}
-
 public class PersistenceService: PersistenceServiceProtocol {
     var userPreferencesService: UserPreferencesServiceProtocol
     var currencyService: CurrencyServiceProtocol
