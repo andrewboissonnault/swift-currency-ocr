@@ -51,6 +51,13 @@ class UserPreferencesServiceSpec: QuickSpec {
                 
                 expect(userPreferencesService.isArrowPointingLeft).to(equal(isArrowPointingLeft));
             }
+            
+            it("setting nil clears preferences") {
+                userPreferencesService.expression = "not nil";
+                userPreferencesService.expression = nil;
+                
+                expect(userPreferencesService.expression).to(beNil());
+            }
         }
         
     }

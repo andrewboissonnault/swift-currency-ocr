@@ -38,7 +38,7 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
             return self.defaults.stringForKey(baseCurrencyCodeKey);
         }
         set(currencyCode) {
-            self.defaults.setObject(currencyCode, forKey: baseCurrencyCodeKey)
+            self.setObjectSafely(currencyCode, forKey: baseCurrencyCodeKey);
         }
     }
     
@@ -47,16 +47,16 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
             return self.defaults.stringForKey(otherCurrencyCodeKey);
         }
         set(currencyCode) {
-            self.defaults.setObject(currencyCode, forKey: otherCurrencyCodeKey)
+            self.setObjectSafely(currencyCode, forKey: otherCurrencyCodeKey);
         }
     }
     
     public var expression: String? {
         get {
-            return self.defaults.stringForKey(expressionKey)!;
+            return self.defaults.stringForKey(expressionKey);
         }
         set(expression) {
-            self.defaults.setObject(expression, forKey: expressionKey)
+            self.setObjectSafely(expression, forKey: expressionKey);
         }
     }
     
@@ -65,7 +65,18 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
             return self.defaults.boolForKey(isArrowPointingLeftKey);
         }
         set(isArrowPointingLeft) {
-            self.defaults.setObject(isArrowPointingLeft, forKey: isArrowPointingLeftKey)
+            self.setObjectSafely(isArrowPointingLeft, forKey: isArrowPointingLeftKey);
+        }
+    }
+    
+    public func setObjectSafely(obj : AnyObject?, forKey: String) {
+        if(obj == nil)
+        {
+            self.defaults.removeObjectForKey(forKey);
+        }
+        else
+        {
+            self.defaults.setObject(obj, forKey: forKey);
         }
     }
 }
