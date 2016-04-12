@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		7E34A8DE67A5CE2CB7487689 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F10553B93D1DEACAE41EE45 /* Pods.framework */; };
+		7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
+		7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
+		7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */; };
+		7F6E78AA1CADEA730019576D /* CurrencyRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A91CADEA730019576D /* CurrencyRates.swift */; };
+		7F6E78AC1CADF2220019576D /* CurrencyRatesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */; };
+		7F6E78AD1CADF8080019576D /* CurrencyRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A91CADEA730019576D /* CurrencyRates.swift */; };
+		7F6E78AE1CADF80A0019576D /* CurrencyRatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */; };
+		7F6E78B01CADF9BD0019576D /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78AF1CADF9BD0019576D /* Mocks.swift */; };
 		7F99E4451C9F655C00D5817B /* UserPreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */; };
 		7F99E4471C9F691100D5817B /* UserPreferencesServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */; };
 		7F99E4491C9FE92800D5817B /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F99E4481C9FE92800D5817B /* PersistenceService.swift */; };
@@ -318,6 +326,11 @@
 		1CF6DF1C09EAF630591AC2A4 /* Pods_SwiftCurrencyOCRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftCurrencyOCRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A69F919F69E2BDDE8C411A7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5F10553B93D1DEACAE41EE45 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRateService.swift; sourceTree = "<group>"; };
+		7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRatesService.swift; sourceTree = "<group>"; };
+		7F6E78A91CADEA730019576D /* CurrencyRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRates.swift; sourceTree = "<group>"; };
+		7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRatesServiceTests.swift; sourceTree = "<group>"; };
+		7F6E78AF1CADF9BD0019576D /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesService.swift; sourceTree = "<group>"; };
 		7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesServiceTest.swift; sourceTree = "<group>"; };
 		7F99E4481C9FE92800D5817B /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
@@ -690,6 +703,8 @@
 				7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */,
 				7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */,
 				7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */,
+				7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */,
+				7F6E78AF1CADF9BD0019576D /* Mocks.swift */,
 			);
 			path = SwiftCurrencyOCRTests;
 			sourceTree = "<group>";
@@ -980,6 +995,7 @@
 			isa = PBXGroup;
 			children = (
 				7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */,
+				7F6E78A91CADEA730019576D /* CurrencyRates.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -987,6 +1003,8 @@
 		7FFDAC7A1C9E07C90086BE43 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */,
+				7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */,
 				7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */,
 				7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */,
 				7F99E4481C9FE92800D5817B /* PersistenceService.swift */,
@@ -1476,10 +1494,13 @@
 				7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */,
 				7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */,
 				7FA5D8241C9B124900F262C5 /* ViewController.swift in Sources */,
+				7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */,
 				7F99E4451C9F655C00D5817B /* UserPreferencesService.swift in Sources */,
 				7F99E4491C9FE92800D5817B /* PersistenceService.swift in Sources */,
+				7F6E78AA1CADEA730019576D /* CurrencyRates.swift in Sources */,
 				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
+				7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */,
 				7FBD3A491C9B16D7005FAB37 /* HomeViewController.swift in Sources */,
 				7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */,
 				7FBD3C721C9B4C07005FAB37 /* ObjectiveCBridging.swift in Sources */,
@@ -1493,15 +1514,20 @@
 				7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */,
 				7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */,
 				7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */,
+				7F6E78B01CADF9BD0019576D /* Mocks.swift in Sources */,
+				7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
 				7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */,
 				7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */,
 				7F99E44D1CA081F200D5817B /* UserPreferencesService.swift in Sources */,
 				7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */,
 				7F99E4471C9F691100D5817B /* UserPreferencesServiceTest.swift in Sources */,
+				7F6E78AC1CADF2220019576D /* CurrencyRatesServiceTests.swift in Sources */,
+				7F6E78AD1CADF8080019576D /* CurrencyRates.swift in Sources */,
 				7F99E44C1CA0796300D5817B /* PersistenceService.swift in Sources */,
 				7F99E4511CA217EE00D5817B /* MathParserServiceTests.swift in Sources */,
 				7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */,
+				7F6E78AE1CADF80A0019576D /* CurrencyRatesService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

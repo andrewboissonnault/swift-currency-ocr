@@ -28,18 +28,6 @@ class PersistenceServiceTests: QuickSpec {
     
     override func spec() {
         describe("Persistence Service") {
-            class CurrencyServiceMock : CurrencyService {
-                override func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
-                    return SignalProducer {
-                        sink, disposable in
-                        if code != nil
-                        {
-                            let currency = buildCurrency(code!);
-                            sink.sendNext(currency);
-                        }
-                        }
-                    }
-            }
             
             let userDefaults: NSUserDefaults = NSUserDefaults.init(suiteName: "test")!;
             let userPreferencesService: UserPreferencesService = UserPreferencesService(defaults: userDefaults);
@@ -88,8 +76,6 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.baseCurrency.swap(baseCurrency);
                 
-           //     expect(persistenceService.baseCurrency.value) == baseCurrency;
-                
                 expect(userPreferencesService.baseCurrencyCode) == baseCurrency.code;
             }
             
@@ -97,8 +83,6 @@ class PersistenceServiceTests: QuickSpec {
                 let otherCurrency = buildCurrency("otherCurrencyCode")
                 
                 persistenceService.otherCurrency.swap(otherCurrency);
-                
-                //     expect(persistenceService.otherCurrency.value) == otherCurrency;
                 
                 expect(userPreferencesService.otherCurrencyCode) == otherCurrency.code;
             }

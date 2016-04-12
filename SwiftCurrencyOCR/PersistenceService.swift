@@ -21,10 +21,10 @@ public class PersistenceService: PersistenceServiceProtocol {
     var userPreferencesService: UserPreferencesServiceProtocol
     var currencyService: CurrencyServiceProtocol
     
-    public private(set) var expression: MutableProperty<String?>
-    public private(set) var isArrowPointingLeft: MutableProperty<Bool>
-    public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
-    public private(set) var otherCurrency: MutableProperty<CurrencyProtocol>
+    public internal(set) var expression: MutableProperty<String?>
+    public internal(set) var isArrowPointingLeft: MutableProperty<Bool>
+    public internal(set) var baseCurrency: MutableProperty<CurrencyProtocol>
+    public internal(set) var otherCurrency: MutableProperty<CurrencyProtocol>
     
     convenience init() {
         self.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyService());

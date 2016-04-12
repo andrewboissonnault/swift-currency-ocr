@@ -17,5 +17,6 @@ public class ParseManager: NSObject {
         Parse.enableLocalDatastore();
         Parse.setApplicationId(kParseApplicationId, clientKey: kParseClientKey);
         PFCurrency.registerSubclass();
+        PFCurrencyRates.registerSubclass();
     }
 }
