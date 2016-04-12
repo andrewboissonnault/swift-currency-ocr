@@ -17,6 +17,10 @@ let kTHBKey = "THB";
 let kEURKey = "EUR";
 let kGBPKey = "GBP";
 
+let thbRate = 36.03;
+let eurRate = 0.92;
+let gbpRate = 0.67;
+
 class CurrencyRateServiceTest: QuickSpec {
     
     let baseCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
@@ -42,7 +46,7 @@ class CurrencyRateServiceTest: QuickSpec {
                     super.init();
                 }
                 
-                override func ratesSignalProducer() -> SignalProducer<CurrencyRatesProtocol?, NoError> {
+                override func ratesSignalProducer() -> SignalProducer<CurrencyRatesProtocol, NoError> {
                     return SignalProducer {
                         sink, disposable in
                         let seconds = 0.01
@@ -60,9 +64,9 @@ class CurrencyRateServiceTest: QuickSpec {
                 let rates = CurrencyRates();
                 rates.referenceCurrencyCode = kUSDKey;
                 let dictionary = NSMutableDictionary.init(capacity: 4);
-                dictionary.setObject(36.03, forKey: kTHBKey);
-                dictionary.setObject(0.92, forKey: kEURKey);
-                dictionary.setObject(0.67, forKey: kGBPKey);
+                dictionary.setObject(thbRate, forKey: kTHBKey);
+                dictionary.setObject(eurRate, forKey: kEURKey);
+                dictionary.setObject(gbpRate, forKey: kGBPKey);
                 rates.rates = dictionary;
                 return rates;
             }
@@ -74,13 +78,41 @@ class CurrencyRateServiceTest: QuickSpec {
             let ratesService = CurrencyRatesServiceMock(testRates : testRates);
             let rateService = CurrencyRateService(persistenceService : persistenceService, ratesService : ratesService);
             
+            let usdCurrency = Currency.currencyWithCode(kUSDKey);
+            let thbCurrency = Currency.currencyWithCode(kTHBKey);
+            let eurCurrency = Currency.currencyWithCode(kEURKey);
+            let gbpCurrency = Currency.currencyWithCode(kGBPKey);
             
-            it("test initial rate") {
-                expect(rateService.rate.value) == 1.0;
+            it("test USD to THB") {
+                let expectedRate = thbRate;
+                persistenceService.baseCurrency.swap(usdCurrency);
+                persistenceService.otherCurrency.swap(thbCurrency);
+                
+                expect(rateService.rate.value).toEventually(equal(expectedRate));
             }
             
-            it("test initial rate") {
-                expect(rateService.rate.value) == 1.0;
+            it("test USD to EUR") {
+                let expectedRate = eurRate;
+                persistenceService.baseCurrency.swap(usdCurrency);
+                persistenceService.otherCurrency.swap(eurCurrency);
+                
+                expect(rateService.rate.value).toEventually(equal(expectedRate));
+            }
+            
+            it("test EUR to USD") {
+                let expectedRate = 1 / eurRate;
+                persistenceService.baseCurrency.swap(eurCurrency);
+                persistenceService.otherCurrency.swap(usdCurrency);
+                
+                expect(rateService.rate.value).toEventually(equal(expectedRate));
+            }
+            
+            it("test GBP to THB") {
+                let expectedRate = (1 / gbpRate) *  thbRate;
+                persistenceService.baseCurrency.swap(gbpCurrency);
+                persistenceService.otherCurrency.swap(thbCurrency);
+                
+                expect(rateService.rate.value).toEventually(equal(expectedRate));
             }
         }
         

@@ -12,14 +12,14 @@ import Parse
 import enum Result.NoError
 
 protocol CurrencyRatesServiceProtocol {
-    var rates: MutableProperty<CurrencyRatesProtocol?> { get }
+    var rates: MutableProperty<CurrencyRatesProtocol> { get }
 }
 
 public class CurrencyRatesService: CurrencyRatesServiceProtocol {
-    public private(set) var rates: MutableProperty<CurrencyRatesProtocol?>
+    public private(set) var rates: MutableProperty<CurrencyRatesProtocol>
     
     init() {
-        self.rates = MutableProperty<CurrencyRatesProtocol?>.init(nil);
+        self.rates = MutableProperty<CurrencyRatesProtocol>.init(CurrencyRates());
         self.setupBindings();
     }
     
@@ -28,16 +28,13 @@ public class CurrencyRatesService: CurrencyRatesServiceProtocol {
         self.rates <~ self.ratesSignalProducer();
     }
     
-    public func ratesSignalProducer() -> SignalProducer<CurrencyRatesProtocol?, NoError> {
+    public func ratesSignalProducer() -> SignalProducer<CurrencyRatesProtocol, NoError> {
         return SignalProducer {
             sink, disposable in
             let query = PFCurrencyRates.query();
             query?.fromLocalDatastore();
             query?.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error : NSError?) -> Void in
-                if error != nil {
-                    sink.sendNext(nil);
-                }
-                else if let currencyRates = object as? PFCurrencyRates {
+                if let currencyRates = object as? PFCurrencyRates {
                     sink.sendNext(currencyRates);
                 }
             })

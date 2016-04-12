@@ -12,22 +12,35 @@ import Parse
 let kCurrencyRatesClassName = "CurrencyRates";
 
 public protocol CurrencyRatesProtocol {
-    var referenceCurrencyCode: String? { get set }
-    var rates: NSDictionary? { get set }
+    var referenceCurrencyCode: String { get set }
+    var rates : NSDictionary { get }
+    func rate(code : String) -> Double;
 }
 
 public class PFCurrencyRates: PFObject, PFSubclassing, CurrencyRatesProtocol {
-    public var rates: NSDictionary?;
-    public var referenceCurrencyCode: String? = "";
+    public var rates: NSDictionary = NSDictionary();
+    public var referenceCurrencyCode: String = "";
     
     public class func parseClassName() -> String {
         return kCurrencyRatesClassName;
     }
+    
+    public func rate(code: String) -> Double {
+        return sharedRate(code, rates: self.rates);
+    }
 }
 
 public class CurrencyRates: CurrencyRatesProtocol {
-    public var rates: NSDictionary?;
-    public var referenceCurrencyCode: String? = "";
+    public var rates: NSDictionary = NSDictionary();
+    public var referenceCurrencyCode: String = "";
+    
+    public func rate(code: String) -> Double {
+        return sharedRate(code, rates : self.rates);
+    }
+}
+
+public func sharedRate(code: String, rates : NSDictionary) -> Double {
+    return rates.objectForKey(code)!.doubleValue!;
 }
 
 public func == (left: CurrencyRatesProtocol, right: CurrencyRatesProtocol) -> Bool {

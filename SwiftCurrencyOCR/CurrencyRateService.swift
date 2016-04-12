@@ -29,7 +29,8 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
         self.persistenceService = persistenceService;
         self.ratesService = ratesService;
         
-        let rate = CurrencyRateService.calculateRate(self.persistenceService.baseCurrency.value, otherCurrency: self.persistenceService.otherCurrency.value, rates: self.ratesService.rates.value);
+     //   let rate = CurrencyRateService.calculateRate(self.persistenceService.baseCurrency.value, otherCurrency: self.persistenceService.otherCurrency.value, rates: self.ratesService.rates.value);
+        let rate = 1.0;
         self.rate = MutableProperty<Double>.init(rate);
         
         self.setupBindings();
@@ -40,15 +41,37 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
         self.rate <~ self.rateSignal();
     }
     
-    private static func calculateRate(baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol?) -> Double {
-        return Double.abs(1.5);
+    private static func calculateRate(baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> Double {
+        if(rates.referenceCurrencyCode == baseCurrency.code) {
+            return rates.rate(otherCurrency.code!);
+        }
+        else if(rates.referenceCurrencyCode == otherCurrency.code) {
+            return 1 / rates.rate(baseCurrency.code!);
+        }
+        else {
+            let referenceAmount = rates.rate(otherCurrency.code!);
+            return referenceAmount * ( 1 / rates.rate(baseCurrency.code!));
+        }
     }
     
     private func rateSignal() -> Signal<Double, Result.NoError> {
+        self.persistenceService.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            NSLog("", "");
+        }
+        self.persistenceService.otherCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            NSLog("", "");
+        }
+        self.ratesService.rates.signal.observeNext{ (next : CurrencyRatesProtocol) -> () in
+            NSLog("", "");
+        }
         let combinedSignal = combineLatest(self.persistenceService.baseCurrency.signal, self.persistenceService.otherCurrency.signal, self.ratesService.rates.signal);
-        let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol?) -> (Double) in
+        combinedSignal.observeNext{ _,_,_ -> () in
+            NSLog("", "");
+        }
+        let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> (Double) in
             return CurrencyRateService.calculateRate(baseCurrency, otherCurrency: otherCurrency, rates: rates);
         }
         return signal;
     }
+    
 }

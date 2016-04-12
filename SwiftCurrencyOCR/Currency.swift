@@ -19,7 +19,7 @@ public protocol CurrencyProtocol {
     func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
-public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
+public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol, CustomDebugStringConvertible {
     
     public var name: String? = ""
     public var code: String? = ""
@@ -40,11 +40,17 @@ public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
     }
 }
 
-public class Currency: NSObject, CurrencyProtocol {
+public class Currency: NSObject, CurrencyProtocol, CustomDebugStringConvertible {
     
     public var name: String? = ""
     public var code: String? = ""
     public var flagImage: UIImage = UIImage.init()
+    
+    public static func currencyWithCode(code : String) -> Currency {
+        let currency = Currency();
+        currency.code = code;
+        return currency;
+    }
     
     public override var description : String {
         return self.debugDescription;
