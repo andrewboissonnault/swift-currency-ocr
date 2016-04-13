@@ -8,7 +8,6 @@
 
 import Foundation
 import ReactiveCocoa
-import Parse
 import enum Result.NoError
 
 protocol CurrencyRateServiceProtocol {
@@ -16,8 +15,8 @@ protocol CurrencyRateServiceProtocol {
 }
 
 public class CurrencyRateService: CurrencyRateServiceProtocol {
-    var persistenceService: PersistenceServiceProtocol
-    var ratesService: CurrencyRatesServiceProtocol
+    private var persistenceService: PersistenceServiceProtocol
+    private var ratesService: CurrencyRatesServiceProtocol
     
     public private(set) var rate: MutableProperty<Double>
     
@@ -28,10 +27,8 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
     init(persistenceService : PersistenceServiceProtocol, ratesService : CurrencyRatesServiceProtocol) {
         self.persistenceService = persistenceService;
         self.ratesService = ratesService;
-        
-     //   let rate = CurrencyRateService.calculateRate(self.persistenceService.baseCurrency.value, otherCurrency: self.persistenceService.otherCurrency.value, rates: self.ratesService.rates.value);
-        let rate = 1.0;
-        self.rate = MutableProperty<Double>.init(rate);
+
+        self.rate = MutableProperty<Double>.init(1.0);
         
         self.setupBindings();
     }
@@ -39,6 +36,14 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
     private func setupBindings()
     {
         self.rate <~ self.rateSignal();
+    }
+    
+    private func rateSignal() -> Signal<Double, Result.NoError> {
+        let combinedSignal = combineLatest(self.persistenceService.baseCurrency.signal, self.persistenceService.otherCurrency.signal, self.ratesService.rates.signal);
+        let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> (Double) in
+            return CurrencyRateService.calculateRate(baseCurrency, otherCurrency: otherCurrency, rates: rates);
+        }
+        return signal;
     }
     
     private static func calculateRate(baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> Double {
@@ -52,26 +57,6 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
             let referenceAmount = rates.rate(otherCurrency.code!);
             return referenceAmount * ( 1 / rates.rate(baseCurrency.code!));
         }
-    }
-    
-    private func rateSignal() -> Signal<Double, Result.NoError> {
-        self.persistenceService.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            NSLog("", "");
-        }
-        self.persistenceService.otherCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            NSLog("", "");
-        }
-        self.ratesService.rates.signal.observeNext{ (next : CurrencyRatesProtocol) -> () in
-            NSLog("", "");
-        }
-        let combinedSignal = combineLatest(self.persistenceService.baseCurrency.signal, self.persistenceService.otherCurrency.signal, self.ratesService.rates.signal);
-        combinedSignal.observeNext{ _,_,_ -> () in
-            NSLog("", "");
-        }
-        let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> (Double) in
-            return CurrencyRateService.calculateRate(baseCurrency, otherCurrency: otherCurrency, rates: rates);
-        }
-        return signal;
     }
     
 }

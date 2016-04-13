@@ -12,13 +12,6 @@ import SwiftCurrencyOCR
 import ReactiveCocoa
 import enum Result.NoError
 
-func buildCurrency(code: String) -> CurrencyProtocol {
-    var baseCurrency: CurrencyProtocol = Currency();
-    baseCurrency.code = code;
-    baseCurrency.name = code + "name";
-    return baseCurrency;
-}
-
 class PersistenceServiceTests: QuickSpec {
     let initialExpressionValue = "initialExpression";
     let initialIsArrowPointingLeftValue = true;

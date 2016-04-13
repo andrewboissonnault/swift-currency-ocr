@@ -18,8 +18,8 @@ public protocol PersistenceServiceProtocol {
 }
 
 public class PersistenceService: PersistenceServiceProtocol {
-    var userPreferencesService: UserPreferencesServiceProtocol
-    var currencyService: CurrencyServiceProtocol
+    private var userPreferencesService: UserPreferencesServiceProtocol
+    private var currencyService: CurrencyServiceProtocol
     
     public internal(set) var expression: MutableProperty<String?>
     public internal(set) var isArrowPointingLeft: MutableProperty<Bool>

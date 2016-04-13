@@ -304,6 +304,9 @@
 		7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBEA1C41C9DCF0100949027 /* ParseManager.swift */; };
 		7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBEA1C41C9DCF0100949027 /* ParseManager.swift */; };
 		7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA5D8211C9B124900F262C5 /* AppDelegate.swift */; };
+		7FF538751CBD88F900F1CDC6 /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538741CBD88F900F1CDC6 /* ConversionService.swift */; };
+		7FF538771CBED3EC00F1CDC6 /* ConversionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538761CBED3EC00F1CDC6 /* ConversionServiceTests.swift */; };
+		7FF538781CBED61100F1CDC6 /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538741CBD88F900F1CDC6 /* ConversionService.swift */; };
 		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
 		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
@@ -619,6 +622,8 @@
 		7FBD3C711C9B4C07005FAB37 /* ObjectiveCBridging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCBridging.swift; sourceTree = "<group>"; };
 		7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		7FBEA1C41C9DCF0100949027 /* ParseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
+		7FF538741CBD88F900F1CDC6 /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
+		7FF538761CBED3EC00F1CDC6 /* ConversionServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionServiceTests.swift; sourceTree = "<group>"; };
 		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -704,6 +709,7 @@
 				7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */,
 				7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */,
 				7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */,
+				7FF538761CBED3EC00F1CDC6 /* ConversionServiceTests.swift */,
 				7F6E78AF1CADF9BD0019576D /* Mocks.swift */,
 			);
 			path = SwiftCurrencyOCRTests;
@@ -1009,6 +1015,7 @@
 				7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */,
 				7F99E4481C9FE92800D5817B /* PersistenceService.swift */,
 				7F99E44E1CA1EDE300D5817B /* MathParserService.swift */,
+				7FF538741CBD88F900F1CDC6 /* ConversionService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1491,6 +1498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FBD3A4B1C9B1859005FAB37 /* UIView+Borders.swift in Sources */,
+				7FF538751CBD88F900F1CDC6 /* ConversionService.swift in Sources */,
 				7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */,
 				7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */,
 				7FA5D8241C9B124900F262C5 /* ViewController.swift in Sources */,
@@ -1518,10 +1526,12 @@
 				7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
 				7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */,
+				7FF538781CBED61100F1CDC6 /* ConversionService.swift in Sources */,
 				7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */,
 				7F99E44D1CA081F200D5817B /* UserPreferencesService.swift in Sources */,
 				7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */,
 				7F99E4471C9F691100D5817B /* UserPreferencesServiceTest.swift in Sources */,
+				7FF538771CBED3EC00F1CDC6 /* ConversionServiceTests.swift in Sources */,
 				7F6E78AC1CADF2220019576D /* CurrencyRatesServiceTests.swift in Sources */,
 				7F6E78AD1CADF8080019576D /* CurrencyRates.swift in Sources */,
 				7F99E44C1CA0796300D5817B /* PersistenceService.swift in Sources */,

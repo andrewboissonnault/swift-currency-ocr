@@ -22,3 +22,28 @@ class CurrencyServiceMock : CurrencyService {
         }
     }
 }
+
+func buildCurrency(code: String) -> CurrencyProtocol {
+    var baseCurrency: CurrencyProtocol = Currency();
+    baseCurrency.code = code;
+    baseCurrency.name = code + "name";
+    return baseCurrency;
+}
+
+class CurrencyRatesServiceMock : CurrencyRatesServiceProtocol {
+    var rates: MutableProperty<CurrencyRatesProtocol>;
+    
+    init(rates: CurrencyRatesProtocol) {
+        self.rates = MutableProperty<CurrencyRatesProtocol>.init(rates);
+    }
+}
+
+class CurrencyRateServiceMock : CurrencyRateServiceProtocol {
+    var rate: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
+}
+
+class PersistenceServiceMock : PersistenceService {
+    init () {
+        super.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyServiceMock());
+    }
+}

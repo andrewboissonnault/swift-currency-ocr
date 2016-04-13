@@ -8,7 +8,11 @@
 
 import Foundation
 
-public class MathParserService {
+protocol MathParserServiceProtocol {
+    func resultWithExpression(expression : String?) -> Double
+}
+
+public class MathParserService : MathParserServiceProtocol {
     private let kAdditionOperator = "+";
     private let kSubtractionOperator = "−";
     private let kMultiplicationOperator = "×";
@@ -16,7 +20,17 @@ public class MathParserService {
     
     init() { }
     
-    public func resultWithExpression(expression : String) -> Double {
+    public func resultWithExpression(expression : String?) -> Double {
+        if(expression == nil) {
+            return 0;
+        }
+        else
+        {
+            return self.parseUnwrappedExpression(expression!);
+        }
+    }
+    
+    private func parseUnwrappedExpression(expression : String) -> Double {
         let strippedExpression = self.removeSeparatorsFromExpression(expression);
         let operands = self.parseOperands(strippedExpression);
         let theOperator = self.parseOperator(strippedExpression);
