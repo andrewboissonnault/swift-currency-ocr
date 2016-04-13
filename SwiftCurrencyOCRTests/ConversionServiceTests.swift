@@ -34,6 +34,16 @@ class ConversionServiceTests: QuickSpec {
                 expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));
             }
             
+            it("test conversion service with nil expression") {
+                let rate = 1.5;
+                let expectedOtherAmount = 0.0;
+                
+                persistenceService.expression.swap(nil);
+                rateService.rate.swap(rate);
+                
+                expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));
+            }
+            
         }
         
     }
