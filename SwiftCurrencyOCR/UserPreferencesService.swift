@@ -11,7 +11,7 @@ import Foundation
 public protocol UserPreferencesServiceProtocol {
     var leftCurrencyCode: String? { get set }
     var rightCurrencyCode: String? { get set }
-    var expression: String? { get set }
+    var expression: String { get set }
     var isArrowPointingLeft: Bool { get set }
 }
 
@@ -51,9 +51,9 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
         }
     }
     
-    public var expression: String? {
+    public var expression: String {
         get {
-            return self.defaults.stringForKey(expressionKey);
+            return self.safeStringForKey(expressionKey);
         }
         set(expression) {
             self.setObjectSafely(expression, forKey: expressionKey);
@@ -67,6 +67,14 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
         set(isArrowPointingLeft) {
             self.setObjectSafely(isArrowPointingLeft, forKey: isArrowPointingLeftKey);
         }
+    }
+    
+    public func safeStringForKey(key : String) -> String {
+        var string = self.defaults.stringForKey(key);
+        if(string == nil) {
+            string = "";
+        }
+        return string!;
     }
     
     public func setObjectSafely(obj : AnyObject?, forKey: String) {

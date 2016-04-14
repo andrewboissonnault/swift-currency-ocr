@@ -50,6 +50,55 @@ class HomeViewModelTests: QuickSpec {
                 expect(homeViewModel.isArrowPointingLeft.value).toEventually(beFalse());
             }
             
+            it("test currencyText") {
+                let leftCurrencyText = "leftCurrencyText";
+                let rightCurrencyText = "rightCurrencyText";
+                
+                textService.leftCurrencyText.swap(leftCurrencyText);
+                textService.rightCurrencyText.swap(rightCurrencyText);
+                
+                expect(homeViewModel.leftCurrencyText.value).toEventually(equal(leftCurrencyText));
+                expect(homeViewModel.rightCurrencyText.value).toEventually(equal(rightCurrencyText));
+            }
+            
+            it("test currency view models") {
+                let leftCurrency = Currency.currencyWithCode("LEFT");
+                let rightCurrency = Currency.currencyWithCode("RIGHT");
+                
+                let leftCurrencyViewModel = CurrencyViewModel.init(currency: leftCurrency);
+                let rightCurrencyViewModel = CurrencyViewModel.init(currency: rightCurrency);
+                
+                persistenceService.leftCurrency.swap(leftCurrency);
+                persistenceService.rightCurrency.swap(rightCurrency);
+                
+                expect(homeViewModel.leftCurrencyViewModel.value.currencyCode.value).toEventually(equal(leftCurrencyViewModel.currencyCode.value));
+                expect(homeViewModel.rightCurrencyViewModel.value.currencyCode.value).toEventually(equal(rightCurrencyViewModel.currencyCode.value));
+            }
+            
+            it("test toggle arrow") {
+                persistenceService.isArrowPointingLeft.swap(false);
+                
+                homeViewModel.toggleArrow();
+                
+                expect(persistenceService.isArrowPointingLeft.value).toEventually(beTrue());
+                expect(homeViewModel.isArrowPointingLeft.value).toEventually(beTrue());
+                
+                homeViewModel.toggleArrow();
+                
+                expect(persistenceService.isArrowPointingLeft.value).toEventually(beFalse());
+                expect(homeViewModel.isArrowPointingLeft.value).toEventually(beFalse());
+            }
+            
+            it("test expression input") {
+                let newExpression = "newExpression";
+                
+                persistenceService.expression.swap("expression");
+                
+                input.expression.swap(newExpression);
+                
+                expect(persistenceService.expression.value).toEventually(equal(newExpression));
+            }
+            
     }
         
     }

@@ -53,10 +53,10 @@ class UserPreferencesServiceSpec: QuickSpec {
             }
             
             it("setting nil clears preferences") {
-                userPreferencesService.expression = "not nil";
-                userPreferencesService.expression = nil;
+                userPreferencesService.leftCurrencyCode = "not nil";
+                userPreferencesService.leftCurrencyCode = nil;
                 
-                expect(userPreferencesService.expression).to(beNil());
+                expect(userPreferencesService.leftCurrencyCode).to(beNil());
             }
         }
         

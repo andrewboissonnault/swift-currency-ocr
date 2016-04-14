@@ -145,15 +145,6 @@ class MathParserServiceTests: QuickSpec {
                 
                 expect(mathParserService.baseAmount.value).toEventually(equal(expectedResult));
                 }
-            
-            it("testNilString") {
-                let testString : String? = nil;
-                let expectedResult = 0.0;
-                
-                persistenceService.expression.swap(testString);
-                
-                expect(mathParserService.baseAmount.value).toEventually(equal(expectedResult));
-            }
         }
     }
 }

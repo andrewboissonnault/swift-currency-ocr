@@ -24,12 +24,9 @@ public protocol HomeViewModelProtocol {
     var currencyOverviewViewModel : MutableProperty<CurrencyOverviewViewModelProtocol> { get }
     
     func toggleArrow();
-    func setExpression();
-    
 }
 
 protocol HomeViewModelInputProtocol {
-    var toggleArrow: MutableProperty<Bool> { get }
     var expression: MutableProperty<String> { get }
 }
 
@@ -82,6 +79,7 @@ public class HomeViewModel {
     {
         self.leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
         self.rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
+        self.persistenceService.expression <~ self.input.expression;
     }
     
     private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModelProtocol, Result.NoError> {
@@ -106,6 +104,10 @@ public class HomeViewModel {
     private func rightCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
         let signal = self.persistenceService.rightCurrency.signal;
         return signal;
+    }
+    
+    public func toggleArrow() {
+        self.persistenceService.isArrowPointingLeft.swap(!self.persistenceService.isArrowPointingLeft.value);
     }
     
 }

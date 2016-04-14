@@ -16,6 +16,7 @@ public protocol CurrencyViewModelProtocol {
     var currencyName: MutableProperty<String> { get }
     var flagIconImage: MutableProperty<UIImage?> { get }
     var flagIconFile : MutableProperty<PFFile?> { get }
+    func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
 public class CurrencyViewModel : CurrencyViewModelProtocol {
@@ -71,4 +72,12 @@ public class CurrencyViewModel : CurrencyViewModelProtocol {
         }
     }
     
+}
+
+public func == (left: CurrencyViewModelProtocol, right: CurrencyViewModelProtocol) -> Bool {
+    return (left.currencyCode.value == right.currencyCode.value) && (left.currencyName.value == right.currencyName.value)
+}
+
+public func != (left: CurrencyViewModelProtocol, right: CurrencyViewModelProtocol) -> Bool {
+    return !(left == right);
 }

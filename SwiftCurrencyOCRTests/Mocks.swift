@@ -55,7 +55,7 @@ class TextServiceMock : TextServiceProtocol {
 class PersistenceServiceMock : PersistenceServiceProtocol {
     var leftCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
     var rightCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
-    var expression: MutableProperty<String?> = MutableProperty<String?>.init("");
+    var expression: MutableProperty<String> = MutableProperty<String>.init("");
     var isArrowPointingLeft: MutableProperty<Bool> = MutableProperty<Bool>.init(false);
 }
 
@@ -68,6 +68,5 @@ class ConversionServiceMock : ConversionServiceProtocol {
 }
 
 class HomeViewModelInputMock : HomeViewModelInputProtocol {
-    var toggleArrow: MutableProperty<Bool> = MutableProperty<Bool>.init(true);
     var expression: MutableProperty<String> = MutableProperty<String>.init("0");
 }
