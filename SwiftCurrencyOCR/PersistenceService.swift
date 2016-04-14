@@ -11,40 +11,40 @@ import ReactiveCocoa
 import enum Result.NoError
 
 public protocol PersistenceServiceProtocol {
-    var baseCurrency: MutableProperty<CurrencyProtocol> { get }
-    var otherCurrency: MutableProperty<CurrencyProtocol> { get }
+    var leftCurrency: MutableProperty<CurrencyProtocol> { get }
+    var rightCurrency: MutableProperty<CurrencyProtocol> { get }
     var expression: MutableProperty<String?> { get }
     var isArrowPointingLeft: MutableProperty<Bool> { get }
 }
 
 public class PersistenceService: PersistenceServiceProtocol {
     private var userPreferencesService: UserPreferencesServiceProtocol
-    private var currencyService: CurrencyServiceProtocol
+    private var queryCurrencyService: QueryPFCurrencyServiceProtocol
     
     public internal(set) var expression: MutableProperty<String?>
     public internal(set) var isArrowPointingLeft: MutableProperty<Bool>
-    public internal(set) var baseCurrency: MutableProperty<CurrencyProtocol>
-    public internal(set) var otherCurrency: MutableProperty<CurrencyProtocol>
+    public internal(set) var leftCurrency: MutableProperty<CurrencyProtocol>
+    public internal(set) var rightCurrency: MutableProperty<CurrencyProtocol>
     
     convenience init() {
-        self.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyService());
+        self.init(userPreferencesService: UserPreferencesService(), queryCurrencyService: QueryPFCurrencyService());
     }
     
-    init(userPreferencesService : UserPreferencesServiceProtocol, currencyService: CurrencyServiceProtocol) {
+    init(userPreferencesService : UserPreferencesServiceProtocol, queryCurrencyService: QueryPFCurrencyServiceProtocol) {
         self.userPreferencesService = userPreferencesService;
-        self.currencyService = currencyService;
+        self.queryCurrencyService = queryCurrencyService;
         self.expression = MutableProperty<String?>.init(self.userPreferencesService.expression);
         self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft);
-        self.baseCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
-        self.otherCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
+        self.leftCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
+        self.rightCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
         
         self.setupBindings();
     }
     
     func setupBindings()
     {
-        self.baseCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.baseCurrencyCode);
-        self.otherCurrency <~ self.currencyService.currencySignalProducer(self.userPreferencesService.otherCurrencyCode);
+        self.leftCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.leftCurrencyCode);
+        self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode);
         
         self.expression.signal.observeNext { (value : String?) -> () in
             self.userPreferencesService.expression = value;
@@ -52,11 +52,11 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.isArrowPointingLeft.signal.observeNext { (value : Bool) -> () in
             self.userPreferencesService.isArrowPointingLeft = value;
         }
-        self.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.baseCurrencyCode = next.codeProperty.value;
+        self.leftCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            self.userPreferencesService.leftCurrencyCode = next.codeProperty.value;
         }
-        self.otherCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.otherCurrencyCode = next.codeProperty.value;
+        self.rightCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
+            self.userPreferencesService.rightCurrencyCode = next.codeProperty.value;
         }
     }
 }

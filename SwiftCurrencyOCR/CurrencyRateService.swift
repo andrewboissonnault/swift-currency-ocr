@@ -15,18 +15,18 @@ protocol CurrencyRateServiceProtocol {
 }
 
 public class CurrencyRateService: CurrencyRateServiceProtocol {
-    private var persistenceService: PersistenceServiceProtocol
     private var ratesService: CurrencyRatesServiceProtocol
+    private var currencyService: CurrencyServiceProtocol
     
     public private(set) var rate: MutableProperty<Double>
     
     convenience init() {
-        self.init(persistenceService: PersistenceService(), ratesService: CurrencyRatesService());
+        self.init(ratesService: CurrencyRatesService(), currencyService : CurrencyService());
     }
     
-    init(persistenceService : PersistenceServiceProtocol, ratesService : CurrencyRatesServiceProtocol) {
-        self.persistenceService = persistenceService;
+    init(ratesService : CurrencyRatesServiceProtocol, currencyService : CurrencyServiceProtocol) {
         self.ratesService = ratesService;
+        self.currencyService = currencyService;
 
         self.rate = MutableProperty<Double>.init(1.0);
         
@@ -39,7 +39,7 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
     }
     
     private func rateSignal() -> Signal<Double, Result.NoError> {
-        let combinedSignal = combineLatest(self.persistenceService.baseCurrency.signal, self.persistenceService.otherCurrency.signal, self.ratesService.rates.signal);
+        let combinedSignal = combineLatest(self.currencyService.baseCurrency.signal, self.currencyService.otherCurrency.signal, self.ratesService.rates.signal);
         let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> (Double) in
             return CurrencyRateService.calculateRate(baseCurrency, otherCurrency: otherCurrency, rates: rates);
         }

@@ -9,15 +9,15 @@
 import Foundation
 
 public protocol UserPreferencesServiceProtocol {
-    var baseCurrencyCode: String? { get set }
-    var otherCurrencyCode: String? { get set }
+    var leftCurrencyCode: String? { get set }
+    var rightCurrencyCode: String? { get set }
     var expression: String? { get set }
     var isArrowPointingLeft: Bool { get set }
 }
 
 public class UserPreferencesService: UserPreferencesServiceProtocol {
-    private let baseCurrencyCodeKey = "baseCurrencyCode"
-    private let otherCurrencyCodeKey = "otherCurrencyCode"
+    private let leftCurrencyCodeKey = "leftCurrencyCode"
+    private let rightCurrencyCodeKey = "rightCurrencyCode"
     private let expressionKey = "expression"
     private let isArrowPointingLeftKey = "isArrowPointingLeft"
     
@@ -33,21 +33,21 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
         self.init(defaults: NSUserDefaults.init());
     }
     
-    public var baseCurrencyCode: String? {
+    public var leftCurrencyCode: String? {
         get {
-            return self.defaults.stringForKey(baseCurrencyCodeKey);
+            return self.defaults.stringForKey(leftCurrencyCodeKey);
         }
         set(currencyCode) {
-            self.setObjectSafely(currencyCode, forKey: baseCurrencyCodeKey);
+            self.setObjectSafely(currencyCode, forKey: leftCurrencyCodeKey);
         }
     }
     
-    public var otherCurrencyCode: String? {
+    public var rightCurrencyCode: String? {
         get {
-            return self.defaults.stringForKey(otherCurrencyCodeKey);
+            return self.defaults.stringForKey(rightCurrencyCodeKey);
         }
         set(currencyCode) {
-            self.setObjectSafely(currencyCode, forKey: otherCurrencyCodeKey);
+            self.setObjectSafely(currencyCode, forKey: rightCurrencyCodeKey);
         }
     }
     

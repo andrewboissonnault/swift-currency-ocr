@@ -10,8 +10,8 @@ import Foundation
 import ReactiveCocoa
 import enum Result.NoError
 
-class CurrencyServiceMock : CurrencyService {
-    override func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
+class QueryPFCurrencyServiceMock : QueryPFCurrencyServiceProtocol {
+    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
         return SignalProducer {
             sink, disposable in
             if code != nil
@@ -42,12 +42,26 @@ class CurrencyRateServiceMock : CurrencyRateServiceProtocol {
     var rate: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
 }
 
+class CurrencyServiceMock : CurrencyServiceProtocol {
+    var baseCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
+    var otherCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
+}
+
 class PersistenceServiceMock : PersistenceService {
     init () {
-        super.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyServiceMock());
+        super.init(userPreferencesService: UserPreferencesService(), queryCurrencyService: QueryPFCurrencyServiceMock());
     }
 }
 
 class MathParserServiceMock : MathParserServiceProtocol {
     var baseAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
+}
+
+class ConversionServiceMock : ConversionServiceProtocol {
+    var otherAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
+}
+
+class HomeViewModelInputMock : HomeViewModelInputProtocol {
+    var toggleArrow: MutableProperty<Bool> = MutableProperty<Bool>.init(true);
+    var expression: MutableProperty<String> = MutableProperty<String>.init("0");
 }

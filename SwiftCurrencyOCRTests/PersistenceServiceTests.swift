@@ -15,8 +15,8 @@ import enum Result.NoError
 class PersistenceServiceTests: QuickSpec {
     let initialExpressionValue = "initialExpression";
     let initialIsArrowPointingLeftValue = true;
-    let initialBaseCurrencyCode = "initialBaseCurrencyCode";
-    let initialOtherCurrencyCode = "initialOtherCurrencyCode";
+    let initialLeftCurrencyCode = "initialLeftCurrencyCode";
+    let initialRightCurrencyCode = "initialRightCurrencyCode";
     
     
     override func spec() {
@@ -24,15 +24,15 @@ class PersistenceServiceTests: QuickSpec {
             
             let userDefaults: NSUserDefaults = NSUserDefaults.init(suiteName: "test")!;
             let userPreferencesService: UserPreferencesService = UserPreferencesService(defaults: userDefaults);
-            let currencyService: CurrencyService = CurrencyServiceMock();
+            let queryCurrencyService: QueryPFCurrencyServiceProtocol = QueryPFCurrencyServiceMock();
             var persistenceService: PersistenceService!;
             
             beforeEach {
                 userPreferencesService.expression = self.initialExpressionValue;
                 userPreferencesService.isArrowPointingLeft = self.initialIsArrowPointingLeftValue
-                userPreferencesService.baseCurrencyCode = self.initialBaseCurrencyCode
-                userPreferencesService.otherCurrencyCode = self.initialOtherCurrencyCode
-                persistenceService = PersistenceService.init(userPreferencesService: userPreferencesService, currencyService: currencyService);
+                userPreferencesService.leftCurrencyCode = self.initialLeftCurrencyCode
+                userPreferencesService.rightCurrencyCode = self.initialRightCurrencyCode
+                persistenceService = PersistenceService.init(userPreferencesService: userPreferencesService, queryCurrencyService: queryCurrencyService);
             }
             
             afterEach({
@@ -42,8 +42,8 @@ class PersistenceServiceTests: QuickSpec {
             it("initial values are correct") {
                 expect(persistenceService.expression.value) == self.initialExpressionValue;
                 expect(persistenceService.isArrowPointingLeft.value) == self.initialIsArrowPointingLeftValue;
-                expect(persistenceService.baseCurrency.value.codeProperty.value) == self.initialBaseCurrencyCode;
-                expect(persistenceService.otherCurrency.value.codeProperty.value) == self.initialOtherCurrencyCode;
+                expect(persistenceService.leftCurrency.value.codeProperty.value) == self.initialLeftCurrencyCode;
+                expect(persistenceService.rightCurrency.value.codeProperty.value) == self.initialRightCurrencyCode;
             }
             
             it("setting expression value modifies user defaults") {
@@ -64,20 +64,20 @@ class PersistenceServiceTests: QuickSpec {
                 expect(userPreferencesService.isArrowPointingLeft) == isArrowPointingLeftValue;
             }
             
-            it("setting baseCurrency value modifies user defaults") {
-                let baseCurrency = buildCurrency("baseCurrencyCode")
+            it("setting leftCurrency value modifies user defaults") {
+                let leftCurrency = buildCurrency("leftCurrencyCode")
                 
-                persistenceService.baseCurrency.swap(baseCurrency);
+                persistenceService.leftCurrency.swap(leftCurrency);
                 
-                expect(userPreferencesService.baseCurrencyCode) == baseCurrency.codeProperty.value;
+                expect(userPreferencesService.leftCurrencyCode) == leftCurrency.codeProperty.value;
             }
             
-            it("setting otherCurrency value modifies user defaults") {
-                let otherCurrency = buildCurrency("otherCurrencyCode")
+            it("setting rightCurrency value modifies user defaults") {
+                let rightCurrency = buildCurrency("rightCurrencyCode")
                 
-                persistenceService.otherCurrency.swap(otherCurrency);
+                persistenceService.rightCurrency.swap(rightCurrency);
                 
-                expect(userPreferencesService.otherCurrencyCode) == otherCurrency.codeProperty.value;
+                expect(userPreferencesService.rightCurrencyCode) == rightCurrency.codeProperty.value;
             }
         }
         

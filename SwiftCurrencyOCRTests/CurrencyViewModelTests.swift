@@ -32,9 +32,22 @@ class CurrencyViewModelTest: QuickSpec {
                 expect(viewModel.flagIconImage.value).toEventually(beTruthy());
             }
             
-            it("test currency view model with invalid image") {
+            it("test currency view model with code with no image") {
                 let testName = "testName";
                 let testCode = "__CodeWithNoImage__";
+                let testCurrency = Currency.currencyWithCode(testCode);
+                testCurrency.nameProperty.swap(testName);
+                
+                let viewModel = CurrencyViewModel.init(currency: testCurrency);
+                
+                expect(viewModel.currencyCode.value).toEventually(equal(testCode));
+                expect(viewModel.currencyName.value).toEventually(equal(testName));
+                expect(viewModel.flagIconImage.value).toEventually(beNil());
+            }
+            
+            it("test currency view model with too short of a code") {
+                let testName = "testName";
+                let testCode = "";
                 let testCurrency = Currency.currencyWithCode(testCode);
                 testCurrency.nameProperty.swap(testName);
                 

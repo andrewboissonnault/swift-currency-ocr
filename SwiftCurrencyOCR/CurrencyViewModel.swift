@@ -48,13 +48,27 @@ public class CurrencyViewModel : CurrencyViewModelProtocol {
     
     private static func flagIconWithCode(code : String) -> UIImage? {
         let flagIconName = CurrencyViewModel.flagIconNameWithCurrencyCode(code);
-        return UIImage.init(named: flagIconName);
+        if(flagIconName != nil)
+        {
+            return UIImage.init(named: flagIconName!);
+        }
+        else
+        {
+            return nil;
+        }
     }
     
-    private static func flagIconNameWithCurrencyCode(code : String) -> String {
-        let index = code.startIndex.advancedBy(2);
-        let twoLetterCountryCode = code.substringToIndex(index);
-        return twoLetterCountryCode.stringByAppendingString(".png");
+    private static func flagIconNameWithCurrencyCode(code : String) -> String? {
+        if(code.characters.count >= 2)
+        {
+            let index = code.startIndex.advancedBy(2);
+            let twoLetterCountryCode = code.substringToIndex(index);
+            return twoLetterCountryCode.stringByAppendingString(".png");
+        }
+        else
+        {
+            return nil;
+        }
     }
     
 }

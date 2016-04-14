@@ -12,12 +12,57 @@ import Parse
 import enum Result.NoError
 
 protocol CurrencyServiceProtocol {
-    static func defaultBaseCurrency() -> CurrencyProtocol
-    static func defaultOtherCurrency() -> CurrencyProtocol
-    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError>
+    var baseCurrency: MutableProperty<CurrencyProtocol> { get }
+    var otherCurrency: MutableProperty<CurrencyProtocol> { get }
 }
 
-public class CurrencyService: NSObject, CurrencyServiceProtocol {
+public class CurrencyService: CurrencyServiceProtocol {
+    public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
+    public private(set) var otherCurrency: MutableProperty<CurrencyProtocol>
+    
+    private var persistenceService : PersistenceService;
+    
+    convenience init() {
+        self.init(persistenceService : PersistenceService());
+    }
+    
+    init(persistenceService : PersistenceService) {
+        self.persistenceService = persistenceService;
+        
+        self.baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+        self.otherCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+        
+        self.setupBindings();
+    }
+    
+    private func setupBindings() {
+        self.baseCurrency <~ self.baseCurrencySignal();
+        self.otherCurrency <~ self.otherCurrencySignal();
+    }
+    
+    private func baseCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
+        let signal = self.combinedCurrencySignal().map(self.reduceLeftCurrencies);
+        return signal;
+    }
+    
+    private func otherCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
+        let signal = self.combinedCurrencySignal().map(self.reduceRightCurrencies);
+        return signal;
+    }
+    
+    private func combinedCurrencySignal() -> Signal<(CurrencyProtocol, CurrencyProtocol, Bool), Result.NoError> {
+        let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, self.persistenceService.isArrowPointingLeft.signal);
+        return signal;
+    }
+    
+    private func reduceLeftCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
+        return reduceLeft(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
+    }
+    
+    private func reduceRightCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
+        return reduceRight(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
+    }
+
     
     public static func defaultBaseCurrency() -> CurrencyProtocol {
         let currency = Currency()
@@ -31,26 +76,5 @@ public class CurrencyService: NSObject, CurrencyServiceProtocol {
         currency.nameProperty.swap("Euro Member Countries");
         currency.codeProperty.swap("EUR");
         return currency;
-    }
-    
-    public func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
-        return SignalProducer {
-            sink, disposable in
-            if(code != nil)
-            {
-                let query = PFCurrency.query();
-                query?.fromLocalDatastore();
-                query?.whereKey(kCodeKey, equalTo:code!);
-                query?.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error : NSError?) -> Void in
-                    if error != nil {
-                        //sink.sendFailed(error!);
-                        // sink.sendNext(nil);
-                    }
-                    else if let currency = object as? PFCurrency {
-                        sink.sendNext(currency);
-                    }
-                })
-            }
-        }
     }
 }

@@ -20,20 +20,20 @@ class UserPreferencesServiceSpec: QuickSpec {
                 userPreferencesService = UserPreferencesService.init();
             }
             
-            it("setting base currency code lets you retrieve it later") {
-                let baseCurrencyCode = "BCC";
+            it("setting left currency code lets you retrieve it later") {
+                let leftCurrencyCode = "BCC";
                 
-                userPreferencesService.baseCurrencyCode = baseCurrencyCode;
+                userPreferencesService.leftCurrencyCode = leftCurrencyCode;
                 
-                expect(userPreferencesService.baseCurrencyCode).to(equal(baseCurrencyCode));
+                expect(userPreferencesService.leftCurrencyCode).to(equal(leftCurrencyCode));
             }
             
-            it("setting other currency code lets you retrieve it later") {
-                let otherCurrencyCode = "OCC";
+            it("setting right currency code lets you retrieve it later") {
+                let rightCurrencyCode = "OCC";
                 
-                userPreferencesService.otherCurrencyCode = otherCurrencyCode;
+                userPreferencesService.rightCurrencyCode = rightCurrencyCode;
                 
-                expect(userPreferencesService.otherCurrencyCode).to(equal(otherCurrencyCode));
+                expect(userPreferencesService.rightCurrencyCode).to(equal(rightCurrencyCode));
             }
             
             it("setting expression lets you retrieve it later") {

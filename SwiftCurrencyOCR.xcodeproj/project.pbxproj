@@ -312,6 +312,12 @@
 		7FF538831CBF477600F1CDC6 /* RacExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538821CBF477600F1CDC6 /* RacExtensions.swift */; };
 		7FF538841CBF477600F1CDC6 /* RacExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538821CBF477600F1CDC6 /* RacExtensions.swift */; };
 		7FF538891CBF623500F1CDC6 /* CurrencyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538871CBF623500F1CDC6 /* CurrencyViewModelTests.swift */; };
+		7FF5388C1CBF64C100F1CDC6 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */; };
+		7FF5388D1CBF6ABC00F1CDC6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5387D1CBEE12300F1CDC6 /* HomeViewModel.swift */; };
+		7FF5388F1CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5388E1CBF74D800F1CDC6 /* ReduceFunctions.swift */; };
+		7FF538901CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5388E1CBF74D800F1CDC6 /* ReduceFunctions.swift */; };
+		7FF538921CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */; };
+		7FF538931CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */; };
 		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
 		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
@@ -632,6 +638,9 @@
 		7FF5387F1CBF41E500F1CDC6 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 		7FF538821CBF477600F1CDC6 /* RacExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RacExtensions.swift; sourceTree = "<group>"; };
 		7FF538871CBF623500F1CDC6 /* CurrencyViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewModelTests.swift; sourceTree = "<group>"; };
+		7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		7FF5388E1CBF74D800F1CDC6 /* ReduceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceFunctions.swift; sourceTree = "<group>"; };
+		7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPFCurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1040,6 +1049,7 @@
 			children = (
 				7FF5387D1CBEE12300F1CDC6 /* HomeViewModel.swift */,
 				7FF5387F1CBF41E500F1CDC6 /* CurrencyViewModel.swift */,
+				7FF5388E1CBF74D800F1CDC6 /* ReduceFunctions.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -1061,6 +1071,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF538871CBF623500F1CDC6 /* CurrencyViewModelTests.swift */,
+				7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -1068,6 +1079,7 @@
 		7FFDAC7A1C9E07C90086BE43 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */,
 				7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */,
 				7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */,
 				7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */,
@@ -1567,12 +1579,14 @@
 				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
 				7FF538801CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
+				7FF538921CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */,
 				7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */,
 				7FF538831CBF477600F1CDC6 /* RacExtensions.swift in Sources */,
 				7FBD3A491C9B16D7005FAB37 /* HomeViewController.swift in Sources */,
 				7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */,
 				7FF5387E1CBEE12300F1CDC6 /* HomeViewModel.swift in Sources */,
 				7FBD3C721C9B4C07005FAB37 /* ObjectiveCBridging.swift in Sources */,
+				7FF5388F1CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1581,11 +1595,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */,
+				7FF538931CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */,
 				7FF538811CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
 				7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */,
 				7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */,
 				7F6E78B01CADF9BD0019576D /* Mocks.swift in Sources */,
 				7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */,
+				7FF5388C1CBF64C100F1CDC6 /* HomeViewModelTests.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
 				7FFDAC7F1C9E1A9B0086BE43 /* CurrencyService.swift in Sources */,
 				7FF538781CBED61100F1CDC6 /* ConversionService.swift in Sources */,
@@ -1598,8 +1614,10 @@
 				7F6E78AC1CADF2220019576D /* CurrencyRatesServiceTests.swift in Sources */,
 				7F6E78AD1CADF8080019576D /* CurrencyRates.swift in Sources */,
 				7FF538841CBF477600F1CDC6 /* RacExtensions.swift in Sources */,
+				7FF5388D1CBF6ABC00F1CDC6 /* HomeViewModel.swift in Sources */,
 				7F99E44C1CA0796300D5817B /* PersistenceService.swift in Sources */,
 				7F99E4511CA217EE00D5817B /* MathParserServiceTests.swift in Sources */,
+				7FF538901CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */,
 				7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */,
 				7F6E78AE1CADF80A0019576D /* CurrencyRatesService.swift in Sources */,
 			);

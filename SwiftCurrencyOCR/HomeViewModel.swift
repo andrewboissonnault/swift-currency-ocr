@@ -29,8 +29,8 @@ public protocol HomeViewModelProtocol {
 }
 
 protocol HomeViewModelInputProtocol {
-    var toggleArrowSignal: Signal<Bool, Result.NoError> { get }
-    var expressionSignal: Signal<String, Result.NoError> { get }
+    var toggleArrow: MutableProperty<Bool> { get }
+    var expression: MutableProperty<String> { get }
 }
 
 public protocol CurrencySelectorViewModelProtocol {
@@ -46,12 +46,13 @@ public class HomeViewModel {
     private var persistenceService : PersistenceServiceProtocol;
     private var conversionService : ConversionServiceProtocol;
     private var mathParserService : MathParserServiceProtocol;
+    private var currencyService : CurrencyServiceProtocol;
     
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>;
     public private(set) var leftCurrencyText: MutableProperty<String>;
     public private(set) var rightCurrencyText: MutableProperty<String>;
- //   public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
-//    public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
+    public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
+    public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var baseCurrency : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var otherCurrency : MutableProperty<CurrencyViewModelProtocol>;
     public private(set) var baseAmount : MutableProperty<Double>;
@@ -63,14 +64,15 @@ public class HomeViewModel {
     let currencyFormatter : NSNumberFormatter;
     
     convenience init(input : HomeViewModelInputProtocol) {
-        self.init(input: input, persistenceService : PersistenceService(), conversionService : ConversionService(), mathParserService : MathParserService())
+        self.init(input: input, persistenceService : PersistenceService(), conversionService : ConversionService(), mathParserService : MathParserService(), currencyService : CurrencyService())
     }
     
-    init(input : HomeViewModelInputProtocol, persistenceService : PersistenceServiceProtocol, conversionService : ConversionServiceProtocol, mathParserService : MathParserServiceProtocol) {
+    init(input : HomeViewModelInputProtocol, persistenceService : PersistenceServiceProtocol, conversionService : ConversionServiceProtocol, mathParserService : MathParserServiceProtocol, currencyService : CurrencyServiceProtocol) {
         self.input = input;
         self.persistenceService = persistenceService;
         self.conversionService = conversionService;
         self.mathParserService = mathParserService;
+        self.currencyService = currencyService;
         
         self.decimalFormatter = NSNumberFormatter();
         self.decimalFormatter.numberStyle = .DecimalStyle;
@@ -79,36 +81,48 @@ public class HomeViewModel {
         self.currencyFormatter = NSNumberFormatter();
         self.currencyFormatter.numberStyle = .CurrencyStyle;
 
-        self.isArrowPointingLeft = MutableProperty<Bool>.init(true);
+        self.isArrowPointingLeft = self.persistenceService.isArrowPointingLeft;
         self.leftCurrencyText = MutableProperty<String>.init("");
         self.rightCurrencyText = MutableProperty<String>.init("");
         self.baseAmount = MutableProperty<Double>.init(0);
-   //     self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init();
-   //     self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init();
+        self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
+        self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
         
         self.setupBindings();
     }
     
     private func setupBindings()
     {
-        self.isArrowPointingLeft <~ self.persistenceService.isArrowPointingLeft.signal;
         self.leftCurrencyText <~ self.leftCurrencyTextSignal();
         self.rightCurrencyText <~ self.rightCurrencyTextSignal();
         self.baseAmount <~ self.mathParserService.baseAmount;
+        self.leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
+        self.rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
     }
     
-//    private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModel, Result.NoError> {
-//        let signal = self.leftCurrencySignal().map { (currency : Currency) -> CurrencyViewModel in
-//            return CurrencyViewModel.init(currency: currency);
-//        }
-//    }
-//    
-//    private func rightCurrencyViewModelSignal() -> Signal<CurrencyViewModel, Result.NoError> {
-//        let signal = self.rightCurrencySignal().map { (currency : Currency) -> CurrencyViewModel in
-//            return CurrencyViewModel.init(currency: currency);
-//        }
-//    }
-
+    private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModelProtocol, Result.NoError> {
+        let signal = self.leftCurrencySignal().map(HomeViewModel.buildCurrencyViewModel);
+        return signal;
+    }
+    
+    private func rightCurrencyViewModelSignal() -> Signal<CurrencyViewModelProtocol, Result.NoError> {
+        let signal = self.rightCurrencySignal().map(HomeViewModel.buildCurrencyViewModel);
+        return signal;
+    }
+    
+    private static func buildCurrencyViewModel(currency : CurrencyProtocol) -> CurrencyViewModelProtocol {
+        return CurrencyViewModel.init(currency: currency);
+    }
+    
+    private func leftCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
+        let signal = self.persistenceService.leftCurrency.signal;
+        return signal;
+    }
+    
+    private func rightCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
+        let signal = self.persistenceService.rightCurrency.signal;
+        return signal;
+    }
     
     private func leftCurrencyTextSignal() -> Signal<String, Result.NoError> {
         let signal = self.combinedTextSignal().map(self.reduceLeftStrings);
@@ -120,34 +134,21 @@ public class HomeViewModel {
         return signal;
     }
     
-    private func reduceLeftStrings(leftString : String, rightString : String, isArrowPointingLeft : Bool) -> String {
-        return self.reduceLeftClosure(leftString as AnyObject, rightObject: rightString as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
+    private func reduceLeftStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
+        return reduceLeft(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
     }
     
-    private func reduceRightStrings(leftString : String, rightString : String, isArrowPointingLeft : Bool) -> String {
-        return self.reduceRightClosure(leftString as AnyObject, rightObject: rightString as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
+    private func reduceRightStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
+        return reduceRight(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
     }
     
-    private func reduceLeftClosure(leftObject : AnyObject, rightObject : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
-        if(isArrowPointingLeft) {
-            return leftObject;
-        }
-        else
-        {
-            return rightObject;
-        }
+    private func reduceLeftCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
+        return reduceLeft(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
     }
     
-    private func reduceRightClosure(leftObject : AnyObject, rightObject : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
-        if(isArrowPointingLeft) {
-            return rightObject;
-        }
-        else
-        {
-            return leftObject;
-        }
+    private func reduceRightCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
+        return reduceRight(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
     }
-    
     
     private func combinedTextSignal() -> Signal<(String, String, Bool), Result.NoError> {
         let signal = combineLatest(self.baseTextSignal(), self.otherTextSignal(), self.persistenceService.isArrowPointingLeft.signal);
