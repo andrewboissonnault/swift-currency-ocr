@@ -21,17 +21,15 @@ public class CurrencyService: NSObject, CurrencyServiceProtocol {
     
     public static func defaultBaseCurrency() -> CurrencyProtocol {
         let currency = Currency()
-        currency.name = "United States Dollar"
-        currency.code = "USD";
-        currency.flagImage = UIImage.init(named: "us")!;
+        currency.nameProperty.swap("United States Dollar");
+        currency.codeProperty.swap("USD");
         return currency;
     }
     
     public static func defaultOtherCurrency() -> CurrencyProtocol {
         let currency = Currency()
-        currency.name = "Euro Member Countries"
-        currency.code = "EUR";
-        currency.flagImage = UIImage.init(named: "eu")!;
+        currency.nameProperty.swap("Euro Member Countries");
+        currency.codeProperty.swap("EUR");
         return currency;
     }
     

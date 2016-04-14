@@ -24,9 +24,9 @@ class CurrencyServiceMock : CurrencyService {
 }
 
 func buildCurrency(code: String) -> CurrencyProtocol {
-    var baseCurrency: CurrencyProtocol = Currency();
-    baseCurrency.code = code;
-    baseCurrency.name = code + "name";
+    let baseCurrency: CurrencyProtocol = Currency();
+    baseCurrency.codeProperty.swap(code);
+    baseCurrency.nameProperty.swap( code + "name" );
     return baseCurrency;
 }
 

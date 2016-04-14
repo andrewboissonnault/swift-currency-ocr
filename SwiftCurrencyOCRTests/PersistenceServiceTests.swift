@@ -42,8 +42,8 @@ class PersistenceServiceTests: QuickSpec {
             it("initial values are correct") {
                 expect(persistenceService.expression.value) == self.initialExpressionValue;
                 expect(persistenceService.isArrowPointingLeft.value) == self.initialIsArrowPointingLeftValue;
-                expect(persistenceService.baseCurrency.value.code) == self.initialBaseCurrencyCode;
-                expect(persistenceService.otherCurrency.value.code) == self.initialOtherCurrencyCode;
+                expect(persistenceService.baseCurrency.value.codeProperty.value) == self.initialBaseCurrencyCode;
+                expect(persistenceService.otherCurrency.value.codeProperty.value) == self.initialOtherCurrencyCode;
             }
             
             it("setting expression value modifies user defaults") {
@@ -69,7 +69,7 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.baseCurrency.swap(baseCurrency);
                 
-                expect(userPreferencesService.baseCurrencyCode) == baseCurrency.code;
+                expect(userPreferencesService.baseCurrencyCode) == baseCurrency.codeProperty.value;
             }
             
             it("setting otherCurrency value modifies user defaults") {
@@ -77,7 +77,7 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.otherCurrency.swap(otherCurrency);
                 
-                expect(userPreferencesService.otherCurrencyCode) == otherCurrency.code;
+                expect(userPreferencesService.otherCurrencyCode) == otherCurrency.codeProperty.value;
             }
         }
         

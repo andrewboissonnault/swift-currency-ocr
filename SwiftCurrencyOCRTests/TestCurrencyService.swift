@@ -15,15 +15,13 @@ class CurrencyServiceSpec: QuickSpec {
         it("default base currency is USD") {
             let defaultCurrency = CurrencyService.defaultBaseCurrency();
             
-            expect(defaultCurrency.code).to(equal("USD"))
-            expect(defaultCurrency.flagImage).to(beTruthy())
+            expect(defaultCurrency.codeProperty.value).to(equal("USD"))
         }
         
         it("default other currency is EUR") {
             let defaultCurrency = CurrencyService.defaultOtherCurrency();
             
-            expect(defaultCurrency.code).to(equal("EUR"))
-            expect(defaultCurrency.flagImage).to(beTruthy())
+            expect(defaultCurrency.codeProperty.value).to(equal("EUR"))
         }
     }
 }

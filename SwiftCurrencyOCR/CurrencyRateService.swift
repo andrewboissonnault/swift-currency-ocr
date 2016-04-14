@@ -47,15 +47,15 @@ public class CurrencyRateService: CurrencyRateServiceProtocol {
     }
     
     private static func calculateRate(baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> Double {
-        if(rates.referenceCurrencyCode == baseCurrency.code) {
-            return rates.rate(otherCurrency.code!);
+        if(rates.referenceCurrencyCode == baseCurrency.codeProperty.value) {
+            return rates.rate(otherCurrency.codeProperty.value);
         }
-        else if(rates.referenceCurrencyCode == otherCurrency.code) {
-            return 1 / rates.rate(baseCurrency.code!);
+        else if(rates.referenceCurrencyCode == otherCurrency.codeProperty.value) {
+            return 1 / rates.rate(baseCurrency.codeProperty.value);
         }
         else {
-            let referenceAmount = rates.rate(otherCurrency.code!);
-            return referenceAmount * ( 1 / rates.rate(baseCurrency.code!));
+            let referenceAmount = rates.rate(otherCurrency.codeProperty.value);
+            return referenceAmount * ( 1 / rates.rate(baseCurrency.codeProperty.value));
         }
     }
     

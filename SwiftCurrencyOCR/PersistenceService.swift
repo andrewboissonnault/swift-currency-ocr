@@ -53,10 +53,10 @@ public class PersistenceService: PersistenceServiceProtocol {
             self.userPreferencesService.isArrowPointingLeft = value;
         }
         self.baseCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.baseCurrencyCode = next.code;
+            self.userPreferencesService.baseCurrencyCode = next.codeProperty.value;
         }
         self.otherCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.otherCurrencyCode = next.code;
+            self.userPreferencesService.otherCurrencyCode = next.codeProperty.value;
         }
     }
 }

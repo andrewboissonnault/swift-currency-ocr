@@ -33,10 +33,6 @@ protocol HomeViewModelInputProtocol {
     var expressionSignal: Signal<String, Result.NoError> { get }
 }
 
-public protocol CurrencyViewModelProtocol {
-    
-}
-
 public protocol CurrencySelectorViewModelProtocol {
     
 }
@@ -54,7 +50,7 @@ public class HomeViewModel {
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>;
     public private(set) var leftCurrencyText: MutableProperty<String>;
     public private(set) var rightCurrencyText: MutableProperty<String>;
-//    public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
+ //   public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var baseCurrency : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var otherCurrency : MutableProperty<CurrencyViewModelProtocol>;
@@ -87,6 +83,8 @@ public class HomeViewModel {
         self.leftCurrencyText = MutableProperty<String>.init("");
         self.rightCurrencyText = MutableProperty<String>.init("");
         self.baseAmount = MutableProperty<Double>.init(0);
+   //     self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init();
+   //     self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init();
         
         self.setupBindings();
     }
@@ -99,31 +97,57 @@ public class HomeViewModel {
         self.baseAmount <~ self.mathParserService.baseAmount;
     }
     
+//    private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModel, Result.NoError> {
+//        let signal = self.leftCurrencySignal().map { (currency : Currency) -> CurrencyViewModel in
+//            return CurrencyViewModel.init(currency: currency);
+//        }
+//    }
+//    
+//    private func rightCurrencyViewModelSignal() -> Signal<CurrencyViewModel, Result.NoError> {
+//        let signal = self.rightCurrencySignal().map { (currency : Currency) -> CurrencyViewModel in
+//            return CurrencyViewModel.init(currency: currency);
+//        }
+//    }
+
+    
     private func leftCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map { (baseText : String, otherText : String, isArrowPointingLeft : Bool) -> String in
-            if(isArrowPointingLeft) {
-                return otherText;
-            }
-            else
-            {
-                return baseText;
-            }
-        }
+        let signal = self.combinedTextSignal().map(self.reduceLeftStrings);
         return signal;
     }
     
     private func rightCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map { (baseText : String, otherText : String, isArrowPointingLeft : Bool) -> String in
-            if(isArrowPointingLeft) {
-                return baseText;
-            }
-            else
-            {
-                return otherText;
-            }
-        }
+        let signal = self.combinedTextSignal().map(self.reduceRightStrings);
         return signal;
     }
+    
+    private func reduceLeftStrings(leftString : String, rightString : String, isArrowPointingLeft : Bool) -> String {
+        return self.reduceLeftClosure(leftString as AnyObject, rightObject: rightString as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
+    }
+    
+    private func reduceRightStrings(leftString : String, rightString : String, isArrowPointingLeft : Bool) -> String {
+        return self.reduceRightClosure(leftString as AnyObject, rightObject: rightString as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
+    }
+    
+    private func reduceLeftClosure(leftObject : AnyObject, rightObject : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
+        if(isArrowPointingLeft) {
+            return leftObject;
+        }
+        else
+        {
+            return rightObject;
+        }
+    }
+    
+    private func reduceRightClosure(leftObject : AnyObject, rightObject : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
+        if(isArrowPointingLeft) {
+            return rightObject;
+        }
+        else
+        {
+            return leftObject;
+        }
+    }
+    
     
     private func combinedTextSignal() -> Signal<(String, String, Bool), Result.NoError> {
         let signal = combineLatest(self.baseTextSignal(), self.otherTextSignal(), self.persistenceService.isArrowPointingLeft.signal);
