@@ -47,3 +47,7 @@ class PersistenceServiceMock : PersistenceService {
         super.init(userPreferencesService: UserPreferencesService(), currencyService: CurrencyServiceMock());
     }
 }
+
+class MathParserServiceMock : MathParserServiceProtocol {
+    var baseAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
+}

@@ -18,27 +18,26 @@ class ConversionServiceTests: QuickSpec {
         
         describe("Currency Rates Service") {
             
-            let persistenceService = PersistenceServiceMock();
             let rateService = CurrencyRateServiceMock();
-            let mathParserService = MathParserService();
-            let conversionService = ConversionService(persistenceService: persistenceService, rateService: rateService, mathParserService: mathParserService);
+            let mathParserService = MathParserServiceMock();
+            let conversionService = ConversionService(rateService: rateService, mathParserService: mathParserService);
             
             it("test conversion service") {
-                let baseExpression = "50";
+                let baseExpression = 50.0;
                 let rate = 1.5;
                 let expectedOtherAmount = 75.0;
                 
-                persistenceService.expression.swap(baseExpression);
+                mathParserService.baseAmount.swap(baseExpression);
                 rateService.rate.swap(rate);
                 
                 expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));
             }
             
-            it("test conversion service with nil expression") {
+            it("test conversion service with base amount equal to zero") {
                 let rate = 1.5;
                 let expectedOtherAmount = 0.0;
                 
-                persistenceService.expression.swap(nil);
+                mathParserService.baseAmount.swap(0.0);
                 rateService.rate.swap(rate);
                 
                 expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));

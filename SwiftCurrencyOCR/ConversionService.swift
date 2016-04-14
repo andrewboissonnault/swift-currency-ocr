@@ -15,18 +15,16 @@ protocol ConversionServiceProtocol {
 }
 
 public class ConversionService: ConversionServiceProtocol {
-    private var persistenceService: PersistenceServiceProtocol
     private var rateService: CurrencyRateServiceProtocol
     private var mathParserService : MathParserServiceProtocol
     
     public private(set) var otherAmount: MutableProperty<Double>
     
     convenience init() {
-        self.init(persistenceService: PersistenceService(), rateService: CurrencyRateService(), mathParserService : MathParserService());
+        self.init(rateService: CurrencyRateService(), mathParserService : MathParserService());
     }
     
-    init(persistenceService : PersistenceServiceProtocol, rateService : CurrencyRateServiceProtocol, mathParserService : MathParserServiceProtocol) {
-        self.persistenceService = persistenceService;
+    init(rateService : CurrencyRateServiceProtocol, mathParserService : MathParserServiceProtocol) {
         self.rateService = rateService;
         self.mathParserService = mathParserService;
         
@@ -41,17 +39,11 @@ public class ConversionService: ConversionServiceProtocol {
     }
     
     private func otherAmountSignal() -> Signal<Double, Result.NoError> {
-        let combinedSignal = combineLatest(self.rateService.rate.signal, self.baseAmountSignal());
+        let combinedSignal = combineLatest(self.rateService.rate.signal, self.mathParserService.baseAmount.signal);
         let signal = combinedSignal.map { (rate : Double, amount : Double) -> (Double) in
             return ConversionService.calculateAmount(rate, amount: amount);
         }
         return signal;
-    }
-    
-    private func baseAmountSignal() -> Signal<Double, Result.NoError> {
-        return self.persistenceService.expression.signal.map { (expression : String?) -> (Double) in
-            return self.mathParserService.resultWithExpression(expression);
-        }
     }
     
     private static func calculateAmount(rate : Double, amount : Double) -> Double {

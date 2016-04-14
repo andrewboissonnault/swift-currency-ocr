@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import ReactiveCocoa
+import enum Result.NoError
 
 protocol MathParserServiceProtocol {
-    func resultWithExpression(expression : String?) -> Double
+    var baseAmount: MutableProperty<Double> { get }
 }
 
 public class MathParserService : MathParserServiceProtocol {
@@ -18,9 +20,34 @@ public class MathParserService : MathParserServiceProtocol {
     private let kMultiplicationOperator = "×";
     private let kDivisionOperator = "÷";
     
-    init() { }
+    private var persistenceService: PersistenceServiceProtocol
     
-    public func resultWithExpression(expression : String?) -> Double {
+    public private(set) var baseAmount: MutableProperty<Double>
+    
+    convenience init() {
+        self.init(persistenceService: PersistenceService());
+    }
+    
+    init(persistenceService : PersistenceServiceProtocol) {
+        self.persistenceService = persistenceService;
+        
+        self.baseAmount = MutableProperty<Double>.init(1.0);
+        
+        self.setupBindings();
+    }
+    
+    private func setupBindings()
+    {
+        self.baseAmount <~ self.baseAmountSignal();
+    }
+    
+    private func baseAmountSignal() -> Signal<Double, Result.NoError> {
+        return self.persistenceService.expression.signal.map { (expression : String?) -> (Double) in
+            return self.resultWithExpression(expression);
+        }
+    }
+    
+    private func resultWithExpression(expression : String?) -> Double {
         if(expression == nil) {
             return 0;
         }
