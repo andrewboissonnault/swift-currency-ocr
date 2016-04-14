@@ -24,9 +24,6 @@ public protocol HomeViewModelProtocol {
     var currencyOverviewViewModel : MutableProperty<CurrencyOverviewViewModelProtocol> { get }
     
     func toggleArrow();
-}
-
-protocol HomeViewModelInputProtocol {
     var expression: MutableProperty<String> { get }
 }
 
@@ -39,7 +36,6 @@ public protocol CurrencyOverviewViewModelProtocol {
 }
 
 public class HomeViewModel {
-    private var input : HomeViewModelInputProtocol;
     private var persistenceService : PersistenceServiceProtocol;
     private var textService : TextServiceProtocol;
     private var currencyService : CurrencyServiceProtocol;
@@ -56,12 +52,13 @@ public class HomeViewModel {
 //    public private(set) var rightCurrencySelectorViewModel : MutableProperty<CurrencySelectorViewModelProtocol>;
 //    public private(set) var currencyOverviewViewModel : MutableProperty<CurrencyOverviewViewModelProtocol>;
     
-    convenience init(input : HomeViewModelInputProtocol) {
-        self.init(input: input, persistenceService : PersistenceService(), currencyService : CurrencyService(), textService : TextService())
+    public private(set) var expression: MutableProperty<String>;
+    
+    convenience init() {
+        self.init(persistenceService : PersistenceService(), currencyService : CurrencyService(), textService : TextService())
     }
     
-    init(input : HomeViewModelInputProtocol, persistenceService : PersistenceServiceProtocol, currencyService : CurrencyServiceProtocol, textService : TextServiceProtocol) {
-        self.input = input;
+    init(persistenceService : PersistenceServiceProtocol, currencyService : CurrencyServiceProtocol, textService : TextServiceProtocol) {
         self.persistenceService = persistenceService;
         self.textService = textService;
         self.currencyService = currencyService;
@@ -71,6 +68,7 @@ public class HomeViewModel {
         self.rightCurrencyText = self.textService.rightCurrencyText;
         self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
         self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
+        self.expression = MutableProperty<String>.init("");
         
         self.setupBindings();
     }
@@ -79,7 +77,7 @@ public class HomeViewModel {
     {
         self.leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
         self.rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
-        self.persistenceService.expression <~ self.input.expression;
+        self.persistenceService.expression <~ self.expression;
     }
     
     private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModelProtocol, Result.NoError> {

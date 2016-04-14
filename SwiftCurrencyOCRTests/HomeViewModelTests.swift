@@ -20,18 +20,16 @@ class HomeViewModelTests: QuickSpec {
             
             var textService = TextServiceMock();
             var persistenceService = PersistenceServiceMock();
-            var input = HomeViewModelInputMock();
             var currencyService = CurrencyServiceMock();
             
-            var homeViewModel = HomeViewModel(input: input, persistenceService: persistenceService, currencyService: currencyService, textService: textService);
+            var homeViewModel = HomeViewModel(persistenceService: persistenceService, currencyService: currencyService, textService: textService);
             
             beforeEach() {
                 persistenceService = PersistenceServiceMock();
-                input = HomeViewModelInputMock();
                 currencyService = CurrencyServiceMock();
                 textService = TextServiceMock();
                 
-                homeViewModel = HomeViewModel(input: input, persistenceService: persistenceService, currencyService: currencyService, textService: textService);
+                homeViewModel = HomeViewModel(persistenceService: persistenceService, currencyService: currencyService, textService: textService);
             }
             
             it("test isArrowPointingLeft is true") {
@@ -94,7 +92,7 @@ class HomeViewModelTests: QuickSpec {
                 
                 persistenceService.expression.swap("expression");
                 
-                input.expression.swap(newExpression);
+                homeViewModel.expression.swap(newExpression);
                 
                 expect(persistenceService.expression.value).toEventually(equal(newExpression));
             }

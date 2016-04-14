@@ -321,6 +321,8 @@
 		7FF538951CBF7AB700F1CDC6 /* TextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538941CBF7AB700F1CDC6 /* TextService.swift */; };
 		7FF538961CBF7AB700F1CDC6 /* TextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538941CBF7AB700F1CDC6 /* TextService.swift */; };
 		7FF538981CBF7E6700F1CDC6 /* TextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538971CBF7E6700F1CDC6 /* TextServiceTests.swift */; };
+		7FF5389E1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */; };
+		7FF5389F1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */; };
 		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
 		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
@@ -646,6 +648,7 @@
 		7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPFCurrencyService.swift; sourceTree = "<group>"; };
 		7FF538941CBF7AB700F1CDC6 /* TextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextService.swift; sourceTree = "<group>"; };
 		7FF538971CBF7E6700F1CDC6 /* TextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextServiceTests.swift; sourceTree = "<group>"; };
+		7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyView.swift; sourceTree = "<group>"; };
 		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -704,6 +707,7 @@
 		7FA5D8201C9B124900F262C5 /* SwiftCurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
+				7FF5389C1CBFC4C700F1CDC6 /* Views */,
 				7FF5387C1CBEE10700F1CDC6 /* ViewModels */,
 				7FF5387B1CBEE0E100F1CDC6 /* Main */,
 				7FF5387A1CBEE0C700F1CDC6 /* Misc */,
@@ -1080,6 +1084,14 @@
 				7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */,
 			);
 			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		7FF5389C1CBFC4C700F1CDC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		7FFDAC7A1C9E07C90086BE43 /* Services */ = {
@@ -1579,6 +1591,7 @@
 				7FF538751CBD88F900F1CDC6 /* ConversionService.swift in Sources */,
 				7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */,
 				7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */,
+				7FF5389E1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */,
 				7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */,
 				7F99E4451C9F655C00D5817B /* UserPreferencesService.swift in Sources */,
 				7F99E4491C9FE92800D5817B /* PersistenceService.swift in Sources */,
@@ -1617,6 +1630,7 @@
 				7FBEA1C71C9DD1BA00949027 /* AppDelegate.swift in Sources */,
 				7F99E44D1CA081F200D5817B /* UserPreferencesService.swift in Sources */,
 				7FF538891CBF623500F1CDC6 /* CurrencyViewModelTests.swift in Sources */,
+				7FF5389F1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */,
 				7FBEA1C61C9DD03900949027 /* ParseManager.swift in Sources */,
 				7F99E4471C9F691100D5817B /* UserPreferencesServiceTest.swift in Sources */,
 				7FF538771CBED3EC00F1CDC6 /* ConversionServiceTests.swift in Sources */,

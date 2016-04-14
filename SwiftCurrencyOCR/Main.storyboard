@@ -94,7 +94,7 @@
                                             <outlet property="delegate" destination="LXp-Gf-TCI" id="mzP-br-5gR"/>
                                         </connections>
                                     </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKn-pL-w9u">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKn-pL-w9u" customClass="CurrencyView" customModule="SwiftCurrencyOCR" customModuleProvider="target">
                                         <rect key="frame" x="361.5" y="32" width="230.5" height="153.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wt-VZ-Uc9">
@@ -125,7 +125,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKo-Lh-7m7">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKo-Lh-7m7" customClass="CurrencyView" customModule="SwiftCurrencyOCR" customModuleProvider="target">
                                         <rect key="frame" x="8" y="32" width="230.5" height="153.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1z-8V-RME">
@@ -313,7 +313,9 @@
                     </view>
                     <connections>
                         <outlet property="leftCurrencyTextField" destination="zXS-Sr-EXG" id="4Kh-Nq-kuj"/>
+                        <outlet property="leftCurrencyView" destination="eKo-Lh-7m7" id="SAV-QG-ewQ"/>
                         <outlet property="rightCurrencyTextField" destination="AUv-ao-sfF" id="GPu-b6-zce"/>
+                        <outlet property="rightCurrencyView" destination="cKn-pL-w9u" id="bop-Vc-JWF"/>
                         <outlet property="toggleCurrencyButton" destination="fii-E9-lLv" id="dEH-0K-BhF"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="showScanView" id="Tew-97-fwf"/>
                         <segue destination="oe0-kh-4Pb" kind="popoverPresentation" identifier="selectBaseCurrencySegue" popoverAnchorView="eKo-Lh-7m7" id="Q69-Bd-e47">

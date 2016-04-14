@@ -66,7 +66,3 @@ class MathParserServiceMock : MathParserServiceProtocol {
 class ConversionServiceMock : ConversionServiceProtocol {
     var otherAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
 }
-
-class HomeViewModelInputMock : HomeViewModelInputProtocol {
-    var expression: MutableProperty<String> = MutableProperty<String>.init("0");
-}
