@@ -47,10 +47,16 @@ class CurrencyServiceMock : CurrencyServiceProtocol {
     var otherCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
 }
 
-class PersistenceServiceMock : PersistenceService {
-    init () {
-        super.init(userPreferencesService: UserPreferencesService(), queryCurrencyService: QueryPFCurrencyServiceMock());
-    }
+class TextServiceMock : TextServiceProtocol {
+    var leftCurrencyText: MutableProperty<String> = MutableProperty<String>.init("");
+    var rightCurrencyText: MutableProperty<String> = MutableProperty<String>.init("");
+}
+
+class PersistenceServiceMock : PersistenceServiceProtocol {
+    var leftCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
+    var rightCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
+    var expression: MutableProperty<String?> = MutableProperty<String?>.init("");
+    var isArrowPointingLeft: MutableProperty<Bool> = MutableProperty<Bool>.init(false);
 }
 
 class MathParserServiceMock : MathParserServiceProtocol {

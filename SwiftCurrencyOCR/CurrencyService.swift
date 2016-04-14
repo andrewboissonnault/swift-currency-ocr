@@ -20,13 +20,13 @@ public class CurrencyService: CurrencyServiceProtocol {
     public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
     public private(set) var otherCurrency: MutableProperty<CurrencyProtocol>
     
-    private var persistenceService : PersistenceService;
+    private var persistenceService : PersistenceServiceProtocol;
     
     convenience init() {
         self.init(persistenceService : PersistenceService());
     }
     
-    init(persistenceService : PersistenceService) {
+    init(persistenceService : PersistenceServiceProtocol) {
         self.persistenceService = persistenceService;
         
         self.baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());

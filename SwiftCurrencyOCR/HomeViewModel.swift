@@ -44,8 +44,7 @@ public protocol CurrencyOverviewViewModelProtocol {
 public class HomeViewModel {
     private var input : HomeViewModelInputProtocol;
     private var persistenceService : PersistenceServiceProtocol;
-    private var conversionService : ConversionServiceProtocol;
-    private var mathParserService : MathParserServiceProtocol;
+    private var textService : TextServiceProtocol;
     private var currencyService : CurrencyServiceProtocol;
     
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>;
@@ -55,36 +54,24 @@ public class HomeViewModel {
     public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var baseCurrency : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var otherCurrency : MutableProperty<CurrencyViewModelProtocol>;
-    public private(set) var baseAmount : MutableProperty<Double>;
+ //   public private(set) var baseAmount : MutableProperty<Double>;
 //    public private(set) var leftCurrencySelectorViewModel : MutableProperty<CurrencySelectorViewModelProtocol>;
 //    public private(set) var rightCurrencySelectorViewModel : MutableProperty<CurrencySelectorViewModelProtocol>;
 //    public private(set) var currencyOverviewViewModel : MutableProperty<CurrencyOverviewViewModelProtocol>;
     
-    let decimalFormatter : NSNumberFormatter;
-    let currencyFormatter : NSNumberFormatter;
-    
     convenience init(input : HomeViewModelInputProtocol) {
-        self.init(input: input, persistenceService : PersistenceService(), conversionService : ConversionService(), mathParserService : MathParserService(), currencyService : CurrencyService())
+        self.init(input: input, persistenceService : PersistenceService(), currencyService : CurrencyService(), textService : TextService())
     }
     
-    init(input : HomeViewModelInputProtocol, persistenceService : PersistenceServiceProtocol, conversionService : ConversionServiceProtocol, mathParserService : MathParserServiceProtocol, currencyService : CurrencyServiceProtocol) {
+    init(input : HomeViewModelInputProtocol, persistenceService : PersistenceServiceProtocol, currencyService : CurrencyServiceProtocol, textService : TextServiceProtocol) {
         self.input = input;
         self.persistenceService = persistenceService;
-        self.conversionService = conversionService;
-        self.mathParserService = mathParserService;
+        self.textService = textService;
         self.currencyService = currencyService;
-        
-        self.decimalFormatter = NSNumberFormatter();
-        self.decimalFormatter.numberStyle = .DecimalStyle;
-        self.decimalFormatter.groupingSeparator = "";
-        
-        self.currencyFormatter = NSNumberFormatter();
-        self.currencyFormatter.numberStyle = .CurrencyStyle;
 
         self.isArrowPointingLeft = self.persistenceService.isArrowPointingLeft;
-        self.leftCurrencyText = MutableProperty<String>.init("");
-        self.rightCurrencyText = MutableProperty<String>.init("");
-        self.baseAmount = MutableProperty<Double>.init(0);
+        self.leftCurrencyText = self.textService.leftCurrencyText;
+        self.rightCurrencyText = self.textService.rightCurrencyText;
         self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
         self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
         
@@ -93,9 +80,6 @@ public class HomeViewModel {
     
     private func setupBindings()
     {
-        self.leftCurrencyText <~ self.leftCurrencyTextSignal();
-        self.rightCurrencyText <~ self.rightCurrencyTextSignal();
-        self.baseAmount <~ self.mathParserService.baseAmount;
         self.leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
         self.rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
     }
@@ -123,51 +107,5 @@ public class HomeViewModel {
         let signal = self.persistenceService.rightCurrency.signal;
         return signal;
     }
-    
-    private func leftCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map(self.reduceLeftStrings);
-        return signal;
-    }
-    
-    private func rightCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map(self.reduceRightStrings);
-        return signal;
-    }
-    
-    private func reduceLeftStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
-        return reduceLeft(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
-    }
-    
-    private func reduceRightStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
-        return reduceRight(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
-    }
-    
-    private func reduceLeftCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
-        return reduceLeft(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
-    }
-    
-    private func reduceRightCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
-        return reduceRight(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
-    }
-    
-    private func combinedTextSignal() -> Signal<(String, String, Bool), Result.NoError> {
-        let signal = combineLatest(self.baseTextSignal(), self.otherTextSignal(), self.persistenceService.isArrowPointingLeft.signal);
-        return signal;
-    }
-    
-    private func baseTextSignal() -> Signal<String, Result.NoError> {
-        return self.baseAmount.signal.map { (baseAmount : Double) in
-            return self.decimalFormatter.stringFromNumber(baseAmount)!;
-        }
-    }
-    
-    private func otherTextSignal() -> Signal<String, Result.NoError> {
-        return self.conversionService.otherAmount.signal.map { (otherAmount : Double) in
-            return self.currencyFormatter.stringFromNumber(otherAmount)!;
-        }
-    }
-    
-    
-    
     
 }
