@@ -11,31 +11,34 @@ import ReactiveCocoa
 import enum Result.NoError
 
 protocol ConversionServiceProtocol {
-    var otherAmount: MutableProperty<Double> { get }
+    var otherAmount: AnyProperty<Double> { get }
 }
 
-public class ConversionService: ConversionServiceProtocol {
+public class BaseConversionService : ConversionServiceProtocol {
+    var otherAmount: AnyProperty<Double> {
+        return AnyProperty(_otherAmount);
+    }
+    internal var _otherAmount = MutableProperty<Double>.init(1.0);
+}
+
+public class ConversionService: BaseConversionService {
     private var rateService: CurrencyRateServiceProtocol
     private var mathParserService : MathParserServiceProtocol
     
-    public private(set) var otherAmount: MutableProperty<Double>
-    
-    convenience init() {
+    convenience override init() {
         self.init(rateService: CurrencyRateService(), mathParserService : MathParserService());
     }
     
     init(rateService : CurrencyRateServiceProtocol, mathParserService : MathParserServiceProtocol) {
         self.rateService = rateService;
         self.mathParserService = mathParserService;
-        
-        self.otherAmount = MutableProperty<Double>.init(1.0);
-        
+        super.init();
         self.setupBindings();
     }
     
     private func setupBindings()
     {
-        self.otherAmount <~ self.otherAmountSignal();
+        self._otherAmount <~ self.otherAmountSignal();
     }
     
     private func otherAmountSignal() -> Signal<Double, Result.NoError> {

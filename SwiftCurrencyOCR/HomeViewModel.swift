@@ -12,8 +12,8 @@ import enum Result.NoError
 
 public protocol HomeViewModelProtocol {
     var isArrowPointingLeft: MutableProperty<Bool> { get }
-    var leftCurrencyText: MutableProperty<String> { get }
-    var rightCurrencyText: MutableProperty<String> { get }
+    var leftCurrencyText: AnyProperty<String> { get }
+    var rightCurrencyText: AnyProperty<String> { get }
     var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol> { get }
     var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol> { get }
     var baseCurrency : MutableProperty<CurrencyViewModelProtocol> { get }
@@ -41,8 +41,8 @@ public class HomeViewModel {
     private var currencyService : CurrencyServiceProtocol;
     
     public private(set) var isArrowPointingLeft: MutableProperty<Bool>;
-    public private(set) var leftCurrencyText: MutableProperty<String>;
-    public private(set) var rightCurrencyText: MutableProperty<String>;
+    public private(set) var leftCurrencyText: AnyProperty<String>;
+    public private(set) var rightCurrencyText: AnyProperty<String>;
     public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
     public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var baseCurrency : MutableProperty<CurrencyViewModelProtocol>;

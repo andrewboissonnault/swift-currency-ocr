@@ -11,10 +11,17 @@ import ReactiveCocoa
 import enum Result.NoError
 
 protocol MathParserServiceProtocol {
-    var baseAmount: MutableProperty<Double> { get }
+    var baseAmount: AnyProperty<Double> { get }
 }
 
-public class MathParserService : MathParserServiceProtocol {
+public class BaseMathParserService : MathParserServiceProtocol {
+    var baseAmount: AnyProperty<Double> {
+        return AnyProperty(_baseAmount);
+    }
+    internal var _baseAmount = MutableProperty<Double>.init(1.0);
+}
+
+public class MathParserService : BaseMathParserService {
     private let kAdditionOperator = "+";
     private let kSubtractionOperator = "−";
     private let kMultiplicationOperator = "×";
@@ -22,23 +29,19 @@ public class MathParserService : MathParserServiceProtocol {
     
     private var persistenceService: PersistenceServiceProtocol
     
-    public private(set) var baseAmount: MutableProperty<Double>
-    
-    convenience init() {
+    convenience override init() {
         self.init(persistenceService: PersistenceService());
     }
     
     init(persistenceService : PersistenceServiceProtocol) {
         self.persistenceService = persistenceService;
-        
-        self.baseAmount = MutableProperty<Double>.init(1.0);
-        
+        super.init();
         self.setupBindings();
     }
     
     private func setupBindings()
     {
-        self.baseAmount <~ self.baseAmountSignal();
+        self._baseAmount <~ self.baseAmountSignal();
     }
     
     private func baseAmountSignal() -> Signal<Double, Result.NoError> {

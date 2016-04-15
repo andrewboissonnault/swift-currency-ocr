@@ -52,8 +52,8 @@ class HomeViewModelTests: QuickSpec {
                 let leftCurrencyText = "leftCurrencyText";
                 let rightCurrencyText = "rightCurrencyText";
                 
-                textService.leftCurrencyText.swap(leftCurrencyText);
-                textService.rightCurrencyText.swap(rightCurrencyText);
+                textService._leftCurrencyText.swap(leftCurrencyText);
+                textService._rightCurrencyText.swap(rightCurrencyText);
                 
                 expect(homeViewModel.leftCurrencyText.value).toEventually(equal(leftCurrencyText));
                 expect(homeViewModel.rightCurrencyText.value).toEventually(equal(rightCurrencyText));

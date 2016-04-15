@@ -30,27 +30,13 @@ func buildCurrency(code: String) -> CurrencyProtocol {
     return baseCurrency;
 }
 
-class CurrencyRatesServiceMock : CurrencyRatesServiceProtocol {
-    var rates: MutableProperty<CurrencyRatesProtocol>;
-    
-    init(rates: CurrencyRatesProtocol) {
-        self.rates = MutableProperty<CurrencyRatesProtocol>.init(rates);
-    }
-}
+class CurrencyRatesServiceMock : BaseCurrencyRatesService { }
 
-class CurrencyRateServiceMock : CurrencyRateServiceProtocol {
-    var rate: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
-}
+class CurrencyRateServiceMock : BaseCurrencyRateService { }
 
-class CurrencyServiceMock : CurrencyServiceProtocol {
-    var baseCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
-    var otherCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
-}
+class CurrencyServiceMock : BaseCurrencyService { }
 
-class TextServiceMock : TextServiceProtocol {
-    var leftCurrencyText: MutableProperty<String> = MutableProperty<String>.init("");
-    var rightCurrencyText: MutableProperty<String> = MutableProperty<String>.init("");
-}
+class TextServiceMock : BaseTextService { }
 
 class PersistenceServiceMock : PersistenceServiceProtocol {
     var leftCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
@@ -59,10 +45,6 @@ class PersistenceServiceMock : PersistenceServiceProtocol {
     var isArrowPointingLeft: MutableProperty<Bool> = MutableProperty<Bool>.init(false);
 }
 
-class MathParserServiceMock : MathParserServiceProtocol {
-    var baseAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
-}
+class MathParserServiceMock : BaseMathParserService { }
 
-class ConversionServiceMock : ConversionServiceProtocol {
-    var otherAmount: MutableProperty<Double> = MutableProperty<Double>.init(1.0);
-}
+class ConversionServiceMock : BaseConversionService { }

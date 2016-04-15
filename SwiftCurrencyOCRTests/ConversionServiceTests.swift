@@ -27,8 +27,8 @@ class ConversionServiceTests: QuickSpec {
                 let rate = 1.5;
                 let expectedOtherAmount = 75.0;
                 
-                mathParserService.baseAmount.swap(baseExpression);
-                rateService.rate.swap(rate);
+                mathParserService._baseAmount.swap(baseExpression);
+                rateService._rate.swap(rate);
                 
                 expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));
             }
@@ -37,8 +37,8 @@ class ConversionServiceTests: QuickSpec {
                 let rate = 1.5;
                 let expectedOtherAmount = 0.0;
                 
-                mathParserService.baseAmount.swap(0.0);
-                rateService.rate.swap(rate);
+                mathParserService._baseAmount.swap(0.0);
+                rateService._rate.swap(rate);
                 
                 expect(conversionService.otherAmount.value).toEventually(equal(expectedOtherAmount));
             }

@@ -45,41 +45,41 @@ class CurrencyRateServiceTest: QuickSpec {
             let testRates = buildTestRates();
             
             let currencyService = CurrencyServiceMock();
-            let ratesService = CurrencyRatesServiceMock(rates : testRates);
+            let ratesService = CurrencyRatesServiceMock();
             let rateService = CurrencyRateService(ratesService : ratesService, currencyService: currencyService);
             
             it("test USD to THB") {
                 let expectedRate = thbRate;
-                currencyService.baseCurrency.swap(usdCurrency);
-                currencyService.otherCurrency.swap(thbCurrency);
-                ratesService.rates.swap(testRates);
+                currencyService._baseCurrency.swap(usdCurrency);
+                currencyService._otherCurrency.swap(thbCurrency);
+                ratesService._rates.swap(testRates);
                 
                 expect(rateService.rate.value).toEventually(equal(expectedRate));
             }
             
             it("test USD to EUR") {
                 let expectedRate = eurRate;
-                currencyService.baseCurrency.swap(usdCurrency);
-                currencyService.otherCurrency.swap(eurCurrency);
-                ratesService.rates.swap(testRates);
+                currencyService._baseCurrency.swap(usdCurrency);
+                currencyService._otherCurrency.swap(eurCurrency);
+                ratesService._rates.swap(testRates);
                 
                 expect(rateService.rate.value).toEventually(equal(expectedRate));
             }
             
             it("test EUR to USD") {
                 let expectedRate = 1 / eurRate;
-                currencyService.baseCurrency.swap(eurCurrency);
-                currencyService.otherCurrency.swap(usdCurrency);
-                ratesService.rates.swap(testRates);
+                currencyService._baseCurrency.swap(eurCurrency);
+                currencyService._otherCurrency.swap(usdCurrency);
+                ratesService._rates.swap(testRates);
                 
                 expect(rateService.rate.value).toEventually(equal(expectedRate));
             }
             
             it("test GBP to THB") {
                 let expectedRate = (1 / gbpRate) *  thbRate;
-                currencyService.baseCurrency.swap(gbpCurrency);
-                currencyService.otherCurrency.swap(thbCurrency);
-                ratesService.rates.swap(testRates);
+                currencyService._baseCurrency.swap(gbpCurrency);
+                currencyService._otherCurrency.swap(thbCurrency);
+                ratesService._rates.swap(testRates);
                 
                 expect(rateService.rate.value).toEventually(equal(expectedRate));
             }

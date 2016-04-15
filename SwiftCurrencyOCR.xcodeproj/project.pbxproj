@@ -348,14 +348,14 @@
 		7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRateService.swift; sourceTree = "<group>"; };
 		7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRatesService.swift; sourceTree = "<group>"; };
 		7F6E78A91CADEA730019576D /* CurrencyRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRates.swift; sourceTree = "<group>"; };
-		7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRatesServiceTests.swift; sourceTree = "<group>"; };
+		7F6E78AB1CADF2220019576D /* CurrencyRatesServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CurrencyRatesServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7F6E78AF1CADF9BD0019576D /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesService.swift; sourceTree = "<group>"; };
 		7F99E4461C9F691100D5817B /* UserPreferencesServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferencesServiceTest.swift; sourceTree = "<group>"; };
 		7F99E4481C9FE92800D5817B /* PersistenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		7F99E44A1CA0794A00D5817B /* PersistenceServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceServiceTests.swift; sourceTree = "<group>"; };
 		7F99E44E1CA1EDE300D5817B /* MathParserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathParserService.swift; sourceTree = "<group>"; };
-		7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathParserServiceTests.swift; sourceTree = "<group>"; };
+		7F99E4501CA217EE00D5817B /* MathParserServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MathParserServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7FA5D81E1C9B124900F262C5 /* SwiftCurrencyOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCurrencyOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FA5D8211C9B124900F262C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FA5D8281C9B124900F262C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -638,12 +638,12 @@
 		7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		7FBEA1C41C9DCF0100949027 /* ParseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
 		7FF538741CBD88F900F1CDC6 /* ConversionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
-		7FF538761CBED3EC00F1CDC6 /* ConversionServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversionServiceTests.swift; sourceTree = "<group>"; };
+		7FF538761CBED3EC00F1CDC6 /* ConversionServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ConversionServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7FF5387D1CBEE12300F1CDC6 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7FF5387F1CBF41E500F1CDC6 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 		7FF538821CBF477600F1CDC6 /* RacExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RacExtensions.swift; sourceTree = "<group>"; };
-		7FF538871CBF623500F1CDC6 /* CurrencyViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewModelTests.swift; sourceTree = "<group>"; };
-		7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		7FF538871CBF623500F1CDC6 /* CurrencyViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CurrencyViewModelTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7FF5388A1CBF64C100F1CDC6 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HomeViewModelTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		7FF5388E1CBF74D800F1CDC6 /* ReduceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceFunctions.swift; sourceTree = "<group>"; };
 		7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryPFCurrencyService.swift; sourceTree = "<group>"; };
 		7FF538941CBF7AB700F1CDC6 /* TextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextService.swift; sourceTree = "<group>"; };
@@ -1098,8 +1098,8 @@
 			isa = PBXGroup;
 			children = (
 				7FF538911CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift */,
-				7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */,
 				7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */,
+				7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */,
 				7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */,
 				7F99E4441C9F655C00D5817B /* UserPreferencesService.swift */,
 				7F99E4481C9FE92800D5817B /* PersistenceService.swift */,

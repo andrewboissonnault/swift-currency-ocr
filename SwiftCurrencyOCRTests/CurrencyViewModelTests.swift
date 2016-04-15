@@ -24,6 +24,7 @@ class CurrencyViewModelTest: QuickSpec {
                 let testCode = kUSDKey;
                 let testCurrency = Currency.currencyWithCode(testCode);
                 testCurrency.nameProperty.swap(testName);
+                testCurrency.codeProperty.swap(testCode);
                 
                 let viewModel = CurrencyViewModel.init(currency: testCurrency);
                 

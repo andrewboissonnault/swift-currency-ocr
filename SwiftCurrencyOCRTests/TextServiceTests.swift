@@ -29,15 +29,15 @@ class TextServiceTests: QuickSpec {
                 var leftCurrencyText = "55";
                 var rightCurrencyText = "$105.00";
                 
-                mathParserService.baseAmount.swap(baseAmount);
-                conversionService.otherAmount.swap(otherAmount);
+                mathParserService._baseAmount.swap(baseAmount);
+                conversionService._otherAmount.swap(otherAmount);
                 persistenceService.isArrowPointingLeft.swap(false);
                 
                 expect(textService.leftCurrencyText.value).toEventually(equal(leftCurrencyText));
                 expect(textService.rightCurrencyText.value).toEventually(equal(rightCurrencyText));
                 
-                mathParserService.baseAmount.swap(otherAmount);
-                conversionService.otherAmount.swap(baseAmount);
+                mathParserService._baseAmount.swap(otherAmount);
+                conversionService._otherAmount.swap(baseAmount);
                 persistenceService.isArrowPointingLeft.swap(true);
                 
                 leftCurrencyText = "$55.00";

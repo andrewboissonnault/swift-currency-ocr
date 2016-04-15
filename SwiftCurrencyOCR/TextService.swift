@@ -12,14 +12,22 @@ import Parse
 import enum Result.NoError
 
 protocol TextServiceProtocol {
-    var leftCurrencyText: MutableProperty<String> { get }
-    var rightCurrencyText: MutableProperty<String> { get }
+    var leftCurrencyText: AnyProperty<String> { get }
+    var rightCurrencyText: AnyProperty<String> { get }
 }
 
-public class TextService: TextServiceProtocol {
-    public private(set) var leftCurrencyText: MutableProperty<String>
-    public private(set) var rightCurrencyText: MutableProperty<String>
-    
+public class BaseTextService: TextServiceProtocol {
+    var leftCurrencyText: AnyProperty<String> {
+        return AnyProperty(_leftCurrencyText);
+    }
+    internal var _leftCurrencyText = MutableProperty<String>.init("");
+    var rightCurrencyText: AnyProperty<String> {
+        return AnyProperty(_rightCurrencyText);
+    }
+    internal var _rightCurrencyText = MutableProperty<String>.init("");
+}
+
+public class TextService: BaseTextService {
     private var persistenceService : PersistenceServiceProtocol;
     private var conversionService : ConversionServiceProtocol;
     private var mathParserService : MathParserServiceProtocol;
@@ -27,7 +35,7 @@ public class TextService: TextServiceProtocol {
     let decimalFormatter : NSNumberFormatter;
     let currencyFormatter : NSNumberFormatter;
     
-    convenience init() {
+    convenience override init() {
         self.init(persistenceService : PersistenceService(), conversionService : ConversionService(), mathParserService : MathParserService());
     }
     
@@ -43,15 +51,14 @@ public class TextService: TextServiceProtocol {
         self.currencyFormatter = NSNumberFormatter();
         self.currencyFormatter.numberStyle = .CurrencyStyle;
         
-        self.leftCurrencyText = MutableProperty<String>.init("");
-        self.rightCurrencyText = MutableProperty<String>.init("");
+        super.init();
         
         self.setupBindings();
     }
     
     private func setupBindings() {
-        self.leftCurrencyText <~ self.leftCurrencyTextSignal();
-        self.rightCurrencyText <~ self.rightCurrencyTextSignal();
+        self._leftCurrencyText <~ self.leftCurrencyTextSignal();
+        self._rightCurrencyText <~ self.rightCurrencyTextSignal();
     }
     
     private func leftCurrencyTextSignal() -> Signal<String, Result.NoError> {

@@ -12,32 +12,38 @@ import Parse
 import enum Result.NoError
 
 protocol CurrencyServiceProtocol {
-    var baseCurrency: MutableProperty<CurrencyProtocol> { get }
-    var otherCurrency: MutableProperty<CurrencyProtocol> { get }
+    var baseCurrency: AnyProperty<CurrencyProtocol> { get }
+    var otherCurrency: AnyProperty<CurrencyProtocol> { get }
 }
 
-public class CurrencyService: CurrencyServiceProtocol {
-    public private(set) var baseCurrency: MutableProperty<CurrencyProtocol>
-    public private(set) var otherCurrency: MutableProperty<CurrencyProtocol>
+public class BaseCurrencyService: CurrencyServiceProtocol {
+    var baseCurrency: AnyProperty<CurrencyProtocol> {
+        return AnyProperty(_baseCurrency);
+    }
+    internal var _baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+    var otherCurrency: AnyProperty<CurrencyProtocol> {
+        return AnyProperty(_otherCurrency);
+    }
+    internal var _otherCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+}
+
+public class CurrencyService: BaseCurrencyService {
     
     private var persistenceService : PersistenceServiceProtocol;
     
-    convenience init() {
+    convenience override init() {
         self.init(persistenceService : PersistenceService());
     }
     
     init(persistenceService : PersistenceServiceProtocol) {
         self.persistenceService = persistenceService;
-        
-        self.baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
-        self.otherCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
-        
+        super.init();
         self.setupBindings();
     }
     
     private func setupBindings() {
-        self.baseCurrency <~ self.baseCurrencySignal();
-        self.otherCurrency <~ self.otherCurrencySignal();
+        self._baseCurrency <~ self.baseCurrencySignal();
+        self._otherCurrency <~ self.otherCurrencySignal();
     }
     
     private func baseCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
@@ -62,7 +68,6 @@ public class CurrencyService: CurrencyServiceProtocol {
     private func reduceRightCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
         return reduceRight(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
     }
-
     
     public static func defaultBaseCurrency() -> CurrencyProtocol {
         let currency = Currency()

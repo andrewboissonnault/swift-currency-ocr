@@ -12,34 +12,37 @@ import Parse
 import enum Result.NoError
 
 public protocol CurrencyViewModelProtocol {
-    var currencyCode: MutableProperty<String> { get }
-    var currencyName: MutableProperty<String> { get }
-    var flagIconImage: MutableProperty<UIImage?> { get }
-    var flagIconFile : MutableProperty<PFFile?> { get }
+    var currencyCode: AnyProperty<String> { get }
+    var currencyName: AnyProperty<String> { get }
+    var flagIconImage: AnyProperty<UIImage?> { get }
+    var flagIconFile : AnyProperty<PFFile?> { get }
     func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
 public class CurrencyViewModel : CurrencyViewModelProtocol {
     private var currency : CurrencyProtocol;
     
-    public private(set) var currencyCode: MutableProperty<String>;
-    public private(set) var currencyName: MutableProperty<String>;
-    public private(set) var flagIconImage: MutableProperty<UIImage?>;
-    public private(set) var flagIconFile : MutableProperty<PFFile?>;
+    public private(set) var currencyCode: AnyProperty<String>;
+    public private(set) var currencyName: AnyProperty<String>;
+    public private(set) var flagIconFile : AnyProperty<PFFile?>;
+    public var flagIconImage: AnyProperty<UIImage?> {
+        return AnyProperty(_flagIconImage);
+    }
+    internal var _flagIconImage: MutableProperty<UIImage?>;
     
     init(currency : CurrencyProtocol) {
         self.currency = currency;
-        self.currencyCode = self.currency.codeProperty;
-        self.currencyName = self.currency.nameProperty;
-        self.flagIconImage = MutableProperty<UIImage?>.init(CurrencyViewModel.flagIconWithCode(self.currencyCode.value));
-        self.flagIconFile = self.currency.flagIconProperty;
+        
+        self.currencyCode = AnyProperty(self.currency.codeProperty);
+        self.currencyName = AnyProperty(self.currency.nameProperty);
+        self.flagIconFile = AnyProperty(self.currency.flagIconProperty);
+        self._flagIconImage = MutableProperty<UIImage?>.init(nil);
         
         self.setupBindings();
     }
     
-    private func setupBindings()
-    {
-        self.flagIconImage <~ self.flagIconImageSignal();
+    private func setupBindings() {
+        self._flagIconImage <~ flagIconImageSignal();
     }
     
     private func flagIconImageSignal() -> Signal<UIImage?, Result.NoError> {
@@ -71,7 +74,6 @@ public class CurrencyViewModel : CurrencyViewModelProtocol {
             return nil;
         }
     }
-    
 }
 
 public func == (left: CurrencyViewModelProtocol, right: CurrencyViewModelProtocol) -> Bool {

@@ -11,38 +11,39 @@ import ReactiveCocoa
 import enum Result.NoError
 
 protocol CurrencyRateServiceProtocol {
-    var rate: MutableProperty<Double> { get }
+    var rate: AnyProperty<Double> { get }
 }
 
-public class CurrencyRateService: CurrencyRateServiceProtocol {
+public class BaseCurrencyRateService : CurrencyRateServiceProtocol {
+    var rate: AnyProperty<Double> {
+        return AnyProperty(_rate);
+    }
+    internal var _rate = MutableProperty<Double>.init(1.0);
+}
+
+public class CurrencyRateService: BaseCurrencyRateService {
     private var ratesService: CurrencyRatesServiceProtocol
     private var currencyService: CurrencyServiceProtocol
     
-    public private(set) var rate: MutableProperty<Double>
-    
-    convenience init() {
+    convenience override init() {
         self.init(ratesService: CurrencyRatesService(), currencyService : CurrencyService());
     }
     
     init(ratesService : CurrencyRatesServiceProtocol, currencyService : CurrencyServiceProtocol) {
         self.ratesService = ratesService;
         self.currencyService = currencyService;
-
-        self.rate = MutableProperty<Double>.init(1.0);
-        
+        super.init();
         self.setupBindings();
     }
     
     private func setupBindings()
     {
-        self.rate <~ self.rateSignal();
+        self._rate <~ self.rateSignal();
     }
     
     private func rateSignal() -> Signal<Double, Result.NoError> {
         let combinedSignal = combineLatest(self.currencyService.baseCurrency.signal, self.currencyService.otherCurrency.signal, self.ratesService.rates.signal);
-        let signal = combinedSignal.map { (baseCurrency : CurrencyProtocol, otherCurrency : CurrencyProtocol, rates : CurrencyRatesProtocol) -> (Double) in
-            return CurrencyRateService.calculateRate(baseCurrency, otherCurrency: otherCurrency, rates: rates);
-        }
+        let signal = combinedSignal.map(CurrencyRateService.calculateRate);
         return signal;
     }
     
