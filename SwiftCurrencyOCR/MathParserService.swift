@@ -18,7 +18,7 @@ public class BaseMathParserService : MathParserServiceProtocol {
     var baseAmount: AnyProperty<Double> {
         return AnyProperty(_baseAmount);
     }
-    internal var _baseAmount = MutableProperty<Double>.init(1.0);
+    internal private(set) var _baseAmount = MutableProperty<Double>.init(1.0);
 }
 
 public class MathParserService : BaseMathParserService {

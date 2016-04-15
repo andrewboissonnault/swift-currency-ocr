@@ -20,11 +20,11 @@ public class BaseTextService: TextServiceProtocol {
     var leftCurrencyText: AnyProperty<String> {
         return AnyProperty(_leftCurrencyText);
     }
-    internal var _leftCurrencyText = MutableProperty<String>.init("");
+    internal private(set) var _leftCurrencyText = MutableProperty<String>.init("");
     var rightCurrencyText: AnyProperty<String> {
         return AnyProperty(_rightCurrencyText);
     }
-    internal var _rightCurrencyText = MutableProperty<String>.init("");
+    internal private(set) var _rightCurrencyText = MutableProperty<String>.init("");
 }
 
 public class TextService: BaseTextService {

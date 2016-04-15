@@ -20,11 +20,11 @@ public class BaseCurrencyService: CurrencyServiceProtocol {
     var baseCurrency: AnyProperty<CurrencyProtocol> {
         return AnyProperty(_baseCurrency);
     }
-    internal var _baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+    internal private(set) var _baseCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
     var otherCurrency: AnyProperty<CurrencyProtocol> {
         return AnyProperty(_otherCurrency);
     }
-    internal var _otherCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+    internal private(set) var _otherCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
 }
 
 public class CurrencyService: BaseCurrencyService {

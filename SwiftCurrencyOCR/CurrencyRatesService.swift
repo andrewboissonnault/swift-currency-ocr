@@ -19,7 +19,7 @@ public class BaseCurrencyRatesService : CurrencyRatesServiceProtocol {
     var rates: AnyProperty<CurrencyRatesProtocol> {
         return AnyProperty(_rates);
     }
-    internal var _rates = MutableProperty<CurrencyRatesProtocol>.init(CurrencyRates());
+    internal private(set) var _rates = MutableProperty<CurrencyRatesProtocol>.init(CurrencyRates());
 }
 
 public class CurrencyRatesService: BaseCurrencyRatesService {

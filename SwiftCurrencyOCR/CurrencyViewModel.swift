@@ -14,8 +14,8 @@ import enum Result.NoError
 public protocol CurrencyViewModelProtocol {
     var currencyCode: AnyProperty<String> { get }
     var currencyName: AnyProperty<String> { get }
-    var flagIconImage: AnyProperty<UIImage?> { get }
     var flagIconFile : AnyProperty<PFFile?> { get }
+    var flagIconImage: AnyProperty<UIImage?> { get }
     func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
@@ -25,10 +25,10 @@ public class CurrencyViewModel : CurrencyViewModelProtocol {
     public private(set) var currencyCode: AnyProperty<String>;
     public private(set) var currencyName: AnyProperty<String>;
     public private(set) var flagIconFile : AnyProperty<PFFile?>;
-    public var flagIconImage: AnyProperty<UIImage?> {
+    public var flagIconImage : AnyProperty<UIImage?> {
         return AnyProperty(_flagIconImage);
     }
-    internal var _flagIconImage: MutableProperty<UIImage?>;
+    internal var _flagIconImage : MutableProperty<UIImage?>;
     
     init(currency : CurrencyProtocol) {
         self.currency = currency;
@@ -36,7 +36,7 @@ public class CurrencyViewModel : CurrencyViewModelProtocol {
         self.currencyCode = AnyProperty(self.currency.codeProperty);
         self.currencyName = AnyProperty(self.currency.nameProperty);
         self.flagIconFile = AnyProperty(self.currency.flagIconProperty);
-        self._flagIconImage = MutableProperty<UIImage?>.init(nil);
+        self._flagIconImage = MutableProperty<UIImage?>.init(CurrencyViewModel.flagIconWithCode(self.currencyCode.value));
         
         self.setupBindings();
     }

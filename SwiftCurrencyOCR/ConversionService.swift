@@ -18,7 +18,7 @@ public class BaseConversionService : ConversionServiceProtocol {
     var otherAmount: AnyProperty<Double> {
         return AnyProperty(_otherAmount);
     }
-    internal var _otherAmount = MutableProperty<Double>.init(1.0);
+    internal private(set) var _otherAmount = MutableProperty<Double>.init(1.0);
 }
 
 public class ConversionService: BaseConversionService {

@@ -11,17 +11,17 @@ import ReactiveCocoa
 import enum Result.NoError
 
 public protocol HomeViewModelProtocol {
-    var isArrowPointingLeft: MutableProperty<Bool> { get }
+    var isArrowPointingLeft: AnyProperty<Bool> { get }
     var leftCurrencyText: AnyProperty<String> { get }
     var rightCurrencyText: AnyProperty<String> { get }
-    var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol> { get }
-    var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol> { get }
-    var baseCurrency : MutableProperty<CurrencyViewModelProtocol> { get }
-    var otherCurrency : MutableProperty<CurrencyViewModelProtocol> { get }
-    var baseAmount : MutableProperty<Double> { get }
-    var leftCurrencySelectorViewModel : MutableProperty<CurrencySelectorViewModelProtocol> { get }
-    var rightCurrencySelectorViewModel : MutableProperty<CurrencySelectorViewModelProtocol> { get }
-    var currencyOverviewViewModel : MutableProperty<CurrencyOverviewViewModelProtocol> { get }
+    var leftCurrencyViewModel : AnyProperty<CurrencyViewModelProtocol> { get }
+    var rightCurrencyViewModel : AnyProperty<CurrencyViewModelProtocol> { get }
+    var baseCurrency : AnyProperty<CurrencyViewModelProtocol> { get }
+    var otherCurrency : AnyProperty<CurrencyViewModelProtocol> { get }
+    var baseAmount : AnyProperty<Double> { get }
+    var leftCurrencySelectorViewModel : AnyProperty<CurrencySelectorViewModelProtocol> { get }
+    var rightCurrencySelectorViewModel : AnyProperty<CurrencySelectorViewModelProtocol> { get }
+    var currencyOverviewViewModel : AnyProperty<CurrencyOverviewViewModelProtocol> { get }
     
     func toggleArrow();
     var expression: MutableProperty<String> { get }
@@ -40,11 +40,17 @@ public class HomeViewModel {
     private var textService : TextServiceProtocol;
     private var currencyService : CurrencyServiceProtocol;
     
-    public private(set) var isArrowPointingLeft: MutableProperty<Bool>;
+    public private(set) var isArrowPointingLeft: AnyProperty<Bool>;
     public private(set) var leftCurrencyText: AnyProperty<String>;
     public private(set) var rightCurrencyText: AnyProperty<String>;
-    public private(set) var leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
-    public private(set) var rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
+    public var leftCurrencyViewModel : AnyProperty<CurrencyViewModelProtocol> {
+        return AnyProperty(_leftCurrencyViewModel);
+    }
+    internal private(set) var _leftCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
+    public var rightCurrencyViewModel : AnyProperty<CurrencyViewModelProtocol> {
+        return AnyProperty(_rightCurrencyViewModel);
+    }
+    internal private(set) var _rightCurrencyViewModel : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var baseCurrency : MutableProperty<CurrencyViewModelProtocol>;
 //    public private(set) var otherCurrency : MutableProperty<CurrencyViewModelProtocol>;
  //   public private(set) var baseAmount : MutableProperty<Double>;
@@ -63,11 +69,11 @@ public class HomeViewModel {
         self.textService = textService;
         self.currencyService = currencyService;
 
-        self.isArrowPointingLeft = self.persistenceService.isArrowPointingLeft;
+        self.isArrowPointingLeft = AnyProperty(self.persistenceService.isArrowPointingLeft);
         self.leftCurrencyText = self.textService.leftCurrencyText;
         self.rightCurrencyText = self.textService.rightCurrencyText;
-        self.leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
-        self.rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
+        self._leftCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
+        self._rightCurrencyViewModel = MutableProperty<CurrencyViewModelProtocol>.init(CurrencyViewModel(currency: Currency()));
         self.expression = MutableProperty<String>.init("");
         
         self.setupBindings();
@@ -75,8 +81,8 @@ public class HomeViewModel {
     
     private func setupBindings()
     {
-        self.leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
-        self.rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
+        self._leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
+        self._rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
         self.persistenceService.expression <~ self.expression;
     }
     
