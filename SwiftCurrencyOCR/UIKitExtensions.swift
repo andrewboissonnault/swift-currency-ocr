@@ -81,10 +81,10 @@ extension NSUserDefaults {
         let (signal, observer) = Signal<Object?, NoError>.pipe()
         
         // send initial value
-        let initial: Object? = self.objectForKey(key) as? Object;
-        
-        observer.sendNext(initial);
-        
+//        let initial: Object? = self.objectForKey(key) as? Object;
+//        
+//        observer.sendNext(initial);
+//        
         // observe other values
         let defaultsDidChange = NSNotificationCenter.defaultCenter().rac_notifications(NSUserDefaultsDidChangeNotification, object: self)
         defaultsDidChange.startWithNext { (_) -> () in
@@ -92,18 +92,25 @@ extension NSUserDefaults {
             observer.sendNext(value);
         }
         
-        return signal.skipRepeats { a, b in
-                if let a = a as? NSObject, b = b as? NSObject where a.isEqual(b) {
-                    return true
-                } else {
-                    return false
-                }
-        }
+        return signal;
+        
+        
+//        return signal.skipRepeats { a, b in
+//                if let a = a as? NSObject, b = b as? NSObject where a.isEqual(b) {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//        }
     }
     
-    func rex_propertyForKey<Object>(key: String) -> MutableProperty<Object?> {
-        let property = MutableProperty<Object?>.init(nil);
-        property <~ self.rex_signalForKey(key);
-        return property;
-    }
+//    func rex_propertyForKey<Object>(key: String) -> MutableProperty<Object?> {
+//        let property = MutableProperty<Object?>.init(nil);
+//        
+//        let defaultsTerminal = self.rac_channelTerminalForKey(key);
+//        let propertyTerminal = 
+//        
+//        property <~ self.rex_signalForKey(key);
+//        return property;
+//    }
 }

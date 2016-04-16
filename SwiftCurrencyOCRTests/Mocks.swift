@@ -38,6 +38,8 @@ class CurrencyServiceMock : BaseCurrencyService { }
 
 class TextServiceMock : BaseTextService { }
 
+class UserPreferencesServiceMock : BaseUserPreferencesService { }
+
 class PersistenceServiceMock : PersistenceServiceProtocol {
     var leftCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());
     var rightCurrency: MutableProperty<CurrencyProtocol> = MutableProperty<CurrencyProtocol>.init(Currency());

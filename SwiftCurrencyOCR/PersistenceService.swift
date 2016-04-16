@@ -27,36 +27,28 @@ public class PersistenceService: PersistenceServiceProtocol {
     public internal(set) var rightCurrency: MutableProperty<CurrencyProtocol>
     
     convenience init() {
-        self.init(userPreferencesService: UserPreferencesService(), queryCurrencyService: QueryPFCurrencyService());
+        self.init(userPreferencesService: UserPreferencesService.sharedInstance, queryCurrencyService: QueryPFCurrencyService());
     }
     
     init(userPreferencesService : UserPreferencesServiceProtocol, queryCurrencyService: QueryPFCurrencyServiceProtocol) {
         self.userPreferencesService = userPreferencesService;
         self.queryCurrencyService = queryCurrencyService;
-        self.expression = MutableProperty<String>.init(self.userPreferencesService.expression);
-        self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft);
+        self.expression = self.userPreferencesService.expression;
+        self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
         self.leftCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
         self.rightCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
-        
+        self.userPreferencesService.leftCurrencyCode <~ self.leftCurrency.signal.map(PersistenceService.codeWithCurrency);
+        self.userPreferencesService.rightCurrencyCode <~ self.rightCurrency.signal.map(PersistenceService.codeWithCurrency);
         self.setupBindings();
+    }
+    
+    static func codeWithCurrency(currency : CurrencyProtocol) -> String{
+        return currency.codeProperty.value;
     }
     
     func setupBindings()
     {
-        self.leftCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.leftCurrencyCode);
-        self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode);
-        
-        self.expression.signal.observeNext { (value : String) -> () in
-            self.userPreferencesService.expression = value;
-        }
-        self.isArrowPointingLeft.signal.observeNext { (value : Bool) -> () in
-            self.userPreferencesService.isArrowPointingLeft = value;
-        }
-        self.leftCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.leftCurrencyCode = next.codeProperty.value;
-        }
-        self.rightCurrency.signal.observeNext{ (next : CurrencyProtocol) -> () in
-            self.userPreferencesService.rightCurrencyCode = next.codeProperty.value;
-        }
+        self.leftCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.leftCurrencyCode.value);
+        self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode.value);
     }
 }

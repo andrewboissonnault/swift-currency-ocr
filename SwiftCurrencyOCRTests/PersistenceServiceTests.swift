@@ -22,22 +22,17 @@ class PersistenceServiceTests: QuickSpec {
     override func spec() {
         describe("Persistence Service") {
             
-            let userDefaults: NSUserDefaults = NSUserDefaults.init(suiteName: "test")!;
-            let userPreferencesService: UserPreferencesService = UserPreferencesService(defaults: userDefaults);
+            let userPreferencesService: UserPreferencesServiceProtocol = UserPreferencesServiceMock();
             let queryCurrencyService: QueryPFCurrencyServiceProtocol = QueryPFCurrencyServiceMock();
             var persistenceService: PersistenceService!;
             
             beforeEach {
-                userPreferencesService.expression = self.initialExpressionValue;
-                userPreferencesService.isArrowPointingLeft = self.initialIsArrowPointingLeftValue
-                userPreferencesService.leftCurrencyCode = self.initialLeftCurrencyCode
-                userPreferencesService.rightCurrencyCode = self.initialRightCurrencyCode
+                userPreferencesService.expression.value = self.initialExpressionValue;
+                userPreferencesService.isArrowPointingLeft.value  = self.initialIsArrowPointingLeftValue
+                userPreferencesService.leftCurrencyCode.value  = self.initialLeftCurrencyCode
+                userPreferencesService.rightCurrencyCode.value  = self.initialRightCurrencyCode
                 persistenceService = PersistenceService.init(userPreferencesService: userPreferencesService, queryCurrencyService: queryCurrencyService);
             }
-            
-            afterEach({
-                userDefaults .removeSuiteNamed("test");
-            })
             
             it("initial values are correct") {
                 expect(persistenceService.expression.value) == self.initialExpressionValue;
@@ -52,16 +47,16 @@ class PersistenceServiceTests: QuickSpec {
                 persistenceService.expression.swap(expressionValue);
                 
                 expect(persistenceService.expression.value) == expressionValue;
-                expect(userPreferencesService.expression) == expressionValue;
+                expect(userPreferencesService.expression.value ) == expressionValue;
             }
             
             it("setting isArrowPointingLeft value modifies user defaults") {
-                let isArrowPointingLeftValue = false;
+                let isArrowPointingLeftValue = true;
                 
                 persistenceService.isArrowPointingLeft.swap(isArrowPointingLeftValue);
                 
                 expect(persistenceService.isArrowPointingLeft.value) == isArrowPointingLeftValue;
-                expect(userPreferencesService.isArrowPointingLeft) == isArrowPointingLeftValue;
+                expect(userPreferencesService.isArrowPointingLeft.value) == isArrowPointingLeftValue;
             }
             
             it("setting leftCurrency value modifies user defaults") {
@@ -69,7 +64,7 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.leftCurrency.swap(leftCurrency);
                 
-                expect(userPreferencesService.leftCurrencyCode) == leftCurrency.codeProperty.value;
+                expect(userPreferencesService.leftCurrencyCode.value) == leftCurrency.codeProperty.value;
             }
             
             it("setting rightCurrency value modifies user defaults") {
@@ -77,7 +72,7 @@ class PersistenceServiceTests: QuickSpec {
                 
                 persistenceService.rightCurrency.swap(rightCurrency);
                 
-                expect(userPreferencesService.rightCurrencyCode) == rightCurrency.codeProperty.value;
+                expect(userPreferencesService.rightCurrencyCode.value) == rightCurrency.codeProperty.value;
             }
         }
         

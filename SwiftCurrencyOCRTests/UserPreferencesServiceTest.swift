@@ -14,49 +14,61 @@ class UserPreferencesServiceSpec: QuickSpec {
     
     override func spec() {
         describe("User Preferences Service") {
-            var userPreferencesService: UserPreferencesService!;
+            
+            var userPreferencesService : UserPreferencesServiceProtocol = UserPreferencesService.sharedInstance;
+            var otherPreferencesService : UserPreferencesServiceProtocol = UserPreferencesService.sharedInstance;
             
             beforeEach {
-                userPreferencesService = UserPreferencesService.init();
+                userPreferencesService = UserPreferencesService.sharedInstance;
+                otherPreferencesService = UserPreferencesService.sharedInstance;
             }
             
             it("setting left currency code lets you retrieve it later") {
                 let leftCurrencyCode = "BCC";
                 
-                userPreferencesService.leftCurrencyCode = leftCurrencyCode;
+                userPreferencesService.leftCurrencyCode.value = leftCurrencyCode;
                 
-                expect(userPreferencesService.leftCurrencyCode).to(equal(leftCurrencyCode));
+                expect(userPreferencesService.leftCurrencyCode.value).toEventually(equal(leftCurrencyCode));
+                expect(otherPreferencesService.leftCurrencyCode.value).toEventually(equal(leftCurrencyCode));
+                
+                otherPreferencesService = UserPreferencesService.init();
+                expect(otherPreferencesService.leftCurrencyCode.value).toEventually(equal(leftCurrencyCode));
             }
             
             it("setting right currency code lets you retrieve it later") {
                 let rightCurrencyCode = "OCC";
                 
-                userPreferencesService.rightCurrencyCode = rightCurrencyCode;
+                userPreferencesService.rightCurrencyCode.value = rightCurrencyCode;
                 
-                expect(userPreferencesService.rightCurrencyCode).to(equal(rightCurrencyCode));
+                expect(userPreferencesService.rightCurrencyCode.value).toEventually(equal(rightCurrencyCode));
+                expect(otherPreferencesService.rightCurrencyCode.value).toEventually(equal(rightCurrencyCode));
+                
+                otherPreferencesService = UserPreferencesService.init();
+                expect(otherPreferencesService.rightCurrencyCode.value).toEventually(equal(rightCurrencyCode));
             }
             
             it("setting expression lets you retrieve it later") {
                 let expression = "15+25";
                 
-                userPreferencesService.expression = expression;
+                userPreferencesService.expression.value = expression;
                 
-                expect(userPreferencesService.expression).to(equal(expression));
+                expect(userPreferencesService.expression.value).toEventually(equal(expression));
+                expect(otherPreferencesService.expression.value).toEventually(equal(expression));
+                
+                otherPreferencesService = UserPreferencesService.init();
+                expect(otherPreferencesService.expression.value).toEventually(equal(expression));
             }
             
             it("setting isArrowPointingLeft lets you retrieve it later") {
                 let isArrowPointingLeft = true;
                 
-                userPreferencesService.isArrowPointingLeft = isArrowPointingLeft;
+                userPreferencesService.isArrowPointingLeft.value = isArrowPointingLeft;
                 
-                expect(userPreferencesService.isArrowPointingLeft).to(equal(isArrowPointingLeft));
-            }
-            
-            it("setting nil clears preferences") {
-                userPreferencesService.leftCurrencyCode = "not nil";
-                userPreferencesService.leftCurrencyCode = nil;
+                expect(userPreferencesService.isArrowPointingLeft.value).toEventually(equal(isArrowPointingLeft));
+                expect(otherPreferencesService.isArrowPointingLeft.value).toEventually(equal(isArrowPointingLeft));
                 
-                expect(userPreferencesService.leftCurrencyCode).to(beNil());
+                otherPreferencesService = UserPreferencesService.init();
+                expect(otherPreferencesService.isArrowPointingLeft.value).toEventually(equal(isArrowPointingLeft));
             }
         }
         

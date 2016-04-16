@@ -327,6 +327,13 @@
 		7FF538A21CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */; };
 		7FF538A41CC1C76300F1CDC6 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538A31CC1C76300F1CDC6 /* UIKitExtensions.swift */; };
 		7FF538A51CC1C76300F1CDC6 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538A31CC1C76300F1CDC6 /* UIKitExtensions.swift */; };
+		7FF7A3391CC2A3EC00D1D6D1 /* ParseCloudService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3381CC2A3EC00D1D6D1 /* ParseCloudService.swift */; };
+		7FF7A3471CC2A72C00D1D6D1 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A33C1CC2A72C00D1D6D1 /* NSObject+Properties.m */; };
+		7FF7A3481CC2A72C00D1D6D1 /* PFCloud+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A33E1CC2A72C00D1D6D1 /* PFCloud+Cache.m */; };
+		7FF7A3491CC2A72C00D1D6D1 /* PFACL+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3401CC2A72C00D1D6D1 /* PFACL+NSCoding.m */; };
+		7FF7A34A1CC2A72C00D1D6D1 /* PFFile+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3421CC2A72C00D1D6D1 /* PFFile+NSCoding.m */; };
+		7FF7A34B1CC2A72C00D1D6D1 /* PFObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3441CC2A72C00D1D6D1 /* PFObject+NSCoding.m */; };
+		7FF7A34C1CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3461CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m */; };
 		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
 		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
@@ -655,6 +662,19 @@
 		7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyView.swift; sourceTree = "<group>"; };
 		7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACFunctionExtensions.swift; sourceTree = "<group>"; };
 		7FF538A31CC1C76300F1CDC6 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		7FF7A3381CC2A3EC00D1D6D1 /* ParseCloudService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseCloudService.swift; sourceTree = "<group>"; };
+		7FF7A33B1CC2A72C00D1D6D1 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
+		7FF7A33C1CC2A72C00D1D6D1 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
+		7FF7A33D1CC2A72C00D1D6D1 /* PFCloud+Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFCloud+Cache.h"; sourceTree = "<group>"; };
+		7FF7A33E1CC2A72C00D1D6D1 /* PFCloud+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFCloud+Cache.m"; sourceTree = "<group>"; };
+		7FF7A33F1CC2A72C00D1D6D1 /* PFACL+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFACL+NSCoding.h"; sourceTree = "<group>"; };
+		7FF7A3401CC2A72C00D1D6D1 /* PFACL+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFACL+NSCoding.m"; sourceTree = "<group>"; };
+		7FF7A3411CC2A72C00D1D6D1 /* PFFile+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFFile+NSCoding.h"; sourceTree = "<group>"; };
+		7FF7A3421CC2A72C00D1D6D1 /* PFFile+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFFile+NSCoding.m"; sourceTree = "<group>"; };
+		7FF7A3431CC2A72C00D1D6D1 /* PFObject+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+NSCoding.h"; sourceTree = "<group>"; };
+		7FF7A3441CC2A72C00D1D6D1 /* PFObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+NSCoding.m"; sourceTree = "<group>"; };
+		7FF7A3451CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFGeoPoint+NSCoding.h"; sourceTree = "<group>"; };
+		7FF7A3461CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFGeoPoint+NSCoding.m"; sourceTree = "<group>"; };
 		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -713,6 +733,7 @@
 		7FA5D8201C9B124900F262C5 /* SwiftCurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
+				7FF7A33A1CC2A72000D1D6D1 /* Categories */,
 				7FF5389C1CBFC4C700F1CDC6 /* Views */,
 				7FF5387C1CBEE10700F1CDC6 /* ViewModels */,
 				7FF5387B1CBEE0E100F1CDC6 /* Main */,
@@ -1102,6 +1123,25 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		7FF7A33A1CC2A72000D1D6D1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7FF7A33B1CC2A72C00D1D6D1 /* NSObject+Properties.h */,
+				7FF7A33C1CC2A72C00D1D6D1 /* NSObject+Properties.m */,
+				7FF7A33D1CC2A72C00D1D6D1 /* PFCloud+Cache.h */,
+				7FF7A33E1CC2A72C00D1D6D1 /* PFCloud+Cache.m */,
+				7FF7A33F1CC2A72C00D1D6D1 /* PFACL+NSCoding.h */,
+				7FF7A3401CC2A72C00D1D6D1 /* PFACL+NSCoding.m */,
+				7FF7A3411CC2A72C00D1D6D1 /* PFFile+NSCoding.h */,
+				7FF7A3421CC2A72C00D1D6D1 /* PFFile+NSCoding.m */,
+				7FF7A3431CC2A72C00D1D6D1 /* PFObject+NSCoding.h */,
+				7FF7A3441CC2A72C00D1D6D1 /* PFObject+NSCoding.m */,
+				7FF7A3451CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.h */,
+				7FF7A3461CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		7FFDAC7A1C9E07C90086BE43 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1114,6 +1154,7 @@
 				7F99E44E1CA1EDE300D5817B /* MathParserService.swift */,
 				7FF538741CBD88F900F1CDC6 /* ConversionService.swift */,
 				7FF538941CBF7AB700F1CDC6 /* TextService.swift */,
+				7FF7A3381CC2A3EC00D1D6D1 /* ParseCloudService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1598,15 +1639,20 @@
 				7FBD3A4B1C9B1859005FAB37 /* UIView+Borders.swift in Sources */,
 				7FF538751CBD88F900F1CDC6 /* ConversionService.swift in Sources */,
 				7FBEA1C51C9DCF0100949027 /* ParseManager.swift in Sources */,
+				7FF7A34B1CC2A72C00D1D6D1 /* PFObject+NSCoding.m in Sources */,
 				7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */,
+				7FF7A3481CC2A72C00D1D6D1 /* PFCloud+Cache.m in Sources */,
 				7FF5389E1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */,
+				7FF7A34A1CC2A72C00D1D6D1 /* PFFile+NSCoding.m in Sources */,
 				7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */,
 				7F99E4451C9F655C00D5817B /* UserPreferencesService.swift in Sources */,
 				7F99E4491C9FE92800D5817B /* PersistenceService.swift in Sources */,
 				7F6E78AA1CADEA730019576D /* CurrencyRates.swift in Sources */,
 				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
+				7FF7A34C1CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m in Sources */,
 				7FF538801CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
 				7FF538A41CC1C76300F1CDC6 /* UIKitExtensions.swift in Sources */,
+				7FF7A3471CC2A72C00D1D6D1 /* NSObject+Properties.m in Sources */,
 				7FF538951CBF7AB700F1CDC6 /* TextService.swift in Sources */,
 				7FF538A11CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
@@ -1616,7 +1662,9 @@
 				7FBD3A491C9B16D7005FAB37 /* HomeViewController.swift in Sources */,
 				7FBD3CA31C9B5DF8005FAB37 /* Currency.swift in Sources */,
 				7FF5387E1CBEE12300F1CDC6 /* HomeViewModel.swift in Sources */,
+				7FF7A3391CC2A3EC00D1D6D1 /* ParseCloudService.swift in Sources */,
 				7FBD3C721C9B4C07005FAB37 /* ObjectiveCBridging.swift in Sources */,
+				7FF7A3491CC2A72C00D1D6D1 /* PFACL+NSCoding.m in Sources */,
 				7FF5388F1CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
