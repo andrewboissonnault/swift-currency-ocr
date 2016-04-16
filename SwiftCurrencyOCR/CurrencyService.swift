@@ -47,26 +47,18 @@ public class CurrencyService: BaseCurrencyService {
     }
     
     private func baseCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
-        let signal = self.combinedCurrencySignal().map(self.reduceLeftCurrencies);
+        let signal = self.combinedCurrencySignal().map(reduceLeft);
         return signal;
     }
     
     private func otherCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
-        let signal = self.combinedCurrencySignal().map(self.reduceRightCurrencies);
+        let signal = self.combinedCurrencySignal().map(reduceRight);
         return signal;
     }
     
     private func combinedCurrencySignal() -> Signal<(CurrencyProtocol, CurrencyProtocol, Bool), Result.NoError> {
         let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, self.persistenceService.isArrowPointingLeft.signal);
         return signal;
-    }
-    
-    private func reduceLeftCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
-        return reduceLeft(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
-    }
-    
-    private func reduceRightCurrencies(left : CurrencyProtocol, right : CurrencyProtocol, isArrowPointingLeft : Bool) -> CurrencyProtocol {
-        return reduceRight(left as! AnyObject, right: right as! AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! CurrencyProtocol;
     }
     
     public static func defaultBaseCurrency() -> CurrencyProtocol {

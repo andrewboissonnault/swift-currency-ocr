@@ -97,6 +97,16 @@ class HomeViewModelTests: QuickSpec {
                 expect(persistenceService.expression.value).toEventually(equal(newExpression));
             }
             
+            it("test arrowImage") {
+                persistenceService.isArrowPointingLeft.swap(false);
+                
+                expect(homeViewModel.arrowImage).toEventually(beTruthy());
+                
+                homeViewModel.toggleArrow();
+                
+                expect(homeViewModel.arrowImage).toEventually(beTruthy());
+            }
+            
     }
         
     }

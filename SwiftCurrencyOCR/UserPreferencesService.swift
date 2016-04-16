@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import ReactiveCocoa
 
 public protocol UserPreferencesServiceProtocol {
-    var leftCurrencyCode: String? { get set }
-    var rightCurrencyCode: String? { get set }
-    var expression: String { get set }
-    var isArrowPointingLeft: Bool { get set }
+    var leftCurrencyCode: MutableProperty<String?> { get }
+    var rightCurrencyCode: MutableProperty<String?> { get }
+    var expression: MutableProperty<String?> { get }
+    var isArrowPointingLeft: MutableProperty<Bool> { get }
 }
 
 public class UserPreferencesService: UserPreferencesServiceProtocol {
@@ -23,50 +24,24 @@ public class UserPreferencesService: UserPreferencesServiceProtocol {
     
     private var defaults: NSUserDefaults;
     
+    public var leftCurrencyCode: MutableProperty<String?>;
+    public var rightCurrencyCode: MutableProperty<String?>;
+    public var expression: MutableProperty<String?>;
+    public var isArrowPointingLeft: MutableProperty<Bool?>;
+    
     init(defaults: NSUserDefaults)
     {
         self.defaults = defaults;
+        
+        self.leftCurrencyCode = self.defaults.rex_propertyForKey(leftCurrencyCodeKey);
+        self.rightCurrencyCode = self.defaults.rex_propertyForKey(rightCurrencyCodeKey);
+        self.expression = self.defaults.rex_propertyForKey(expressionKey);
+        self.isArrowPointingLeft = self.defaults.rex_propertyForKey(isArrowPointingLeftKey);
     }
     
     convenience init()
     {
         self.init(defaults: NSUserDefaults.init());
-    }
-    
-    public var leftCurrencyCode: String? {
-        get {
-            return self.defaults.stringForKey(leftCurrencyCodeKey);
-        }
-        set(currencyCode) {
-            self.setObjectSafely(currencyCode, forKey: leftCurrencyCodeKey);
-        }
-    }
-    
-    public var rightCurrencyCode: String? {
-        get {
-            return self.defaults.stringForKey(rightCurrencyCodeKey);
-        }
-        set(currencyCode) {
-            self.setObjectSafely(currencyCode, forKey: rightCurrencyCodeKey);
-        }
-    }
-    
-    public var expression: String {
-        get {
-            return self.safeStringForKey(expressionKey);
-        }
-        set(expression) {
-            self.setObjectSafely(expression, forKey: expressionKey);
-        }
-    }
-    
-    public var isArrowPointingLeft: Bool {
-        get {
-            return self.defaults.boolForKey(isArrowPointingLeftKey);
-        }
-        set(isArrowPointingLeft) {
-            self.setObjectSafely(isArrowPointingLeft, forKey: isArrowPointingLeftKey);
-        }
     }
     
     public func safeStringForKey(key : String) -> String {

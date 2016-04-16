@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func reduceLeft(left : AnyObject, right : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
+public func reduceLeft<Object>(left : Object, right : Object, isArrowPointingLeft : Bool) -> Object {
     if(isArrowPointingLeft) {
         return right;
     }
@@ -18,7 +18,7 @@ public func reduceLeft(left : AnyObject, right : AnyObject, isArrowPointingLeft 
     }
 }
 
-public func reduceRight(left : AnyObject, right : AnyObject, isArrowPointingLeft : Bool) -> AnyObject {
+public func reduceRight<Object>(left : Object, right : Object, isArrowPointingLeft : Bool) -> Object {
     if(isArrowPointingLeft) {
         return left;
     }

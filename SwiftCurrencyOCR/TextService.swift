@@ -62,12 +62,12 @@ public class TextService: BaseTextService {
     }
     
     private func leftCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map(self.reduceLeftStrings);
+        let signal = self.combinedTextSignal().map(reduceLeft);
         return signal;
     }
     
     private func rightCurrencyTextSignal() -> Signal<String, Result.NoError> {
-        let signal = self.combinedTextSignal().map(self.reduceRightStrings);
+        let signal = self.combinedTextSignal().map(reduceRight);
         return signal;
     }
     
@@ -86,14 +86,6 @@ public class TextService: BaseTextService {
         return self.conversionService.otherAmount.signal.map { (otherAmount : Double) in
             return self.currencyFormatter.stringFromNumber(otherAmount)!;
         }
-    }
-    
-    private func reduceLeftStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
-        return reduceLeft(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
-    }
-    
-    private func reduceRightStrings(left : String, right : String, isArrowPointingLeft : Bool) -> String {
-        return reduceRight(left as AnyObject, right: right as AnyObject, isArrowPointingLeft: isArrowPointingLeft) as! String;
     }
 }
 

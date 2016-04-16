@@ -18,8 +18,6 @@ public class HomeViewController: UIViewController {
     @IBOutlet weak var rightCurrencyView: CurrencyView!
     @IBOutlet var toggleCurrencyButton: UIButton!
     
-    public var expression: MutableProperty<String> = MutableProperty<String>.init("0");
-    
     private var viewModel: HomeViewModel?;
     
     override public func viewDidLoad() {
@@ -38,9 +36,52 @@ public class HomeViewController: UIViewController {
             self.viewModel?.toggleArrow();
         }
         
+        self.leftCurrencyTextField.rac_text <~ (self.viewModel?.leftCurrencyText)!;
+        self.rightCurrencyTextField.rac_text <~ (self.viewModel?.rightCurrencyText)!;
+        
+        (self.viewModel?.leftCurrencyText)!.signal.observeNext { (text : String) -> () in
+            //
+        }
+        
+        (self.viewModel?.rightCurrencyText)!.signal.observeNext { (text : String) -> () in
+            //
+        }
+        
         self.viewModel!.arrowImage ~> self.setArrowImage
+        self.viewModel!.isArrowPointingLeft ~> self.setFirstResponder
+        
+        self.viewModel!.expression <~ self.baseTextSignal();
     }
     
+    private func baseTextSignal() -> Signal<String, Result.NoError> {
+        let leftSignal = self.leftCurrencyTextField.rac_text.signal;
+        let rightSignal = self.rightCurrencyTextField.rac_text.signal;
+        let isArrowPointingLeftSignal = (self.viewModel?.isArrowPointingLeft.signal)!;
+        isArrowPointingLeftSignal.observeNext { _ -> () in
+            //
+        }
+        let signals = combineLatest(leftSignal, rightSignal, isArrowPointingLeftSignal);
+        signals.observeNext { (_, _, _) -> () in
+            //
+        }
+        let signal = signals.map(reduceLeft);
+        signal.observeNext { (text : String) -> () in
+            //
+        }
+        return signal;
+    }
+    
+    private func baseTextFieldSignal() -> Signal<UITextField, Result.NoError> {
+        return (self.viewModel?.isArrowPointingLeft.signal.map(self.baseTextField))!;
+    }
+    
+    private func baseTextField(isArrowPointingLeft : Bool) -> UITextField {
+        return reduceLeft(self.leftCurrencyTextField, right: self.rightCurrencyTextField, isArrowPointingLeft: isArrowPointingLeft);
+    }
+    
+    private func setFirstResponder(isArrowPointingLeft : Bool) {
+        self.baseTextField(isArrowPointingLeft).becomeFirstResponder();
+    }
     
     private func setArrowImage(image : UIImage) {
         self.toggleCurrencyButton.setImage(image, forState: UIControlState.Normal);
