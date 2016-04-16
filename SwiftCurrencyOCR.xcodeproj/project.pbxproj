@@ -323,6 +323,8 @@
 		7FF538981CBF7E6700F1CDC6 /* TextServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538971CBF7E6700F1CDC6 /* TextServiceTests.swift */; };
 		7FF5389E1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */; };
 		7FF5389F1CBFC4D000F1CDC6 /* CurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */; };
+		7FF538A11CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */; };
+		7FF538A21CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */; };
 		7FFDAC791C9DD96D0086BE43 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD3CA21C9B5DF8005FAB37 /* Currency.swift */; };
 		7FFDAC7C1C9E07D60086BE43 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */; };
 		7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */; };
@@ -649,6 +651,7 @@
 		7FF538941CBF7AB700F1CDC6 /* TextService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextService.swift; sourceTree = "<group>"; };
 		7FF538971CBF7E6700F1CDC6 /* TextServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextServiceTests.swift; sourceTree = "<group>"; };
 		7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyView.swift; sourceTree = "<group>"; };
+		7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RACFunctionExtensions.swift; sourceTree = "<group>"; };
 		7FFDAC7B1C9E07D60086BE43 /* CurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		7FFDAC7D1C9E1A5B0086BE43 /* TestCurrencyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCurrencyService.swift; sourceTree = "<group>"; };
 		D5FC26513F28788DB395B094 /* Pods-SwiftCurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCurrencyOCRTests/Pods-SwiftCurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1090,6 +1093,7 @@
 			isa = PBXGroup;
 			children = (
 				7FF5389D1CBFC4D000F1CDC6 /* CurrencyView.swift */,
+				7FF538A01CC1B9D100F1CDC6 /* RACFunctionExtensions.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1599,6 +1603,7 @@
 				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
 				7FF538801CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
 				7FF538951CBF7AB700F1CDC6 /* TextService.swift in Sources */,
+				7FF538A11CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */,
 				7FA5D8221C9B124900F262C5 /* AppDelegate.swift in Sources */,
 				7FF538921CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */,
 				7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */,
@@ -1619,6 +1624,7 @@
 				7FF538961CBF7AB700F1CDC6 /* TextService.swift in Sources */,
 				7FF538931CBF77EB00F1CDC6 /* QueryPFCurrencyService.swift in Sources */,
 				7FF538811CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
+				7FF538A21CC1B9D100F1CDC6 /* RACFunctionExtensions.swift in Sources */,
 				7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */,
 				7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */,
 				7F6E78B01CADF9BD0019576D /* Mocks.swift in Sources */,

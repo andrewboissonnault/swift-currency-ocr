@@ -11,6 +11,7 @@ import ReactiveCocoa
 import enum Result.NoError
 
 public protocol HomeViewModelProtocol {
+    var arrowImage: AnyProperty<UIImage> { get }
     var isArrowPointingLeft: AnyProperty<Bool> { get }
     var leftCurrencyText: AnyProperty<String> { get }
     var rightCurrencyText: AnyProperty<String> { get }
@@ -40,6 +41,10 @@ public class HomeViewModel {
     private var textService : TextServiceProtocol;
     private var currencyService : CurrencyServiceProtocol;
     
+    public var arrowImage: AnyProperty<UIImage> {
+        return AnyProperty(_arrowImage);
+    }
+    internal private(set) var _arrowImage : MutableProperty<UIImage>;
     public private(set) var isArrowPointingLeft: AnyProperty<Bool>;
     public private(set) var leftCurrencyText: AnyProperty<String>;
     public private(set) var rightCurrencyText: AnyProperty<String>;
@@ -69,6 +74,7 @@ public class HomeViewModel {
         self.textService = textService;
         self.currencyService = currencyService;
 
+        self._arrowImage = MutableProperty<UIImage>.init(HomeViewModel.buildArrowImage(self.persistenceService.isArrowPointingLeft.value));
         self.isArrowPointingLeft = AnyProperty(self.persistenceService.isArrowPointingLeft);
         self.leftCurrencyText = self.textService.leftCurrencyText;
         self.rightCurrencyText = self.textService.rightCurrencyText;
@@ -81,9 +87,26 @@ public class HomeViewModel {
     
     private func setupBindings()
     {
+        self._arrowImage <~ self.arrowImageSignal();
         self._leftCurrencyViewModel <~ self.leftCurrencyViewModelSignal();
         self._rightCurrencyViewModel <~ self.rightCurrencyViewModelSignal();
         self.persistenceService.expression <~ self.expression;
+    }
+    
+    private func arrowImageSignal() -> Signal<UIImage, Result.NoError> {
+        let signal = self.isArrowPointingLeft.signal.map(HomeViewModel.buildArrowImage);
+        return signal;
+    }
+    
+    private static func buildArrowImage(isArrowPointingLeft : Bool) -> UIImage {
+        if(isArrowPointingLeft)
+        {
+            return UIImage.init(named : "convertIconLeft")!;
+        }
+        else
+        {
+            return UIImage.init(named : "convertIconRight")!;
+        }
     }
     
     private func leftCurrencyViewModelSignal() -> Signal<CurrencyViewModelProtocol, Result.NoError> {

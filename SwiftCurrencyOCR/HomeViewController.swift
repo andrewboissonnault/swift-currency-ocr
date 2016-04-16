@@ -25,6 +25,7 @@ public class HomeViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad();
         viewModel = HomeViewModel();
+        self.setupBindings()
     }
     
     @IBAction func rightCurrencyButtonPressed(sender: AnyObject) {
@@ -33,30 +34,20 @@ public class HomeViewController: UIViewController {
     }
     
     private func setupBindings() {
-        self.conversionButtonImageSignal().observeNext(self.setArrowImage);
+        self.toggleSignal().subscribeNext { _ in
+            self.viewModel?.toggleArrow();
+        }
+        
+        self.viewModel!.arrowImage ~> self.setArrowImage
     }
     
-    private func conversionButtonImageSignal() -> Signal<UIImage, Result.NoError> {
-        return self.viewModel!.isArrowPointingLeft.signal.map(HomeViewController.arrowImage);
-    }
-    
-    private static func arrowImage(isArrowPointingLeft : Bool) -> UIImage {
-        if(isArrowPointingLeft)
-        {
-            return UIImage.init(named : "convertIconLeft")!;
-        }
-        else
-        {
-            return UIImage.init(named : "convertIconRight")!;
-        }
-    }
     
     private func setArrowImage(image : UIImage) {
         self.toggleCurrencyButton.setImage(image, forState: UIControlState.Normal);
     }
     
-//    private func toggleSignal() -> Signal<AnyObject?, Result.NoError> {
-//        let pressSignal = self.toggleCurrencyButton.rac_signalForControlEvents(UIControlEvents.TouchDown);
-//        return pressSignal;
-//    }
+    private func toggleSignal() -> RACSignal {
+        let pressSignal = self.toggleCurrencyButton.rac_signalForControlEvents(UIControlEvents.TouchDown);
+        return pressSignal;
+    }
 }
