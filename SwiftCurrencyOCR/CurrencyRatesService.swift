@@ -12,21 +12,33 @@ import Parse
 import enum Result.NoError
 
 protocol CurrencyRatesServiceProtocol {
-    var rates: AnyProperty<CurrencyRatesProtocol> { get }
+    var rates: AnyProperty<CurrencyRatesProtocol?> { get }
 }
 
 public class BaseCurrencyRatesService : CurrencyRatesServiceProtocol {
-    var rates: AnyProperty<CurrencyRatesProtocol> {
+    var rates: AnyProperty<CurrencyRatesProtocol?> {
         return AnyProperty(_rates);
     }
-    internal private(set) var _rates = MutableProperty<CurrencyRatesProtocol>.init(CurrencyRates());
+    internal var _rates = MutableProperty<CurrencyRatesProtocol?>.init(CurrencyRates());
 }
 
 public class CurrencyRatesService: BaseCurrencyRatesService {
     
-    override init() {
+    private var parseCloudService: ParseCloudServiceProtocol
+    
+    convenience override init() {
+        self.init(parseCloudService: ParseCloudService());
+    }
+    
+    init(parseCloudService : ParseCloudServiceProtocol) {
+        self.parseCloudService = parseCloudService;
         super.init();
-        self._rates <~ CurrencyRatesService.ratesSignalProducer();
+        self._rates.value = self.parseCloudService.rates.value;
+        self.setupBindings();
+    }
+    
+    private func setupBindings() {
+        self._rates <~ self.parseCloudService.rates.signal;
     }
     
     public static func ratesSignalProducer() -> SignalProducer<CurrencyRatesProtocol, NoError> {

@@ -45,9 +45,6 @@ public class MathParserService : BaseMathParserService {
     }
     
     private func baseAmountSignal() -> Signal<Double, Result.NoError> {
-        self.persistenceService.expression.signal.observeNext { (text : String) -> () in
-            //
-        }
         let signal = self.persistenceService.expression.signal.map(self.resultWithExpression);
         return signal;
     }

@@ -9,11 +9,12 @@
 import Foundation
 import Parse
 
-let kCurrencyRatesClassName = "CurrencyRates";
+let kCurrencyRatesClassName = "CurrencyData";
 
 public protocol CurrencyRatesProtocol {
     var referenceCurrencyCode: String { get set }
     var rates : NSDictionary { get }
+    var createdAt : NSDate? { get }
     func rate(code : String) -> Double;
 }
 
@@ -33,6 +34,7 @@ public class PFCurrencyRates: PFObject, PFSubclassing, CurrencyRatesProtocol {
 public class CurrencyRates: CurrencyRatesProtocol {
     public var rates: NSDictionary = NSDictionary();
     public var referenceCurrencyCode: String = "";
+    public var createdAt: NSDate?;
     
     public func rate(code: String) -> Double {
         return sharedRate(code, rates : self.rates);

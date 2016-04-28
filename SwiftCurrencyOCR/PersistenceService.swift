@@ -35,8 +35,8 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.queryCurrencyService = queryCurrencyService;
         self.expression = self.userPreferencesService.expression;
         self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
-        self.leftCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultBaseCurrency());
-        self.rightCurrency = MutableProperty<CurrencyProtocol>.init(CurrencyService.defaultOtherCurrency());
+        self.leftCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
+        self.rightCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
         self.userPreferencesService.leftCurrencyCode <~ self.leftCurrency.signal.map(PersistenceService.codeWithCurrency);
         self.userPreferencesService.rightCurrencyCode <~ self.rightCurrency.signal.map(PersistenceService.codeWithCurrency);
         self.setupBindings();
@@ -48,7 +48,18 @@ public class PersistenceService: PersistenceServiceProtocol {
     
     func setupBindings()
     {
-        self.leftCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.leftCurrencyCode.value);
-        self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode.value);
+        self.leftCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.leftCurrencyCode.value).map{ (currency : CurrencyProtocol?) in
+            return PersistenceService.filterCurrency(currency, defaultCurrency: CurrencyService.defaultBaseCurrency());
+        }
+        self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode.value).map{ (currency : CurrencyProtocol?) in
+            return PersistenceService.filterCurrency(currency, defaultCurrency: CurrencyService.defaultOtherCurrency());
+        }
+    }
+    
+    private static func filterCurrency ( currency : CurrencyProtocol?, defaultCurrency : CurrencyProtocol) -> CurrencyProtocol {
+        if( currency == nil ) {
+            return defaultCurrency;
+        }
+        return currency!;
     }
 }

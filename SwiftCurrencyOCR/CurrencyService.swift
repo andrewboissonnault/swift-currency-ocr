@@ -48,16 +48,25 @@ public class CurrencyService: BaseCurrencyService {
     
     private func baseCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
         let signal = self.combinedCurrencySignal().map(reduceLeft);
+        signal.observeNext { (currency : CurrencyProtocol) in
+            //
+        }
         return signal;
     }
     
     private func otherCurrencySignal() -> Signal<CurrencyProtocol, Result.NoError> {
         let signal = self.combinedCurrencySignal().map(reduceRight);
+        signal.observeNext { (currency : CurrencyProtocol) in
+            //
+        }
         return signal;
     }
     
     private func combinedCurrencySignal() -> Signal<(CurrencyProtocol, CurrencyProtocol, Bool), Result.NoError> {
         let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, self.persistenceService.isArrowPointingLeft.signal);
+        signal.observeNext { (_,_,_) in
+        //
+        }
         return signal;
     }
     

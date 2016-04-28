@@ -21,11 +21,11 @@ public protocol CurrencyProtocol {
     func == (left: CurrencyProtocol, right: CurrencyProtocol) -> Bool
 }
 
-public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol, CustomDebugStringConvertible {
+public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol {
     
     private var name: String = ""
     private var code: String = ""
-    private var flagIcon: PFFile = PFFile.init(data: NSData.init())!;
+    private var flagIcon: PFFile? = PFFile?.init();
     private var shouldFetchFlagIcon: Bool = false
     private var flagImage: UIImage = UIImage.init()
     
@@ -42,11 +42,11 @@ public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol, CustomDebugS
     }
     
     private func setupBindings() {
-        self.willFetchCurrencySignal().subscribeNext { (_) -> Void in
-            self.fetchInBackgroundWithBlock({ (_ , _) -> Void in
-                self.updateExternalProperties();
-            })
-        }
+//        self.willFetchCurrencySignal().subscribeNext { (_) -> Void in
+//            self.fetchInBackgroundWithBlock({ (_ , _) -> Void in
+//                self.updateExternalProperties();
+//            })
+//        }
     }
     
     private func updateExternalProperties() {
@@ -67,22 +67,22 @@ public class PFCurrency: PFObject, PFSubclassing, CurrencyProtocol, CustomDebugS
         return String.init(format: "%@ ( %@ )", self.code, self.name);
     }
     
-    private func willFetchCurrencySignal() -> RACSignal {
-        let isDataAvailableSignal = RACObserve(self, keyPath: "dataAvailable");
-        let shouldFetchFlagIconSignal = RACObserve(self, keyPath: "shouldFetchFlagIcon");
-        let combinedSignal = RACSignal.combineLatest([isDataAvailableSignal, shouldFetchFlagIconSignal]);
-        let shouldFetchSignal = combinedSignal.map {
-            let tuple = $0 as! RACTuple
-            let isDataAvailable = tuple.first as! Bool
-            let shouldFetchFlagIcon = tuple.second as! Bool
-            
-            return isDataAvailable && shouldFetchFlagIcon;
-        }
-        let willFetchSignal = shouldFetchSignal.filter { (shouldFetch : AnyObject!) -> Bool in
-            return shouldFetch.boolValue;
-        }
-        return willFetchSignal;
-    }
+//    private func willFetchCurrencySignal() -> RACSignal {
+//        let isDataAvailableSignal = RACObserve(self, keyPath: "dataAvailable");
+//        let shouldFetchFlagIconSignal = RACObserve(self, keyPath: "shouldFetchFlagIcon");
+//        let combinedSignal = RACSignal.combineLatest([isDataAvailableSignal, shouldFetchFlagIconSignal]);
+//        let shouldFetchSignal = combinedSignal.map {
+//            let tuple = $0 as! RACTuple
+//            let isDataAvailable = tuple.first as! Bool
+//            let shouldFetchFlagIcon = tuple.second as! Bool
+//            
+//            return isDataAvailable && shouldFetchFlagIcon;
+//        }
+//        let willFetchSignal = shouldFetchSignal.filter { (shouldFetch : AnyObject!) -> Bool in
+//            return shouldFetch.boolValue;
+//        }
+//        return willFetchSignal;
+//    }
 }
 
 public class Currency: CurrencyProtocol, CustomDebugStringConvertible {

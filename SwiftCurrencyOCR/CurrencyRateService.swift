@@ -42,7 +42,22 @@ public class CurrencyRateService: BaseCurrencyRateService {
     }
     
     private func rateSignal() -> Signal<Double, Result.NoError> {
-        let combinedSignal = combineLatest(self.currencyService.baseCurrency.signal, self.currencyService.otherCurrency.signal, self.ratesService.rates.signal);
+        self.currencyService.baseCurrency.signal.observeNext { (baseCurrency : CurrencyProtocol) in
+            //
+        }
+        
+        self.currencyService.otherCurrency.signal.observeNext { (otherCurrency : CurrencyProtocol) in
+            //
+        }
+        
+        self.ratesService.rates.signal.ignoreNil().observeNext { (rates : CurrencyRatesProtocol) in
+         //
+        }
+        
+        let combinedSignal = combineLatest(self.currencyService.baseCurrency.signal, self.currencyService.otherCurrency.signal, self.ratesService.rates.signal.ignoreNil());
+        combinedSignal.observeNext { (_, _, _) in
+            //
+        }
         let signal = combinedSignal.map(CurrencyRateService.calculateRate);
         return signal;
     }

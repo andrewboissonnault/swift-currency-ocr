@@ -11,15 +11,15 @@ import Parse
 import enum Result.NoError
 
 protocol QueryPFCurrencyServiceProtocol {
-    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError>
+    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol?, NoError>
 }
 
 public class QueryPFCurrencyService: QueryPFCurrencyServiceProtocol {
 
-    public func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
+    public func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol?, NoError> {
         return SignalProducer {
             sink, disposable in
-            if(code != nil)
+            if(code != nil && code != "")
             {
                 let query = PFCurrency.query();
                 query?.fromLocalDatastore();
@@ -27,7 +27,7 @@ public class QueryPFCurrencyService: QueryPFCurrencyServiceProtocol {
                 query?.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error : NSError?) -> Void in
                     if error != nil {
                         //sink.sendFailed(error!);
-                        // sink.sendNext(nil);
+                         sink.sendNext(nil);
                     }
                     else if let currency = object as? PFCurrency {
                         sink.sendNext(currency);
