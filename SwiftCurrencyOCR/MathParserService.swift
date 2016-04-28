@@ -30,7 +30,7 @@ public class MathParserService : BaseMathParserService {
     private var persistenceService: PersistenceServiceProtocol
     
     convenience override init() {
-        self.init(persistenceService: PersistenceService());
+        self.init(persistenceService: PersistenceService.sharedInstance);
     }
     
     init(persistenceService : PersistenceServiceProtocol) {

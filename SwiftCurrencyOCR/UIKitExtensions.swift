@@ -77,31 +77,13 @@ extension UITextField {
 
 extension NSUserDefaults {
     /// Sends value of key when the value is changed
-    func rex_signalForKey<Object>(key: String) -> Signal<Object?, NoError> {
-        let (signal, observer) = Signal<Object?, NoError>.pipe()
-        
-        // send initial value
-//        let initial: Object? = self.objectForKey(key) as? Object;
-//        
-//        observer.sendNext(initial);
-//        
-        // observe other values
-        let defaultsDidChange = NSNotificationCenter.defaultCenter().rac_notifications(NSUserDefaultsDidChangeNotification, object: self)
-        defaultsDidChange.startWithNext { (_) -> () in
-            let value: Object? = self.objectForKey(key) as? Object;
-            observer.sendNext(value);
+    func rex_signalForKey<Object>(key: String) -> SignalProducer<Object?, NoError> {
+        return SignalProducer { sink, disposable in
+            let initial: Object? = self.objectForKey(key) as? Object;
+            
+            sink.sendNext(initial);
         }
         
-        return signal;
-        
-        
-//        return signal.skipRepeats { a, b in
-//                if let a = a as? NSObject, b = b as? NSObject where a.isEqual(b) {
-//                    return true
-//                } else {
-//                    return false
-//                }
-//        }
     }
     
 //    func rex_propertyForKey<Object>(key: String) -> MutableProperty<Object?> {

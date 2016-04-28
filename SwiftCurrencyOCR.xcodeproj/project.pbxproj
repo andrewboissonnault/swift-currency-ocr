@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E34A8DE67A5CE2CB7487689 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F10553B93D1DEACAE41EE45 /* Pods.framework */; };
+		7F1D5A251CD2B62300B64629 /* PFCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D5A241CD2B62300B64629 /* PFCurrency.m */; };
 		7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
 		7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
 		7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */; };
@@ -357,6 +358,8 @@
 		1CF6DF1C09EAF630591AC2A4 /* Pods_SwiftCurrencyOCRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftCurrencyOCRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A69F919F69E2BDDE8C411A7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5F10553B93D1DEACAE41EE45 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F1D5A231CD2B62300B64629 /* PFCurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCurrency.h; sourceTree = "<group>"; };
+		7F1D5A241CD2B62300B64629 /* PFCurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFCurrency.m; sourceTree = "<group>"; };
 		7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRateService.swift; sourceTree = "<group>"; };
 		7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRatesService.swift; sourceTree = "<group>"; };
 		7F6E78A91CADEA730019576D /* CurrencyRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyRates.swift; sourceTree = "<group>"; };
@@ -713,6 +716,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7F1D5A221CD2B61500B64629 /* PFObjects */ = {
+			isa = PBXGroup;
+			children = (
+				7F1D5A231CD2B62300B64629 /* PFCurrency.h */,
+				7F1D5A241CD2B62300B64629 /* PFCurrency.m */,
+			);
+			name = PFObjects;
+			sourceTree = "<group>";
+		};
 		7FA5D8151C9B124900F262C5 = {
 			isa = PBXGroup;
 			children = (
@@ -736,6 +748,7 @@
 		7FA5D8201C9B124900F262C5 /* SwiftCurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
+				7F1D5A221CD2B61500B64629 /* PFObjects */,
 				7FF7A33A1CC2A72000D1D6D1 /* Categories */,
 				7FF5389C1CBFC4C700F1CDC6 /* Views */,
 				7FF5387C1CBEE10700F1CDC6 /* ViewModels */,
@@ -1657,6 +1670,7 @@
 				7F99E44F1CA1EDE300D5817B /* MathParserService.swift in Sources */,
 				7FF7A34C1CC2A72C00D1D6D1 /* PFGeoPoint+NSCoding.m in Sources */,
 				7FF538801CBF41E500F1CDC6 /* CurrencyViewModel.swift in Sources */,
+				7F1D5A251CD2B62300B64629 /* PFCurrency.m in Sources */,
 				7FF538A41CC1C76300F1CDC6 /* UIKitExtensions.swift in Sources */,
 				7FF7A3471CC2A72C00D1D6D1 /* NSObject+Properties.m in Sources */,
 				7FF538951CBF7AB700F1CDC6 /* TextService.swift in Sources */,

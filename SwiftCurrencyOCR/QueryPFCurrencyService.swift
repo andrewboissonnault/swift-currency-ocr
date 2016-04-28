@@ -24,15 +24,27 @@ public class QueryPFCurrencyService: QueryPFCurrencyServiceProtocol {
                 let query = PFCurrency.query();
                 query?.fromLocalDatastore();
                 query?.whereKey(kCodeKey, equalTo:code!);
-                query?.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error : NSError?) -> Void in
+                query?.findObjectsInBackgroundWithBlock({ (objects : Array<PFObject>?, error : NSError?) -> Void in
                     if error != nil {
-                        //sink.sendFailed(error!);
-                         sink.sendNext(nil);
+                        sink.sendNext(nil);
                     }
-                    else if let currency = object as? PFCurrency {
-                        sink.sendNext(currency);
+                    else if objects?.count > 0
+                    {
+                        let pfcurrency = objects![0] as? PFCurrency;
+                        if pfcurrency != nil {
+                            let currencyWrapper = PFCurrencyWrapper.init(pfCurrency: pfcurrency!);
+                            sink.sendNext(currencyWrapper);
+                        }
+                        else
+                        {
+                            sink.sendNext(nil);
+                        }
                     }
-                })
+                });
+            }
+            else
+            {
+                sink.sendNext(nil);
             }
         }
 }

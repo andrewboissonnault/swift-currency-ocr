@@ -18,6 +18,8 @@ public protocol PersistenceServiceProtocol {
 }
 
 public class PersistenceService: PersistenceServiceProtocol {
+    static var sharedInstance : PersistenceServiceProtocol = PersistenceService.init();
+    
     private var userPreferencesService: UserPreferencesServiceProtocol
     private var queryCurrencyService: QueryPFCurrencyServiceProtocol
     
@@ -35,6 +37,7 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.queryCurrencyService = queryCurrencyService;
         self.expression = self.userPreferencesService.expression;
         self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
+
         self.leftCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
         self.rightCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
         self.userPreferencesService.leftCurrencyCode <~ self.leftCurrency.signal.map(PersistenceService.codeWithCurrency);
@@ -53,6 +56,14 @@ public class PersistenceService: PersistenceServiceProtocol {
         }
         self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode.value).map{ (currency : CurrencyProtocol?) in
             return PersistenceService.filterCurrency(currency, defaultCurrency: CurrencyService.defaultOtherCurrency());
+        }
+        
+        self.leftCurrency.signal.observeNext { (currency : CurrencyProtocol) in
+            //
+        }
+        
+        self.rightCurrency.signal.observeNext { (currency : CurrencyProtocol) in
+            //
         }
     }
     

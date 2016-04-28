@@ -59,11 +59,29 @@ public class UserPreferencesService: BaseUserPreferencesService {
         self.isArrowPointingLeft.producer.startWithNext { (next : Bool) in
             self.setObjectSafely(next, forKey: self.isArrowPointingLeftKey);
         }
+        
+        self.isArrowPointingLeft.signal.observeNext { (next : Bool) in
+         //
+        }
     }
     
     convenience override init()
     {
         self.init(defaults: NSUserDefaults.init());
+    }
+    
+    private func signalProducerForKeyString(key : String) -> SignalProducer<String, NoError> {
+        return SignalProducer {
+            sink, disposable in
+            sink.sendNext(self.safeStringForKey(key));
+        }
+    }
+    
+    private func signalProducerForKeyBool(key : String) -> SignalProducer<Bool, NoError> {
+        return SignalProducer {
+            sink, disposable in
+            sink.sendNext(self.safeBoolForKey(key));
+        }
     }
     
     private func safeStringForKey(key : String) -> String {

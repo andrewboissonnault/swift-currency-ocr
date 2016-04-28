@@ -66,7 +66,7 @@ public class HomeViewModel {
     public private(set) var expression: MutableProperty<String>;
     
     convenience init() {
-        self.init(persistenceService : PersistenceService(), currencyService : CurrencyService(), textService : TextService())
+        self.init(persistenceService : PersistenceService.sharedInstance, currencyService : CurrencyService(), textService : TextService())
     }
     
     init(persistenceService : PersistenceServiceProtocol, currencyService : CurrencyServiceProtocol, textService : TextServiceProtocol) {

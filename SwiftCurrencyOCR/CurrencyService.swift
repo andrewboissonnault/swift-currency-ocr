@@ -32,7 +32,7 @@ public class CurrencyService: BaseCurrencyService {
     private var persistenceService : PersistenceServiceProtocol;
     
     convenience override init() {
-        self.init(persistenceService : PersistenceService());
+        self.init(persistenceService : PersistenceService.sharedInstance);
     }
     
     init(persistenceService : PersistenceServiceProtocol) {
@@ -63,6 +63,20 @@ public class CurrencyService: BaseCurrencyService {
     }
     
     private func combinedCurrencySignal() -> Signal<(CurrencyProtocol, CurrencyProtocol, Bool), Result.NoError> {
+        let leftSignal = self.persistenceService.leftCurrency.signal;
+        leftSignal.observeNext { (currency : CurrencyProtocol) in
+            //
+        }
+        let rightCurrency = self.persistenceService.rightCurrency.signal;
+        rightCurrency.observeNext { (currency : CurrencyProtocol) in
+            //
+        }
+        let arrow = self.persistenceService.isArrowPointingLeft.signal;
+        arrow.observeNext{ (bool : Bool) in
+            //
+        }
+
+        
         let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, self.persistenceService.isArrowPointingLeft.signal);
         signal.observeNext { (_,_,_) in
         //
