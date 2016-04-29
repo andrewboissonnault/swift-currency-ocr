@@ -40,10 +40,10 @@ public class UserPreferencesService: BaseUserPreferencesService {
         self.defaults = defaults;
         super.init();
         
-        self.leftCurrencyCode.value = safeStringForKey(leftCurrencyCodeKey);
-        self.rightCurrencyCode.value = safeStringForKey(rightCurrencyCodeKey);
-        self.expression.value = safeStringForKey(expressionKey);
-        self.isArrowPointingLeft.value = safeBoolForKey(isArrowPointingLeftKey);
+        self.leftCurrencyCode <~ self.signalProducerForKeyString(leftCurrencyCodeKey);
+        self.rightCurrencyCode <~ self.signalProducerForKeyString(rightCurrencyCodeKey);
+        self.expression <~ self.signalProducerForKeyString(expressionKey);
+        self.isArrowPointingLeft <~ self.signalProducerForKeyBool(isArrowPointingLeftKey);
         
         self.leftCurrencyCode.producer.startWithNext { (next : String) in
             self.setObjectSafely(next, forKey: self.leftCurrencyCodeKey);
@@ -59,10 +59,6 @@ public class UserPreferencesService: BaseUserPreferencesService {
         self.isArrowPointingLeft.producer.startWithNext { (next : Bool) in
             self.setObjectSafely(next, forKey: self.isArrowPointingLeftKey);
         }
-        
-        self.isArrowPointingLeft.signal.observeNext { (next : Bool) in
-         //
-        }
     }
     
     convenience override init()
@@ -73,14 +69,20 @@ public class UserPreferencesService: BaseUserPreferencesService {
     private func signalProducerForKeyString(key : String) -> SignalProducer<String, NoError> {
         return SignalProducer {
             sink, disposable in
-            sink.sendNext(self.safeStringForKey(key));
+            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                sink.sendNext(self.safeStringForKey(key));
+            }
         }
     }
     
     private func signalProducerForKeyBool(key : String) -> SignalProducer<Bool, NoError> {
         return SignalProducer {
             sink, disposable in
-            sink.sendNext(self.safeBoolForKey(key));
+            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                sink.sendNext(self.safeBoolForKey(key));
+            }
         }
     }
     

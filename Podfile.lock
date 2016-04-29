@@ -1,6 +1,6 @@
 PODS:
   - Bolts/Tasks (1.6.0)
-  - Nimble (3.0.0)
+  - Nimble (4.0.1)
   - NSData+MD5Digest (1.0.0)
   - NSObject-NSCoding (1.0)
   - Parse (1.12.0):
@@ -27,21 +27,21 @@ PODS:
   - VENCalculatorInputView-DecimalFix (1.0-DecimalFix)
 
 DEPENDENCIES:
-  - Nimble (= 3.0.0)
+  - Nimble (~> 4.0)
   - NSData+MD5Digest
   - NSObject-NSCoding
   - Parse
   - ParseUI
   - PPBlinkOCR
   - PureLayout
-  - Quick (~> 0.9.0)
-  - ReactiveCocoa (= 4.0.1)
+  - Quick
+  - ReactiveCocoa
   - TMCache
   - VENCalculatorInputView-DecimalFix (= 1.0-DecimalFix)
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   NSData+MD5Digest: 0743d53874455e2bdf49f70e7f815b0b963a355f
   NSObject-NSCoding: d05f937cc1ea1560294be261ee41d5438ddc7b1b
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b

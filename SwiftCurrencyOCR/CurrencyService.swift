@@ -71,13 +71,18 @@ public class CurrencyService: BaseCurrencyService {
         rightCurrency.observeNext { (currency : CurrencyProtocol) in
             //
         }
-        let arrow = self.persistenceService.isArrowPointingLeft.signal;
-        arrow.observeNext{ (bool : Bool) in
+        var arrowSignal: Signal<Bool, NoError>!
+        self.persistenceService.isArrowPointingLeft.producer.startWithSignal{
+            (signal, disposable) in
+            arrowSignal = signal
+        }
+        
+        arrowSignal.observeNext { (next : Bool) in
             //
         }
 
         
-        let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, self.persistenceService.isArrowPointingLeft.signal);
+        let signal = combineLatest(self.persistenceService.leftCurrency.signal, self.persistenceService.rightCurrency.signal, arrowSignal);
         signal.observeNext { (_,_,_) in
         //
         }

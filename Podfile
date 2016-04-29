@@ -12,11 +12,11 @@ pod 'TMCache'
 pod 'NSData+MD5Digest'
 pod 'VENCalculatorInputView-DecimalFix', '1.0-DecimalFix'
 pod 'NSObject-NSCoding'
-pod 'ReactiveCocoa', '4.0.1'
+pod 'ReactiveCocoa'
 
 def testing_pods
-    pod 'Quick', '~> 0.9.0'
-    pod 'Nimble', '3.0.0'
+    pod 'Quick'
+    pod 'Nimble'
 end
 
 target :'SwiftCurrencyOCRTests' do

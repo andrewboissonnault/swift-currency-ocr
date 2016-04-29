@@ -36,12 +36,15 @@ public class PersistenceService: PersistenceServiceProtocol {
         self.userPreferencesService = userPreferencesService;
         self.queryCurrencyService = queryCurrencyService;
         self.expression = self.userPreferencesService.expression;
-        self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
+        self.isArrowPointingLeft = MutableProperty<Bool>.init(self.userPreferencesService.isArrowPointingLeft.value);
 
         self.leftCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
         self.rightCurrency = MutableProperty<CurrencyProtocol>.init(Currency());
         self.userPreferencesService.leftCurrencyCode <~ self.leftCurrency.signal.map(PersistenceService.codeWithCurrency);
         self.userPreferencesService.rightCurrencyCode <~ self.rightCurrency.signal.map(PersistenceService.codeWithCurrency);
+        
+        self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
+        
         self.setupBindings();
     }
     
@@ -56,14 +59,6 @@ public class PersistenceService: PersistenceServiceProtocol {
         }
         self.rightCurrency <~ self.queryCurrencyService.currencySignalProducer(self.userPreferencesService.rightCurrencyCode.value).map{ (currency : CurrencyProtocol?) in
             return PersistenceService.filterCurrency(currency, defaultCurrency: CurrencyService.defaultOtherCurrency());
-        }
-        
-        self.leftCurrency.signal.observeNext { (currency : CurrencyProtocol) in
-            //
-        }
-        
-        self.rightCurrency.signal.observeNext { (currency : CurrencyProtocol) in
-            //
         }
     }
     

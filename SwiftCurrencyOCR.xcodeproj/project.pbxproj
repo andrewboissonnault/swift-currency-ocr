@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7E34A8DE67A5CE2CB7487689 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F10553B93D1DEACAE41EE45 /* Pods.framework */; };
 		7F1D5A251CD2B62300B64629 /* PFCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D5A241CD2B62300B64629 /* PFCurrency.m */; };
+		7F1D5A261CD4036600B64629 /* PFCurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1D5A241CD2B62300B64629 /* PFCurrency.m */; };
+		7F1D5A271CD4049E00B64629 /* ParseCloudService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7A3381CC2A3EC00D1D6D1 /* ParseCloudService.swift */; };
 		7F64F79D1CB9627500B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
 		7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F64F79C1CB9627500B0F624 /* CurrencyRateService.swift */; };
 		7F6E78A81CADE8F60019576D /* CurrencyRatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F6E78A71CADE8F60019576D /* CurrencyRatesService.swift */; };
@@ -1701,6 +1703,7 @@
 				7F99E44B1CA0794A00D5817B /* PersistenceServiceTests.swift in Sources */,
 				7F99E4521CA219FD00D5817B /* MathParserService.swift in Sources */,
 				7F6E78B01CADF9BD0019576D /* Mocks.swift in Sources */,
+				7F1D5A261CD4036600B64629 /* PFCurrency.m in Sources */,
 				7F64F79E1CBD5B3F00B0F624 /* CurrencyRateService.swift in Sources */,
 				7FF5388C1CBF64C100F1CDC6 /* HomeViewModelTests.swift in Sources */,
 				7FA5D8371C9B124900F262C5 /* SwiftCurrencyOCRTests.swift in Sources */,
@@ -1722,6 +1725,7 @@
 				7F99E4511CA217EE00D5817B /* MathParserServiceTests.swift in Sources */,
 				7FF538901CBF74D800F1CDC6 /* ReduceFunctions.swift in Sources */,
 				7FFDAC7E1C9E1A5B0086BE43 /* TestCurrencyService.swift in Sources */,
+				7F1D5A271CD4049E00B64629 /* ParseCloudService.swift in Sources */,
 				7FF538981CBF7E6700F1CDC6 /* TextServiceTests.swift in Sources */,
 				7F6E78AE1CADF80A0019576D /* CurrencyRatesService.swift in Sources */,
 			);
@@ -1859,6 +1863,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrew.boissonnault.SwiftCurrencyOCRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCurrencyOCR/SwiftCurrencyOCR-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftCurrencyOCR.app/SwiftCurrencyOCR";
 			};
 			name = Debug;
@@ -1872,6 +1877,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = andrew.boissonnault.SwiftCurrencyOCRTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftCurrencyOCR/SwiftCurrencyOCR-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftCurrencyOCR.app/SwiftCurrencyOCR";
 			};
 			name = Release;

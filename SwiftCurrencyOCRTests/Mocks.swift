@@ -11,7 +11,7 @@ import ReactiveCocoa
 import enum Result.NoError
 
 class QueryPFCurrencyServiceMock : QueryPFCurrencyServiceProtocol {
-    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol, NoError> {
+    func currencySignalProducer(code : String?) -> SignalProducer<CurrencyProtocol?, NoError> {
         return SignalProducer {
             sink, disposable in
             if code != nil
